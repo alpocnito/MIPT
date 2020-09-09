@@ -1,0 +1,11 @@
+func main()
+  get(a);
+  
+  while (a != 0)
+    
+    put(a * a);
+    get(a);
+  endwhile
+
+endf
+endp

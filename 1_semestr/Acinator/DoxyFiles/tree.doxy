@@ -1,0 +1,6 @@
+digraph D {
+"Green" -> "Yelow" [label="no"]; 
+"Yelow" -> "Orange" [label="no"]; 
+"Yelow" -> "Blue" [label="yes"]; 
+"Green" -> "White" [label="yes"]; 
+}

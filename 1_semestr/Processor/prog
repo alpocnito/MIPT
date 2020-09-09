@@ -1,0 +1,30 @@
+put
+put
+
+pop bx
+pop ax
+
+push ax
+push bx
+add     ; +
+print
+pop
+
+push ax
+push bx ; -
+sub
+print
+pop
+
+push ax
+push bx ; /
+div
+print
+pop
+
+push ax
+push bx ; *
+mult
+print
+pop
+end

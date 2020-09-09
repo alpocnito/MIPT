@@ -1,0 +1,183 @@
+push 6000
+pop dx
+
+call func_main
+end
+;----------------------------------------
+
+:func_GetD
+pop bx
+pop v00
+pop v01
+pop v02
+push bx
+
+push v01
+push 2
+pwr
+
+push 4
+push v02
+mult
+
+push v00
+mult
+
+sub
+
+pop v03
+push v03
+pop cx
+return
+
+
+;----------------------------------------
+
+:func_main
+push 2
+pop v02
+push 1000
+pop v01
+push 3
+pop v00
+                   ;Start if
+push v02
+push 0
+jne begin_else_0
+:begin_if_0
+                   ;Start if
+push v01
+push 0
+jne begin_else_1
+:begin_if_1
+                   ;Start if
+push v00
+push 0
+jne begin_else_2
+:begin_if_2
+push 0
+print
+pop
+push 0
+print
+pop
+push 0
+print
+pop
+jmp end_if_2
+:begin_else_2
+:end_if_2
+                   ;End if
+
+jmp end_if_1
+:begin_else_1
+push 0
+push v00
+sub
+
+push v01
+div
+
+pop v04
+push v04
+;print
+pop
+:end_if_1
+                   ;End if
+
+jmp end_if_0
+:begin_else_0
+push v02
+push v01
+push v00
+call func_GetD
+push cx
+pop v05
+                   ;Start if
+push v05
+push 0
+jne begin_else_3
+:begin_if_3
+push 0
+push v01
+sub
+
+push 2
+div
+
+push v02
+div
+
+pop v04
+push v04
+;print
+pop
+jmp end_if_3
+:begin_else_3
+                   ;Start if
+push v05
+push 0
+ja begin_else_4
+:begin_if_4
+push 0
+push v01
+sub
+
+push v05
+push 0.5
+pwr
+
+add
+
+push 2
+div
+
+push v02
+div
+
+pop v04
+push v04
+;print
+pop
+push 0
+push v01
+sub
+
+push v05
+push 0.5
+pwr
+
+sub
+
+push 2
+div
+
+push v02
+div
+
+pop v04
+push v04
+;print
+pop
+jmp end_if_4
+:begin_else_4
+:end_if_4
+                   ;End if
+
+:end_if_3
+                   ;End if
+
+:end_if_0
+                   ;End if
+
+push dx
+push 1
+sub
+pop dx
+push dx
+push 0
+je end_end
+jmp func_main
+
+:end_end
+end

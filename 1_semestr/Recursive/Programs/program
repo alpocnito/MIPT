@@ -1,0 +1,44 @@
+func GetD(a, b, c)
+  dd = (b ^ 2 - 4  * a * c);
+  ret(dd);
+endf
+
+func main()
+  a = 1;
+  b = -100;
+  c = -1;
+
+  if (a == 0)
+    if (b == 0)
+      if (c == 0)
+        put(0);
+        put(0);
+        put(0);
+      endif
+
+    else
+      ans = (0 - c) / b;
+      put(ans);
+    endif
+
+  else
+    d = GetD(a, b, c);
+
+    if (d == 0)
+      ans = (0 - b) / 2 / a;
+      put(ans);
+
+    else 
+      if (d >= 0)
+        ans = ((0 - b) + d^(0.5)) / 2 / a;
+        put(ans);
+        ans = ((0 - b) - d^(0.5)) / 2 / a;
+        put(ans);
+      endif
+    endif
+  endif
+
+endf
+
+endf
+endp

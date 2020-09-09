@@ -1,0 +1,39 @@
+jmp begin
+
+:factorial
+   push ax ;
+   
+   push 1  ; Check if ax(argument) == 1
+   je one  ;
+   
+   push ax ;
+   push 1  ; Create ax = ax - 1
+   sub     ;             
+   pop ax  ;
+   
+   push ax ;
+   push 1  ; push ax, to remember it
+   add     ;
+   
+   call factorial
+
+   push bx ;
+   mult    ; bx(return value) *= ax
+   pop bx  ;
+
+   return  ; return bx
+
+:one       ;
+   push 1  ; if ax == 1, return 1
+   pop bx  ;
+
+   return
+
+:begin
+   put
+   pop ax
+   call factorial
+
+   push bx
+   print
+   end

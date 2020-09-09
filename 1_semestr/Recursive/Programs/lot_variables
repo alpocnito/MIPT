@@ -1,0 +1,13 @@
+func main()
+
+  a = 1;
+
+  ababab = 2;
+
+  fwgf = 3;
+
+  fqwef = 4;
+
+  ret(0);
+endf
+endp

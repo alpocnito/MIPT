@@ -1,0 +1,30 @@
+digraph D {
+"Love Physics" -> "Average teacher's age 90" [label="no"]; 
+"Average teacher's age 90" -> "Scolarship 36k rubles" [label="no"]; 
+"Scolarship 36k rubles" -> "Best university in the world" [label="no"]; 
+"Best university in the world" -> " fsdv fds" [label="no"]; 
+" fsdv fds" -> "MSU" [label="no"]; 
+" fsdv fds" -> "bfdsb" [label="yes"]; 
+"Best university in the world" -> "SINERGIA" [label="yes"]; 
+"Scolarship 36k rubles" -> "INNOPILS" [label="yes"]; 
+"Average teacher's age 90" -> "Not Godd" [label="yes"]; 
+"Not Godd" -> "BAUMANA" [label="no"]; 
+"Not Godd" -> "FOP" [label="yes"]; 
+"Love Physics" -> "From MFTI" [label="yes"]; 
+"From MFTI" -> "MAI" [label="no"]; 
+"From MFTI" -> "CRAZY about physics" [label="yes"]; 
+"CRAZY about physics" -> "Appreciate each other" [label="no"]; 
+"Appreciate each other" -> "EXIST" [label="no"]; 
+"EXIST" -> "INBIKS" [label="no"]; 
+"EXIST" -> "He is human" [label="yes"]; 
+"He is human" -> "FRTK" [label="no"]; 
+"He is human" -> "Ded" [label="yes"]; 
+"Appreciate each other" -> "FIVT" [label="yes"]; 
+"CRAZY about physics" -> "Have rector" [label="yes"]; 
+"Have rector" -> "FEFM" [label="no"]; 
+"Have rector" -> "Very nice" [label="yes"]; 
+"Very nice" -> "fdas fdas f" [label="no"]; 
+"fdas fdas f" -> "FOPF" [label="no"]; 
+"fdas fdas f" -> "asf" [label="yes"]; 
+"Very nice" -> "BM" [label="yes"]; 
+}

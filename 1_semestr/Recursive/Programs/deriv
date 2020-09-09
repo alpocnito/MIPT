@@ -1,0 +1,8 @@
+func main()
+  get(a);
+
+  a = deriv(a, (sin(a ^ 3) * 5) ^ 2);
+  
+  put(a);
+endf
+endp

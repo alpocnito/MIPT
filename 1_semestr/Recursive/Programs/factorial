@@ -1,0 +1,15 @@
+func factorial(a)
+  if (a <= 1)
+    ret(1);
+  endif
+  
+  t = a - 1;
+  ret(factorial(t) * a);
+endf
+
+func main()
+  get(a)
+  a = factorial(a);
+  put(a);
+endf
+endp
