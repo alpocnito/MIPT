@@ -10,6 +10,8 @@
 #include <getopt.h>
 
 const size_t READ_NUM = 4096;
+const mode_t ALL_CAN_READ_WRITE_ACCESS = 0666;
+
 bool CP_GiveVerbose = false;
 bool CP_Interactive = false;
 bool CP_Preserve    = false;
@@ -74,6 +76,8 @@ int my_close(int fd);
 //
 ///////////////////////////////////////////////////////////////
 int AnalyseArguments(int argc, char **argv);
+
+
 
 ssize_t read_file(int fd, char** buf, size_t* cur_buf_size)
 {
@@ -157,6 +161,7 @@ int force_open(const char* path, int flags = O_RDONLY)
 {
   assert(path);
 
+  // delete file
   if (unlink(path) < 0)
   {
     PRINT_RED_E(BOLD("Error: path=%s\n"), path);
@@ -164,6 +169,7 @@ int force_open(const char* path, int flags = O_RDONLY)
     return -1;  
   }
   
+  // create file
   return my_open(path, flags | O_CREAT);
 }
 
@@ -174,7 +180,7 @@ int my_open(const char* path, int flags = O_RDONLY)
   int fd = 0;
   while (1)
   {
-    fd = open(path, flags, 0666); 
+    fd = open(path, flags, ALL_CAN_READ_WRITE_ACCESS); 
     if (fd < 0)                         //
     {                                   // 
       if (errno == EINTR)               // 
@@ -278,6 +284,7 @@ int main(int argc, char** argv)
     return -1;
   }
   
+  // Arguments
   int in_flags  = O_RDONLY;
   int out_flags = O_WRONLY | O_CREAT;
   if (argc > 3)
@@ -290,7 +297,7 @@ int main(int argc, char** argv)
   char*   buf          = NULL;
   size_t  buf_size     = 0;
   
-  if (CP_Interactive && (access(argv[2], F_OK) != -1))
+  if (CP_Interactive && (access(argv[2], F_OK) != -1))        // CP_Interactive
   {
     printf("mycp: overwrite '%s'? ", argv[2]);
     char ans = 'n';
@@ -300,14 +307,16 @@ int main(int argc, char** argv)
       return 0;
   }
 
+  // open files
   if ((in_fd = my_open(argv[1], in_flags)) < 0)
     goto ERROR;
 
   if ((out_fd = my_open(argv[2], out_flags)) < 0)
-    if (CP_Force)  
+    if (CP_Force)                                             // CP_Force
       if ((out_fd = force_open(argv[2], out_flags)) < 0)
         goto ERROR;
-
+  
+  // read and write
   if ((read_symbols = read_file(in_fd, &buf, &buf_size)) < 0)
     goto ERROR;
   if (my_write(out_fd, buf, (size_t)read_symbols) < 0)
@@ -317,7 +326,7 @@ int main(int argc, char** argv)
   my_close(out_fd);
   free(buf);
 
-  if (CP_GiveVerbose)
+  if (CP_GiveVerbose)                                          // CP_GiveVerbose
     printf("\'%s\' -> \'%s\'\n", argv[1], argv[2]);
 
   return 0;
