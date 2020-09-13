@@ -2,3 +2,4 @@ GPP = g++ -g -std=c++17 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations -
 all:
 	@$(GPP) myid.cpp -o myid
 	@$(GPP) mycat.cpp -o mycat
+	@$(GPP) mycp.cpp -o mycp
