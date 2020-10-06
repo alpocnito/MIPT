@@ -13,8 +13,9 @@ int main(int argc, char** argv)
   timespec  tp{};
   
   clock_gettime(CLOCK_MONOTONIC, &tp);
-  long int old_nanosecs = tp.tv_nsec + tp.tv_sec * 1000000000;
-  
+  long int old_nanosecs = tp.tv_nsec;
+  long int old_seconds  = tp.tv_sec;
+
   if (fork() == 0)
   {
     execvp(argv[1], argv + 1);
@@ -24,8 +25,10 @@ int main(int argc, char** argv)
   wait(NULL);
 
   clock_gettime(CLOCK_MONOTONIC, &tp);
-  long int new_nanosecs = tp.tv_nsec + tp.tv_sec * 1000000000;
-  printf("%lg\n", double(new_nanosecs - old_nanosecs) / 1000000);
+  long int new_nanosecs = tp.tv_nsec;
+  long int new_seconds  = tp.tv_sec; 
+
+  printf("%lg\n", (new_seconds - old_seconds) * 1000 + double(new_nanosecs - old_nanosecs) / 1000000);
   return 0;
 }
 
