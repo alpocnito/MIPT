@@ -9,49 +9,90 @@
 #include <getopt.h>
 #include <ctype.h>
 #include <vector>
+#include <string.h>
 
-int main(int argc, char** argv)
-{
-  if (argc < 2)
-    return 0;
-  
-  std::vector<size_t> pipes;
-  pipes.push_back(0);
-  for (size_t i = 0; i < (size_t)argc; ++i)
-    if (argv[i][0] == ',')
-    {
-      printf("RE\n");
-      pipes.push_back(i + 1);
-      argv[i] = NULL;
-    }
-  
-  // pipe for communication of parent and childs
-  int pipefd[2];
-  if (pipe(pipefd) == -1)
-  {
-    perror("pipe");
-    exit(EXIT_FAILURE);
+#define TRY(cmd) \
+  if ((cmd) < 0) \
+  {        \
+    perror(#cmd); \
+    exit(EXIT_FAILURE); \
   }
+const size_t MAX_NUMBER_COMMANDS = 10;
 
-  dup2(pipefd[0], 0);
-  for (size_t i = 0; i < pipes.size(); ++i)
+char* ReadCommand()
+{ 
+  char* str = NULL;
+  size_t len = 0;
+  
+  TRY(getline(&str, &len, stdin));
+  
+  return str;
+}
+
+
+size_t DivideCommand(char* str, char*** commands)
+{
+  (*commands) = (char**)calloc(MAX_NUMBER_COMMANDS, sizeof(commands[0]));
+  
+  (*commands)[0] = str;
+  size_t cur_pos = 1;
+  char*  cur_ptr = strchr(str, ',');
+
+  while (cur_ptr)
   {
-    if (fork() == 0)
-    {
-      printf("CHILD GO: %d of %d\n", i, pipes.size());
+    (*commands)[cur_pos++] = cur_ptr + 1;
+    *cur_ptr = '\0';
+    str = cur_ptr + 1;
+    
+    cur_ptr = strchr(str, ',');
+  }
+  
+  return cur_pos;
+}
 
-     // if (i != pipes.size() - 1)
-      //  dup2(pipefd[1], 1);
+void GivePrompt()
+{
+  PRINT_GREEN(BOLD("[ron]> "));
+}
+
+int main()
+{
+  GivePrompt();
+  
+  char** commands  = NULL;
+  size_t ncommands = 0;
+  
+  char* str = ReadCommand();
+  ncommands = DivideCommand(str, &commands);
+    
+  int next_in = 0;
+  for (size_t i = 0; i < ncommands; ++i)
+  {
+    // pipe for communication of parent and childs
+    int pipefd[2];
+    TRY(pipe(pipefd));
+    
+    pid_t pchild = fork();
+    TRY(pchild);
+    
+    // main if
+    if (pchild == 0)
+    {
+      TRY( dup2(next_in, 0));
+      TRY( dup2(pipefd[1], 1));
       
-      if (execvp(argv[i], argv + i) == -1)
-      {
-        perror("execvp");
-        exit(EXIT_FAILURE);
-      }
+      TRY( close(pipefd[0]));
+      
+      TRY( execvp(commands[i], commands + i));
     }
     wait(NULL);
-  }
+    next_in = pipefd[0];
 
+    TRY(close(pipefd[1]));
+  }
+  
+  free(commands);
+  free(str);
   return 0;
 }
 
