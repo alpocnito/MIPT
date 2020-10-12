@@ -18,6 +18,8 @@
     exit(EXIT_FAILURE); \
   }
 const size_t MAX_NUMBER_COMMANDS = 10;
+const size_t MAX_NUMBER_KEYS     = 10;
+const size_t LONGEST_WORD        = 20;
 
 char* ReadCommand()
 { 
@@ -25,6 +27,9 @@ char* ReadCommand()
   size_t len = 0;
   
   TRY(getline(&str, &len, stdin));
+  for (size_t i = 0; i < len; ++i)
+    if (str[i] == '\n')
+      str[i] = '\0';
   
   return str;
 }
@@ -41,7 +46,7 @@ size_t DivideCommand(char* str, char*** commands)
   while (cur_ptr)
   {
     (*commands)[cur_pos++] = cur_ptr + 1;
-    *cur_ptr = '\0';
+    *cur_ptr = NULL;
     str = cur_ptr + 1;
     
     cur_ptr = strchr(str, ',');
@@ -55,6 +60,23 @@ void GivePrompt()
   PRINT_GREEN(BOLD("[ron]> "));
 }
 
+char** SplitToCommands(char* str)
+{
+  char** splitted_str = (char**) calloc(MAX_NUMBER_KEYS, sizeof(splitted_str[0]));
+  char* pch = strtok(str, " ");
+
+  size_t i = 0;
+  while (pch != NULL)
+  {
+    splitted_str[i++] = (char*)calloc(LONGEST_WORD, sizeof(splitted_str[0][0]));
+    strcpy(splitted_str[i-1], pch);
+    
+    pch = strtok(NULL, " ");
+  }
+
+  return splitted_str;
+}
+
 int main()
 {
   GivePrompt();
@@ -64,7 +86,7 @@ int main()
   
   char* str = ReadCommand();
   ncommands = DivideCommand(str, &commands);
-    
+  
   int next_in = 0;
   for (size_t i = 0; i < ncommands; ++i)
   {
@@ -78,19 +100,24 @@ int main()
     // main if
     if (pchild == 0)
     {
+      char** exec_args = NULL;
+      exec_args = SplitToCommands(commands[i]);
+      
       TRY( dup2(next_in, 0));
-      TRY( dup2(pipefd[1], 1));
+      
+      // if it is NOT the last command
+      if (i != ncommands - 1)
+        TRY( dup2(pipefd[1], 1));
       
       TRY( close(pipefd[0]));
-      
-      TRY( execvp(commands[i], commands + i));
+      TRY( execvp(exec_args[0], exec_args));
     }
     wait(NULL);
     next_in = pipefd[0];
 
     TRY(close(pipefd[1]));
   }
-  
+
   free(commands);
   free(str);
   return 0;
