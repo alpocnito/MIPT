@@ -64,6 +64,9 @@ void passanger(int semid, int pass_name)
 void captain(int semid, short int boat_size, short int ladder_size, int num_steps)
 { 
   sembuf op{};
+  Change(LADDER_DOWN, -1);
+  Change(VOYAGE_STARTED, -1);
+ 
   for (int i = 0; i < num_steps; ++i)
   {
     if (i == num_steps - 1)
@@ -71,9 +74,7 @@ void captain(int semid, short int boat_size, short int ladder_size, int num_step
 
     PRINT_RED(N("Hello stranger, welcome to our board!\n"));
     
-    Change(VOYAGE_STARTED, -1);
     
-    Change(LADDER_DOWN, -1);
     Change(NUMBER_ON_BOAT, 0);
     Change(LADDER_DOWN, 1);
 
@@ -97,12 +98,8 @@ void captain(int semid, short int boat_size, short int ladder_size, int num_step
     
     if (i == num_steps - 1)
       break;
-
-
-    Change(NUMBER_ON_BOAT, 0);
-    Change(LADDER_DOWN, 1);
     
-    PRINT_CYAN(BOLD("Boat is full!\n"));  
+    Change(VOYAGE_STARTED, -1);
   }
   PRINT_RED(BOLD("Goodbye strangers!\n"));
 }

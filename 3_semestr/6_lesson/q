@@ -1,362 +1,581 @@
-8048  execve("./voyage", ["./voyage"], 0x7ffeb691fea8 /* 67 vars */) = 0
-8048  brk(NULL)                         = 0x561c7620c000
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=183254, ...}) = 0
-8048  mmap(NULL, 183254, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fb2fea99000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/liblsan.so.0", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300a\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=345144, ...}) = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea97000
-8048  mmap(NULL, 15365192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fd9f7000
-8048  mprotect(0x7fb2fda47000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fdc46000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4f000) = 0x7fb2fdc46000
-8048  mmap(0x7fb2fdc4b000, 12923976, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fb2fdc4b000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libubsan.so.0", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0[\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=328944, ...}) = 0
-8048  mmap(NULL, 13765928, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fccd6000
-8048  mprotect(0x7fb2fcd22000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fcf21000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4b000) = 0x7fb2fcf21000
-8048  mmap(0x7fb2fcf26000, 11341096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fb2fcf26000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260\34\2\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0755, st_size=2030544, ...}) = 0
-8048  mmap(NULL, 4131552, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fc8e5000
-8048  mprotect(0x7fb2fcacc000, 2097152, PROT_NONE) = 0
-8048  mmap(0x7fb2fcccc000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7fb2fcccc000
-8048  mmap(0x7fb2fccd2000, 15072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fb2fccd2000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\16\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=14560, ...}) = 0
-8048  mmap(NULL, 2109712, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fc6e1000
-8048  mprotect(0x7fb2fc6e4000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fc8e3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7fb2fc8e3000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/librt.so.1", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\"\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=31680, ...}) = 0
-8048  mmap(NULL, 2128864, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fc4d9000
-8048  mprotect(0x7fb2fc4e0000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fc6df000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x7fb2fc6df000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0000b\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0755, st_size=144976, ...}) = 0
-8048  mmap(NULL, 2221184, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fc2ba000
-8048  mprotect(0x7fb2fc2d4000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fc4d3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19000) = 0x7fb2fc4d3000
-8048  mmap(0x7fb2fc4d5000, 13440, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fb2fc4d5000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300*\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=96616, ...}) = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea95000
-8048  mmap(NULL, 2192432, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fc0a2000
-8048  mprotect(0x7fb2fc0b9000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fc2b8000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x16000) = 0x7fb2fc2b8000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\304\10\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=1594864, ...}) = 0
-8048  mmap(NULL, 3702848, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fbd19000
-8048  mprotect(0x7fb2fbe92000, 2097152, PROT_NONE) = 0
-8048  mmap(0x7fb2fc092000, 49152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x179000) = 0x7fb2fc092000
-8048  mmap(0x7fb2fc09e000, 12352, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fb2fc09e000
-8048  close(3)                          = 0
-8048  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
-8048  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
-8048  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\200\272\0\0\0\0\0\0"..., 832) = 832
-8048  fstat(3, {st_mode=S_IFREG|0644, st_size=1700792, ...}) = 0
-8048  mmap(NULL, 3789144, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fb2fb97b000
-8048  mprotect(0x7fb2fbb18000, 2093056, PROT_NONE) = 0
-8048  mmap(0x7fb2fbd17000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19c000) = 0x7fb2fbd17000
-8048  close(3)                          = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea93000
-8048  mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea83000
-8048  arch_prctl(ARCH_SET_FS, 0x7fb2fea91340) = 0
-8048  mprotect(0x7fb2fcccc000, 16384, PROT_READ) = 0
-8048  mprotect(0x7fb2fbd17000, 4096, PROT_READ) = 0
-8048  mprotect(0x7fb2fc2b8000, 4096, PROT_READ) = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea81000
-8048  mprotect(0x7fb2fc092000, 40960, PROT_READ) = 0
-8048  mprotect(0x7fb2fc4d3000, 4096, PROT_READ) = 0
-8048  mprotect(0x7fb2fc6df000, 4096, PROT_READ) = 0
-8048  mprotect(0x7fb2fc8e3000, 4096, PROT_READ) = 0
-8048  mprotect(0x7fb2fcf21000, 8192, PROT_READ) = 0
-8048  mprotect(0x7fb2fdc46000, 8192, PROT_READ) = 0
-8048  mprotect(0x561c75077000, 4096, PROT_READ) = 0
-8048  mprotect(0x7fb2feac6000, 4096, PROT_READ) = 0
-8048  munmap(0x7fb2fea99000, 183254)    = 0
-8048  set_tid_address(0x7fb2fea91610)   = 8048
-8048  set_robust_list(0x7fb2fea91620, 24) = 0
-8048  rt_sigaction(SIGRTMIN, {sa_handler=0x7fb2fc2bfcb0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7fb2fc2cc890}, NULL, 8) = 0
-8048  rt_sigaction(SIGRT_1, {sa_handler=0x7fb2fc2bfd50, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7fb2fc2cc890}, NULL, 8) = 0
-8048  rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
-8048  prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
-8048  readlink("/proc/self/exe", "/home/ron/programmes/3_semestr/6"..., 4096) = 46
-8048  open("/proc/self/cmdline", O_RDONLY) = 3
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac5000
-8048  read(3, "./voyage\0", 4096)       = 9
-8048  close(3)                          = 0
-8048  open("/proc/self/cmdline", O_RDONLY) = 3
-8048  munmap(0x7fb2feac5000, 4096)      = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac4000
-8048  read(3, "./voyage\0", 4096)       = 9
-8048  read(3, "", 4096)                 = 0
-8048  close(3)                          = 0
-8048  munmap(0x7fb2feac4000, 8192)      = 0
-8048  open("/proc/self/environ", O_RDONLY) = 3
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac5000
-8048  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
-8048  close(3)                          = 0
-8048  open("/proc/self/environ", O_RDONLY) = 3
-8048  munmap(0x7fb2feac5000, 4096)      = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac4000
-8048  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
-8048  read(3, "", 4096)                 = 0
-8048  close(3)                          = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac2000
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac1000
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feac0000
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabf000
-8048  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fb77b000
-8048  munmap(0x7fb2fb77b000, 544768)    = 0
-8048  munmap(0x7fb2fb900000, 503808)    = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabe000
-8048  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fb600000
-8048  munmap(0x7fb2fb700000, 1048576)   = 0
-8048  mmap(NULL, 1179648, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fe961000
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fb400000
-8048  munmap(0x7fb2fb500000, 1048576)   = 0
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fb200000
-8048  munmap(0x7fb2fb300000, 1048576)   = 0
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feabd000
-8048  munmap(0x7fb2feabd000, 4096)      = 0
-8048  mmap(0x600000000000, 4398046523392, PROT_NONE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0x600000000000
-8048  mmap(0x640000000000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x640000000000
-8048  futex(0x7fb2fc8e40c8, FUTEX_WAKE_PRIVATE, 2147483647) = 0
-8048  mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaae000
-8048  sigaltstack(NULL, {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0
-8048  mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa6000
-8048  sigaltstack({ss_sp=0x7fb2feaa6000, ss_flags=0, ss_size=32768}, NULL) = 0
-8048  rt_sigaction(SIGSEGV, {sa_handler=0x7fb2fda00af0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_NODEFER|SA_SIGINFO, sa_restorer=0x7fb2fc923f20}, NULL, 8) = 0
-8048  rt_sigaction(SIGBUS, {sa_handler=0x7fb2fda00af0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_NODEFER|SA_SIGINFO, sa_restorer=0x7fb2fc923f20}, NULL, 8) = 0
-8048  rt_sigaction(SIGFPE, {sa_handler=0x7fb2fda00af0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_NODEFER|SA_SIGINFO, sa_restorer=0x7fb2fc923f20}, NULL, 8) = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa5000
-8048  gettid()                          = 8048
-8048  prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
-8048  open("/proc/self/maps", O_RDONLY) = 3
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa4000
-8048  read(3, "561c74e75000-561c74e78000 r-xp 0"..., 4096) = 4022
-8048  close(3)                          = 0
-8048  open("/proc/self/maps", O_RDONLY) = 3
-8048  munmap(0x7fb2feaa4000, 4096)      = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa3000
-8048  read(3, "561c74e75000-561c74e78000 r-xp 0"..., 4096) = 4022
-8048  read(3, "7fb2fcd22000-7fb2fcf21000 ---p 0"..., 4096) = 1703
-8048  close(3)                          = 0
-8048  open("/proc/self/maps", O_RDONLY) = 3
-8048  munmap(0x7fb2feaa3000, 8192)      = 0
-8048  mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa1000
-8048  read(3, "561c74e75000-561c74e78000 r-xp 0"..., 4096) = 4022
-8048  read(3, "7fb2fcd22000-7fb2fcf21000 ---p 0"..., 4096) = 1703
-8048  read(3, "", 4096)                 = 0
-8048  close(3)                          = 0
-8048  open("/proc/self/maps", O_RDONLY) = 3
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa0000
-8048  read(3, "561c74e75000-561c74e78000 r-xp 0"..., 4096) = 4022
-8048  close(3)                          = 0
-8048  open("/proc/self/maps", O_RDONLY) = 3
-8048  munmap(0x7fb2feaa0000, 4096)      = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea9f000
-8048  read(3, "561c74e75000-561c74e78000 r-xp 0"..., 4096) = 4022
-8048  read(3, "7fb2fcd22000-7fb2fcf21000 ---p 0"..., 4096) = 1703
-8048  close(3)                          = 0
-8048  open("/proc/self/maps", O_RDONLY) = 3
-8048  munmap(0x7fb2fea9f000, 8192)      = 0
-8048  mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea9d000
-8048  read(3, "561c74e75000-561c74e78000 r-xp 0"..., 4096) = 4022
-8048  read(3, "7fb2fcd22000-7fb2fcf21000 ---p 0"..., 4096) = 1703
-8048  read(3, "", 4096)                 = 0
-8048  close(3)                          = 0
-8048  munmap(0x7fb2feaa1000, 16384)     = 0
-8048  mmap(0x631000000000, 131072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x631000000000
-8048  mmap(0x631dffff0000, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x631dffff0000
-8048  mmap(0x631e00000000, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x631e00000000
-8048  mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fe951000
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa3000
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa2000
-8048  open("/proc/self/environ", O_RDONLY) = 3
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa1000
-8048  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
-8048  close(3)                          = 0
-8048  open("/proc/self/environ", O_RDONLY) = 3
-8048  munmap(0x7fb2feaa1000, 4096)      = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea9b000
-8048  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
-8048  read(3, "", 4096)                 = 0
-8048  close(3)                          = 0
-8048  readlink("/proc/self/exe", "/home/ron/programmes/3_semestr/6"..., 4096) = 46
-8048  open("/proc/self/cmdline", O_RDONLY) = 3
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa1000
-8048  read(3, "./voyage\0", 4096)       = 9
-8048  close(3)                          = 0
-8048  open("/proc/self/cmdline", O_RDONLY) = 3
-8048  munmap(0x7fb2feaa1000, 4096)      = 0
-8048  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea99000
-8048  read(3, "./voyage\0", 4096)       = 9
-8048  read(3, "", 4096)                 = 0
-8048  close(3)                          = 0
-8048  munmap(0x7fb2fea99000, 8192)      = 0
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2feaa1000
-8048  semget(IPC_PRIVATE, 8, 0777)      = 3604482
-8048  semop(3604482, [{4, 1, 0}], 1)    = 0
-8048  semop(3604482, [{5, 1, 0}], 1)    = 0
-8048  semop(3604482, [{6, 1, 0}], 1)    = 0
-8048  semop(3604482, [{3, 2, 0}], 1)    = 0
-8048  semop(3604482, [{1, 4, 0}], 1)    = 0
-8048  semop(3604482, [{0, 4, 0}], 1)    = 0
-8048  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8049
-8048  clone( <unfinished ...>
-8049  set_robust_list(0x7fb2fea91620, 24) = 0
-8049  semop(3604482, [{0, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8050
-8048  clone( <unfinished ...>
-8050  set_robust_list(0x7fb2fea91620, 24) = 0
-8050  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8051
-8048  clone( <unfinished ...>
-8051  set_robust_list(0x7fb2fea91620, 24) = 0
-8051  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8052
-8052  set_robust_list(0x7fb2fea91620, 24 <unfinished ...>
-8048  clone( <unfinished ...>
-8052  <... set_robust_list resumed> )   = 0
-8052  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8053
-8053  set_robust_list(0x7fb2fea91620, 24 <unfinished ...>
-8048  clone( <unfinished ...>
-8053  <... set_robust_list resumed> )   = 0
-8053  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8054
-8054  set_robust_list(0x7fb2fea91620, 24 <unfinished ...>
-8048  clone( <unfinished ...>
-8054  <... set_robust_list resumed> )   = 0
-8054  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8055
-8055  set_robust_list(0x7fb2fea91620, 24 <unfinished ...>
-8048  clone( <unfinished ...>
-8055  <... set_robust_list resumed> )   = 0
-8055  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8056
-8056  set_robust_list(0x7fb2fea91620, 24 <unfinished ...>
-8048  clone( <unfinished ...>
-8056  <... set_robust_list resumed> )   = 0
-8056  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8057
-8048  clone( <unfinished ...>
-8057  set_robust_list(0x7fb2fea91620, 24) = 0
-8057  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8058
-8048  clone( <unfinished ...>
-8058  set_robust_list(0x7fb2fea91620, 24) = 0
-8058  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fb2fea91610) = 8059
-8059  set_robust_list(0x7fb2fea91620, 24) = 0
-8059  semop(3604482, [{4, 0, 0}], 1 <unfinished ...>
-8048  gettid()                          = 8048
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea9a000
-8048  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fea99000
-8048  prctl(PR_GET_DUMPABLE)            = 1 (SUID_DUMP_USER)
-8048  getpid()                          = 8048
-8048  mmap(NULL, 2101248, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb2fafff000
-8048  mprotect(0x7fb2fafff000, 4096, PROT_NONE) = 0
-8048  rt_sigprocmask(SIG_BLOCK, ~[ILL ABRT BUS FPE SEGV XCPU XFSZ], [], 8) = 0
-8048  clone(child_stack=0x7fb2fb1ffff0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_UNTRACED) = 8060
-8048  rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
-8048  getpid()                          = 8048
-8048  prctl(PR_SET_PTRACER, 8060)       = 0
-8048  futex(0x7ffeccd09d60, FUTEX_WAKE, 1) = 1
-8048  sched_yield()                     = 0
-8048  sched_yield()                     = 0
-8048  sched_yield()                     = 0
-8048  sched_yield()                     = 0
-8048  wait4(8060, NULL, __WALL, NULL)   = 8060
-8048  munmap(0x7fb2fafff000, 2101248)   = 0
-8048  getpid()                          = 8048
-8048  write(2, "==8048==LeakSanitizer has encoun"..., 53) = 53
-8048  getpid()                          = 8048
-8048  write(2, "==8048==HINT: For debugging, try"..., 101) = 101
-8048  getpid()                          = 8048
-8048  write(2, "==8048==HINT: LeakSanitizer does"..., 74) = 74
-8048  exit_group(23)                    = ?
-8048  +++ exited with 23 +++
-8059  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8058  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8059  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8057  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8058  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8056  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8057  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8056  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8055  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8054  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8055  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8054  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8053  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8052  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8053  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8052  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8059  +++ killed by SIGINT +++
-8058  +++ killed by SIGINT +++
-8057  +++ killed by SIGINT +++
-8056  +++ killed by SIGINT +++
-8055  +++ killed by SIGINT +++
-8054  +++ killed by SIGINT +++
-8053  +++ killed by SIGINT +++
-8051  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8050  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8051  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8050  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8049  <... semop resumed> )             = -1 EINTR (Interrupted system call)
-8049  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
-8052  +++ killed by SIGINT +++
-8051  +++ killed by SIGINT +++
-8050  +++ killed by SIGINT +++
-8049  +++ killed by SIGINT +++
+3209  execve("./voyage", ["./voyage"], 0x7ffff19e1188 /* 67 vars */) = 0
+3209  brk(NULL)                         = 0x5614373fc000
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=183254, ...}) = 0
+3209  mmap(NULL, 183254, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fa2e40ad000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/liblsan.so.0", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300a\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=345144, ...}) = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40ab000
+3209  mmap(NULL, 15365192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e300b000
+3209  mprotect(0x7fa2e305b000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e325a000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4f000) = 0x7fa2e325a000
+3209  mmap(0x7fa2e325f000, 12923976, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa2e325f000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libubsan.so.0", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0[\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=328944, ...}) = 0
+3209  mmap(NULL, 13765928, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e22ea000
+3209  mprotect(0x7fa2e2336000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e2535000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4b000) = 0x7fa2e2535000
+3209  mmap(0x7fa2e253a000, 11341096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa2e253a000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260\34\2\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0755, st_size=2030544, ...}) = 0
+3209  mmap(NULL, 4131552, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e1ef9000
+3209  mprotect(0x7fa2e20e0000, 2097152, PROT_NONE) = 0
+3209  mmap(0x7fa2e22e0000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7fa2e22e0000
+3209  mmap(0x7fa2e22e6000, 15072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa2e22e6000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\16\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=14560, ...}) = 0
+3209  mmap(NULL, 2109712, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e1cf5000
+3209  mprotect(0x7fa2e1cf8000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e1ef7000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7fa2e1ef7000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/librt.so.1", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\"\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=31680, ...}) = 0
+3209  mmap(NULL, 2128864, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e1aed000
+3209  mprotect(0x7fa2e1af4000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e1cf3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x7fa2e1cf3000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0000b\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0755, st_size=144976, ...}) = 0
+3209  mmap(NULL, 2221184, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e18ce000
+3209  mprotect(0x7fa2e18e8000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e1ae7000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19000) = 0x7fa2e1ae7000
+3209  mmap(0x7fa2e1ae9000, 13440, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa2e1ae9000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300*\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=96616, ...}) = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40a9000
+3209  mmap(NULL, 2192432, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e16b6000
+3209  mprotect(0x7fa2e16cd000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e18cc000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x16000) = 0x7fa2e18cc000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\304\10\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=1594864, ...}) = 0
+3209  mmap(NULL, 3702848, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e132d000
+3209  mprotect(0x7fa2e14a6000, 2097152, PROT_NONE) = 0
+3209  mmap(0x7fa2e16a6000, 49152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x179000) = 0x7fa2e16a6000
+3209  mmap(0x7fa2e16b2000, 12352, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa2e16b2000
+3209  close(3)                          = 0
+3209  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+3209  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+3209  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\200\272\0\0\0\0\0\0"..., 832) = 832
+3209  fstat(3, {st_mode=S_IFREG|0644, st_size=1700792, ...}) = 0
+3209  mmap(NULL, 3789144, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa2e0f8f000
+3209  mprotect(0x7fa2e112c000, 2093056, PROT_NONE) = 0
+3209  mmap(0x7fa2e132b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19c000) = 0x7fa2e132b000
+3209  close(3)                          = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40a7000
+3209  mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e4097000
+3209  arch_prctl(ARCH_SET_FS, 0x7fa2e40a5340) = 0
+3209  mprotect(0x7fa2e22e0000, 16384, PROT_READ) = 0
+3209  mprotect(0x7fa2e132b000, 4096, PROT_READ) = 0
+3209  mprotect(0x7fa2e18cc000, 4096, PROT_READ) = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e4095000
+3209  mprotect(0x7fa2e16a6000, 40960, PROT_READ) = 0
+3209  mprotect(0x7fa2e1ae7000, 4096, PROT_READ) = 0
+3209  mprotect(0x7fa2e1cf3000, 4096, PROT_READ) = 0
+3209  mprotect(0x7fa2e1ef7000, 4096, PROT_READ) = 0
+3209  mprotect(0x7fa2e2535000, 8192, PROT_READ) = 0
+3209  mprotect(0x7fa2e325a000, 8192, PROT_READ) = 0
+3209  mprotect(0x561436762000, 4096, PROT_READ) = 0
+3209  mprotect(0x7fa2e40da000, 4096, PROT_READ) = 0
+3209  munmap(0x7fa2e40ad000, 183254)    = 0
+3209  set_tid_address(0x7fa2e40a5610)   = 3209
+3209  set_robust_list(0x7fa2e40a5620, 24) = 0
+3209  rt_sigaction(SIGRTMIN, {sa_handler=0x7fa2e18d3cb0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7fa2e18e0890}, NULL, 8) = 0
+3209  rt_sigaction(SIGRT_1, {sa_handler=0x7fa2e18d3d50, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7fa2e18e0890}, NULL, 8) = 0
+3209  rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+3209  prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+3209  readlink("/proc/self/exe", "/home/ron/programmes/3_semestr/6"..., 4096) = 46
+3209  open("/proc/self/cmdline", O_RDONLY) = 3
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d9000
+3209  read(3, "./voyage\0", 4096)       = 9
+3209  close(3)                          = 0
+3209  open("/proc/self/cmdline", O_RDONLY) = 3
+3209  munmap(0x7fa2e40d9000, 4096)      = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d8000
+3209  read(3, "./voyage\0", 4096)       = 9
+3209  read(3, "", 4096)                 = 0
+3209  close(3)                          = 0
+3209  munmap(0x7fa2e40d8000, 8192)      = 0
+3209  open("/proc/self/environ", O_RDONLY) = 3
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d9000
+3209  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
+3209  close(3)                          = 0
+3209  open("/proc/self/environ", O_RDONLY) = 3
+3209  munmap(0x7fa2e40d9000, 4096)      = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d8000
+3209  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
+3209  read(3, "", 4096)                 = 0
+3209  close(3)                          = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d6000
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d5000
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d4000
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d3000
+3209  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e0d8f000
+3209  munmap(0x7fa2e0d8f000, 462848)    = 0
+3209  munmap(0x7fa2e0f00000, 585728)    = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d2000
+3209  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e0c00000
+3209  munmap(0x7fa2e0d00000, 1048576)   = 0
+3209  mmap(NULL, 1179648, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e3f75000
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e0a00000
+3209  munmap(0x7fa2e0b00000, 1048576)   = 0
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  mmap(NULL, 2097152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e0800000
+3209  munmap(0x7fa2e0900000, 1048576)   = 0
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40d1000
+3209  munmap(0x7fa2e40d1000, 4096)      = 0
+3209  mmap(0x600000000000, 4398046523392, PROT_NONE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0x600000000000
+3209  mmap(0x640000000000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x640000000000
+3209  futex(0x7fa2e1ef80c8, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+3209  mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40c2000
+3209  sigaltstack(NULL, {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0
+3209  mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40ba000
+3209  sigaltstack({ss_sp=0x7fa2e40ba000, ss_flags=0, ss_size=32768}, NULL) = 0
+3209  rt_sigaction(SIGSEGV, {sa_handler=0x7fa2e3014af0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_NODEFER|SA_SIGINFO, sa_restorer=0x7fa2e1f37f20}, NULL, 8) = 0
+3209  rt_sigaction(SIGBUS, {sa_handler=0x7fa2e3014af0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_NODEFER|SA_SIGINFO, sa_restorer=0x7fa2e1f37f20}, NULL, 8) = 0
+3209  rt_sigaction(SIGFPE, {sa_handler=0x7fa2e3014af0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_NODEFER|SA_SIGINFO, sa_restorer=0x7fa2e1f37f20}, NULL, 8) = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b9000
+3209  gettid()                          = 3209
+3209  prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+3209  open("/proc/self/maps", O_RDONLY) = 3
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b8000
+3209  read(3, "561436560000-561436563000 r-xp 0"..., 4096) = 4022
+3209  close(3)                          = 0
+3209  open("/proc/self/maps", O_RDONLY) = 3
+3209  munmap(0x7fa2e40b8000, 4096)      = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b7000
+3209  read(3, "561436560000-561436563000 r-xp 0"..., 4096) = 4022
+3209  read(3, "7fa2e2336000-7fa2e2535000 ---p 0"..., 4096) = 1703
+3209  close(3)                          = 0
+3209  open("/proc/self/maps", O_RDONLY) = 3
+3209  munmap(0x7fa2e40b7000, 8192)      = 0
+3209  mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b5000
+3209  read(3, "561436560000-561436563000 r-xp 0"..., 4096) = 4022
+3209  read(3, "7fa2e2336000-7fa2e2535000 ---p 0"..., 4096) = 1703
+3209  read(3, "", 4096)                 = 0
+3209  close(3)                          = 0
+3209  open("/proc/self/maps", O_RDONLY) = 3
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b4000
+3209  read(3, "561436560000-561436563000 r-xp 0"..., 4096) = 4022
+3209  close(3)                          = 0
+3209  open("/proc/self/maps", O_RDONLY) = 3
+3209  munmap(0x7fa2e40b4000, 4096)      = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b3000
+3209  read(3, "561436560000-561436563000 r-xp 0"..., 4096) = 4022
+3209  read(3, "7fa2e2336000-7fa2e2535000 ---p 0"..., 4096) = 1703
+3209  close(3)                          = 0
+3209  open("/proc/self/maps", O_RDONLY) = 3
+3209  munmap(0x7fa2e40b3000, 8192)      = 0
+3209  mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b1000
+3209  read(3, "561436560000-561436563000 r-xp 0"..., 4096) = 4022
+3209  read(3, "7fa2e2336000-7fa2e2535000 ---p 0"..., 4096) = 1703
+3209  read(3, "", 4096)                 = 0
+3209  close(3)                          = 0
+3209  munmap(0x7fa2e40b5000, 16384)     = 0
+3209  mmap(0x631000000000, 131072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x631000000000
+3209  mmap(0x631dffff0000, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x631dffff0000
+3209  mmap(0x631e00000000, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x631e00000000
+3209  mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e3f65000
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b7000
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b6000
+3209  open("/proc/self/environ", O_RDONLY) = 3
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b5000
+3209  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
+3209  close(3)                          = 0
+3209  open("/proc/self/environ", O_RDONLY) = 3
+3209  munmap(0x7fa2e40b5000, 4096)      = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40af000
+3209  read(3, "CINNAMON_SLOWDOWN_FACTOR=0.0001\0"..., 4096) = 3810
+3209  read(3, "", 4096)                 = 0
+3209  close(3)                          = 0
+3209  readlink("/proc/self/exe", "/home/ron/programmes/3_semestr/6"..., 4096) = 46
+3209  open("/proc/self/cmdline", O_RDONLY) = 3
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b5000
+3209  read(3, "./voyage\0", 4096)       = 9
+3209  close(3)                          = 0
+3209  open("/proc/self/cmdline", O_RDONLY) = 3
+3209  munmap(0x7fa2e40b5000, 4096)      = 0
+3209  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40ad000
+3209  read(3, "./voyage\0", 4096)       = 9
+3209  read(3, "", 4096)                 = 0
+3209  close(3)                          = 0
+3209  munmap(0x7fa2e40ad000, 8192)      = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa2e40b5000
+3209  semget(IPC_PRIVATE, 8, 0777)      = 1179652
+3209  semop(1179652, [{4, 1, 0}], 1)    = 0
+3209  semop(1179652, [{5, 1, 0}], 1)    = 0
+3209  semop(1179652, [{6, 1, 0}], 1)    = 0
+3209  semop(1179652, [{3, 2, 0}], 1)    = 0
+3209  semop(1179652, [{1, 4, 0}], 1)    = 0
+3209  semop(1179652, [{0, 4, 0}], 1)    = 0
+3209  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3210
+3209  clone( <unfinished ...>
+3210  set_robust_list(0x7fa2e40a5620, 24) = 0
+3210  semop(1179652, [{4, -1, 0}], 1)   = 0
+3210  semop(1179652, [{6, -1, 0}], 1)   = 0
+3210  write(1, "\33[0;31mHello stranger, welcome t"..., 45 <unfinished ...>
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3211
+3210  <... write resumed> )             = 45
+3209  clone( <unfinished ...>
+3210  semop(1179652, [{1, 0, 0}], 1 <unfinished ...>
+3211  set_robust_list(0x7fa2e40a5620, 24) = 0
+3211  semop(1179652, [{4, 0, 0}], 1)    = 0
+3211  semctl(1179652, 7, GETVAL, NULL)  = 0
+3211  semop(1179652, [{1, -1, 0}], 1)   = 0
+3211  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3212
+3211  <... semctl resumed> )            = 0
+3209  clone( <unfinished ...>
+3212  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3211  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3212  <... set_robust_list resumed> )   = 0
+3211  <... semop resumed> )             = 0
+3212  semop(1179652, [{4, 0, 0}], 1)    = 0
+3212  semctl(1179652, 7, GETVAL, NULL)  = 0
+3211  write(1, "\33[0;32mPassangers 1 on ladder\n", 30 <unfinished ...>
+3212  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3211  <... write resumed> )             = 30
+3212  <... semop resumed> )             = 0
+3211  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3212  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3211  <... semop resumed> )             = 0
+3212  <... semctl resumed> )            = 0
+3211  write(1, "\33[0m\33[0;32mPassangers 1 on boat\n", 32 <unfinished ...>
+3212  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3211  <... write resumed> )             = 32
+3212  <... semop resumed> )             = 0
+3211  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3213
+3212  write(1, "\33[0;32mPassangers 2 on ladder\n", 30 <unfinished ...>
+3209  clone( <unfinished ...>
+3213  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3212  <... write resumed> )             = 30
+3213  <... set_robust_list resumed> )   = 0
+3212  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3211  <... semop resumed> )             = 0
+3212  <... semop resumed> )             = 0
+3211  semop(1179652, [{5, 0, 0}], 1 <unfinished ...>
+3213  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3212  write(1, "\33[0m\33[0;32mPassangers 2 on boat\n", 32 <unfinished ...>
+3213  <... semop resumed> )             = 0
+3212  <... write resumed> )             = 32
+3213  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3212  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3213  <... semctl resumed> )            = 0
+3212  <... semop resumed> )             = 0
+3213  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3212  semop(1179652, [{5, 0, 0}], 1 <unfinished ...>
+3213  <... semop resumed> )             = 0
+3213  semctl(1179652, 7, GETVAL, NULL)  = 0
+3213  semop(1179652, [{3, -1, 0}], 1)   = 0
+3213  write(1, "\33[0;32mPassangers 3 on ladder\n", 30 <unfinished ...>
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3214
+3213  <... write resumed> )             = 30
+3209  clone( <unfinished ...>
+3214  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3213  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3214  <... set_robust_list resumed> )   = 0
+3213  <... semop resumed> )             = 0
+3213  write(1, "\33[0m\33[0;32mPassangers 3 on boat\n", 32 <unfinished ...>
+3214  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3213  <... write resumed> )             = 32
+3214  <... semop resumed> )             = 0
+3213  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3214  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3213  <... semop resumed> )             = 0
+3214  <... semctl resumed> )            = 0
+3213  semop(1179652, [{5, 0, 0}], 1 <unfinished ...>
+3214  semop(1179652, [{1, -1, 0}], 1)   = 0
+3210  <... semop resumed> )             = 0
+3210  semop(1179652, [{4, 1, 0}], 1 <unfinished ...>
+3214  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3210  <... semop resumed> )             = 0
+3214  <... semctl resumed> )            = 0
+3210  write(1, "\33[0m\33[0;36;1mWaiting for clearin"..., 45 <unfinished ...>
+3214  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3215
+3210  <... write resumed> )             = 45
+3209  clone( <unfinished ...>
+3210  semop(1179652, [{3, -2, 0}], 1)   = 0
+3215  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3210  semop(1179652, [{3, 2, 0}], 1 <unfinished ...>
+3215  <... set_robust_list resumed> )   = 0
+3214  <... semop resumed> )             = 0
+3210  <... semop resumed> )             = 0
+3215  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3210  write(1, "\33[0m\33[0;35;1mBoat are full, voya"..., 49) = 49
+3214  write(1, "\33[0;32mPassangers 4 on ladder\n", 30 <unfinished ...>
+3210  write(1, "\33[0m\33[0;35;1mVoyage is ended!\n", 30 <unfinished ...>
+3214  <... write resumed> )             = 30
+3210  <... write resumed> )             = 30
+3214  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3210  semop(1179652, [{6, 1, 0}], 1 <unfinished ...>
+3214  <... semop resumed> )             = 0
+3210  <... semop resumed> )             = 0
+3214  write(1, "\33[0m\33[0;32mPassangers 4 on boat\n", 32 <unfinished ...>
+3210  semop(1179652, [{5, -1, 0}], 1 <unfinished ...>
+3214  <... write resumed> )             = 32
+3213  <... semop resumed> )             = 0
+3214  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3216
+3216  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3209  clone( <unfinished ...>
+3216  <... set_robust_list resumed> )   = 0
+3213  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3212  <... semop resumed> )             = 0
+3216  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3212  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3211  <... semop resumed> )             = 0
+3210  <... semop resumed> )             = 0
+3211  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3210  semop(1179652, [{4, -1, 0}], 1 <unfinished ...>
+3215  <... semop resumed> )             = 0
+3216  <... semop resumed> )             = 0
+3215  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3213  <... semop resumed> )             = 0
+3215  <... semctl resumed> )            = 0
+3213  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3216  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3215  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3216  <... semctl resumed> )            = 0
+3213  <... semop resumed> )             = 0
+3216  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3213  write(1, "\33[0m\33[0;32mPassangers 3 on ladde"..., 34 <unfinished ...>
+3212  <... semop resumed> )             = 0
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3217
+3213  <... write resumed> )             = 34
+3209  clone( <unfinished ...>
+3217  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3213  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3217  <... set_robust_list resumed> )   = 0
+3213  <... semop resumed> )             = 0
+3212  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3217  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3213  write(1, "\33[0m\33[0;32mPassangers 3 on coast"..., 33 <unfinished ...>
+3217  <... semop resumed> )             = 0
+3213  <... write resumed> )             = 33
+3217  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3213  semop(1179652, [{1, 1, 0}], 1 <unfinished ...>
+3217  <... semctl resumed> )            = 0
+3215  <... semop resumed> )             = 0
+3217  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3215  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3213  <... semop resumed> )             = 0
+3215  <... semctl resumed> )            = 0
+3213  semop(1179652, [{0, -1, 0}], 1 <unfinished ...>
+3215  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3213  <... semop resumed> )             = 0
+3215  <... semop resumed> )             = 0
+3213  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3212  <... semop resumed> )             = 0
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3218
+3213  <... semop resumed> )             = 0
+3209  clone( <unfinished ...>
+3218  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3215  write(1, "\33[0;32mPassangers 5 on ladder\n", 30 <unfinished ...>
+3218  <... set_robust_list resumed> )   = 0
+3213  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3212  write(1, "\33[0m\33[0;32mPassangers 2 on ladde"..., 34 <unfinished ...>
+3213  <... semctl resumed> )            = 0
+3218  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3212  <... write resumed> )             = 34
+3218  <... semop resumed> )             = 0
+3213  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3218  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3212  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3218  <... semctl resumed> )            = 0
+3212  <... semop resumed> )             = 0
+3218  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3212  write(1, "\33[0m\33[0;32mPassangers 2 on coast"..., 33 <unfinished ...>
+3215  <... write resumed> )             = 30
+3212  <... write resumed> )             = 33
+3215  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3212  semop(1179652, [{1, 1, 0}], 1 <unfinished ...>
+3215  <... semop resumed> )             = 0
+3216  <... semop resumed> )             = 0
+3215  write(1, "\33[0m\33[0;32mPassangers 5 on boat\n", 32 <unfinished ...>
+3216  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3215  <... write resumed> )             = 32
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3219
+3216  <... semctl resumed> )            = 0
+3215  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3209  clone( <unfinished ...>
+3219  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3216  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3219  <... set_robust_list resumed> )   = 0
+3212  <... semop resumed> )             = 0
+3211  <... semop resumed> )             = 0
+3216  <... semop resumed> )             = 0
+3219  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3212  semop(1179652, [{0, -1, 0}], 1 <unfinished ...>
+3219  <... semop resumed> )             = 0
+3212  <... semop resumed> )             = 0
+3219  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3216  write(1, "\33[0;32mPassangers 6 on ladder\n", 30 <unfinished ...>
+3219  <... semctl resumed> )            = 0
+3212  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3219  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3216  <... write resumed> )             = 30
+3212  <... semop resumed> )             = 0
+3216  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3212  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3216  <... semop resumed> )             = 0
+3212  <... semctl resumed> )            = 0
+3216  write(1, "\33[0m\33[0;32mPassangers 6 on boat\n", 32 <unfinished ...>
+3212  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3216  <... write resumed> )             = 32
+3211  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3216  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3211  <... semop resumed> )             = 0
+3210  <... semop resumed> )             = 0
+3211  write(1, "\33[0m\33[0;32mPassangers 1 on ladde"..., 34 <unfinished ...>
+3210  semop(1179652, [{0, 0, 0}], 1 <unfinished ...>
+3211  <... write resumed> )             = 34
+3209  <... clone resumed> child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fa2e40a5610) = 3220
+3211  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3220  set_robust_list(0x7fa2e40a5620, 24 <unfinished ...>
+3211  <... semop resumed> )             = 0
+3220  <... set_robust_list resumed> )   = 0
+3211  write(1, "\33[0m\33[0;32mPassangers 1 on coast"..., 33 <unfinished ...>
+3209  gettid( <unfinished ...>
+3220  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3209  <... gettid resumed> )            = 3209
+3220  <... semop resumed> )             = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+3220  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3211  <... write resumed> )             = 33
+3209  <... mmap resumed> )              = 0x7fa2e40ae000
+3220  <... semctl resumed> )            = 0
+3209  mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+3220  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3209  <... mmap resumed> )              = 0x7fa2e40ad000
+3211  semop(1179652, [{1, 1, 0}], 1)    = 0
+3209  prctl(PR_GET_DUMPABLE <unfinished ...>
+3217  <... semop resumed> )             = 0
+3209  <... prctl resumed> )             = 1 (SUID_DUMP_USER)
+3217  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3209  getpid( <unfinished ...>
+3217  <... semctl resumed> )            = 0
+3209  <... getpid resumed> )            = 3209
+3217  semop(1179652, [{3, -1, 0}], 1 <unfinished ...>
+3209  mmap(NULL, 2101248, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+3211  semop(1179652, [{0, -1, 0}], 1 <unfinished ...>
+3209  <... mmap resumed> )              = 0x7fa2e05ff000
+3217  <... semop resumed> )             = 0
+3209  mprotect(0x7fa2e05ff000, 4096, PROT_NONE <unfinished ...>
+3211  <... semop resumed> )             = 0
+3209  <... mprotect resumed> )          = 0
+3211  semop(1179652, [{4, 0, 0}], 1 <unfinished ...>
+3209  rt_sigprocmask(SIG_BLOCK, ~[ILL ABRT BUS FPE SEGV XCPU XFSZ],  <unfinished ...>
+3211  <... semop resumed> )             = 0
+3209  <... rt_sigprocmask resumed> [], 8) = 0
+3217  write(1, "\33[0;32mPassangers 7 on ladder\n", 30 <unfinished ...>
+3209  clone( <unfinished ...>
+3211  semctl(1179652, 7, GETVAL, NULL <unfinished ...>
+3217  <... write resumed> )             = 30
+3211  <... semctl resumed> )            = 0
+3217  semop(1179652, [{3, 1, 0}], 1 <unfinished ...>
+3211  semop(1179652, [{1, -1, 0}], 1 <unfinished ...>
+3209  <... clone resumed> child_stack=0x7fa2e07ffff0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_UNTRACED) = 3221
+3217  <... semop resumed> )             = 0
+3209  rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+3217  write(1, "\33[0m\33[0;32mPassangers 7 on boat\n", 32 <unfinished ...>
+3209  <... rt_sigprocmask resumed> NULL, 8) = 0
+3209  getpid( <unfinished ...>
+3217  <... write resumed> )             = 32
+3209  <... getpid resumed> )            = 3209
+3217  semop(1179652, [{6, 0, 0}], 1 <unfinished ...>
+3209  prctl(PR_SET_PTRACER, 3221)       = 0
+3209  futex(0x7fff8582a2d0, FUTEX_WAKE, 1) = 1
+3209  sched_yield()                     = 0
+3209  sched_yield()                     = 0
+3209  sched_yield()                     = 0
+3209  sched_yield()                     = 0
+3209  sched_yield()                     = 0
+3209  wait4(3221, NULL, __WALL, NULL)   = 3221
+3209  munmap(0x7fa2e05ff000, 2101248)   = 0
+3209  getpid()                          = 3209
+3209  write(2, "==3209==LeakSanitizer has encoun"..., 53) = 53
+3209  getpid()                          = 3209
+3209  write(2, "==3209==HINT: For debugging, try"..., 101) = 101
+3209  getpid()                          = 3209
+3209  write(2, "==3209==HINT: LeakSanitizer does"..., 74) = 74
+3209  exit_group(23)                    = ?
+3209  +++ exited with 23 +++
+3220  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3219  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3220  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3219  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3218  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3217  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3218  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3217  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3216  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3215  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3216  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3215  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3214  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3213  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3214  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3213  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3212  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3211  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3210  <... semop resumed> )             = -1 EINTR (Interrupted system call)
+3211  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3210  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3220  +++ killed by SIGINT +++
+3219  +++ killed by SIGINT +++
+3218  +++ killed by SIGINT +++
+3217  +++ killed by SIGINT +++
+3216  +++ killed by SIGINT +++
+3215  +++ killed by SIGINT +++
+3214  +++ killed by SIGINT +++
+3212  --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+3210  +++ killed by SIGINT +++
+3213  +++ killed by SIGINT +++
+3212  +++ killed by SIGINT +++
+3211  +++ killed by SIGINT +++
