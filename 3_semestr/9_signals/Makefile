@@ -2,3 +2,4 @@ GPP = g++ -O1 -g -std=c++17 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizatio
 all:
 	@$(GPP) unreliable_signals.cpp -o unreliable_signals 
 	@$(GPP) reliable_signals.cpp -o reliable_signals 
+	@$(GPP) realtime_signals.cpp -o realtime_signals 
