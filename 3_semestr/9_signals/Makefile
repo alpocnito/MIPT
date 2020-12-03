@@ -3,3 +3,4 @@ all:
 	@$(GPP) unreliable_signals.cpp -o unreliable_signals 
 	@$(GPP) reliable_signals.cpp -o reliable_signals 
 	@$(GPP) realtime_signals.cpp -o realtime_signals 
+	@$(GPP) max_program.cpp -o max_program
