@@ -306,8 +306,6 @@ void FillCodeWithLabels(std::vector<std::string>* code, char* names, Symtab* sym
       (*code)[i].push_back('\t');
 
     (*code)[i].push_back('\t');
-    (*code)[i].push_back('!');
-    (*code)[i].push_back('\0');
   }
 }
 //---------------------------------------------------------------------------- 
