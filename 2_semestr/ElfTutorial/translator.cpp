@@ -259,7 +259,7 @@ void FillCodeWithNumberOfLines(std::vector<std::string>* code, unsigned num_of_l
   for (unsigned i = 0; i < num_of_lines; ++i)
   {
     char num_command[20] = {};
-    sprintf(num_command, "[%08x] ", i*4);
+    sprintf(num_command, "[%08x]: ", i*4);
     code->push_back(num_command);
   }
 }
@@ -277,6 +277,7 @@ void FillCodeWithLabels(std::vector<std::string>* code, char* names, Symtab* sym
   assert(code);
   assert(names);
   
+  std::vector<unsigned> lines_with_label{};
   for (unsigned i = 0; i < (unsigned)symtab_nums; ++i)
   {
     if (symtabs[i].st_shndx == SHN_UNDEF || symtabs[i].st_shndx == SHN_COMMON)
@@ -285,26 +286,26 @@ void FillCodeWithLabels(std::vector<std::string>* code, char* names, Symtab* sym
     B1 type = ELF32_ST_TYPE(symtabs[i].st_info); 
     if (type == STT_NOTYPE || type == STT_FUNC || type == STT_SECTION)
     {
+      (*code)[symtabs[i].st_value / 4].push_back('<');
       (*code)[symtabs[i].st_value / 4].append(GetString(names + symtabs[i].st_name));
-      (*code)[symtabs[i].st_value / 4].push_back(':');
-      (*code)[symtabs[i].st_value / 4].push_back(' ');
+      (*code)[symtabs[i].st_value / 4].push_back('>');
+
+      lines_with_label.push_back(symtabs[i].st_value / 4);
     }
   }
   
-  // find the longest string
-  size_t longest_string = 0;
-  for (unsigned i = 0; i < (unsigned)code->size(); ++i)
-  {
-    if ((*code)[i].size() > longest_string)
-      longest_string = (*code)[i].size();
-  }
-  longest_string += 2;
-
   // adjust all strings
   for (unsigned i = 0; i < (unsigned)code->size(); ++i)
   {
-    for (size_t j = 0; longest_string != (*code)[i].size(); ++j)
-      (*code)[i].push_back(' ');
+  
+    bool find = false;
+    for (unsigned j = 0; j < lines_with_label.size(); ++j)
+      if (lines_with_label[j] == i)
+        find = true;
+    if (!find)
+      (*code)[i].push_back('\t');
+
+    (*code)[i].push_back('\t');
     (*code)[i].push_back('!');
     (*code)[i].push_back('\0');
   }
@@ -341,7 +342,7 @@ std::vector<std::string>* DisAssembler(char* buffer, long int buffer_size)
   char* names = GiveNames(buffer, buffer_size);
   FillCodeWithLabels(code, names, symtabs, symtab_nums);
 
-  
+   
   /* 
   size_t rela_text_size = 0;
   Rela_Text* relaTexts = (Rela_Text*)GiveSection(buffer, buffer_size, ".rela.text", &rela_text_size);
@@ -366,7 +367,7 @@ int main(int argc, char** argv)
   if (argc != 3)
     FATAL("Incorrect input!\n");
 
-  FILE* output_file = fopen(argv[2], "rb");
+  FILE* output_file = fopen(argv[2], "wt");
   if (!output_file)
     FATAL("Incorrect output file\n");
 
