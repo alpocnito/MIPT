@@ -183,62 +183,48 @@ int child_job(int pipe[2])
   char* buf = NULL;
   size_t buf_size = 0;
   
-  printf("Wanna read\n");
+  printf("%d,%d: Wanna read\n", pipe[0], pipe[1]);
   ssize_t file_size = read_file(pipe[0], &buf, &buf_size);
   if (file_size <= 0)
     return -1;
   
-  printf("Read: %s", buf);
+  printf("%d,%d: Read: %s", pipe[0], pipe[1], buf);
+  TRY(my_write(pipe[1], buf, (size_t)file_size))
+  printf("%d,%d: Writed!\n\n", pipe[0], pipe[1]);
   
   TRY(my_close(pipe[0]))
-  TRY(my_write(pipe[1], buf, (size_t)file_size))
-  
-  printf("Writed!\n\n");
   TRY(my_close(pipe[1]))
-  
   free(buf);
   return 0;
 }
 
 void init_childs(int** pipes, char** argv, size_t num_childs)
 {
-  // READ
-  pid_t read_child = fork();
-  TRY(read_child);
-  if (read_child == 0)
-  {
-    int fd = my_open(argv[1], O_RDONLY);
-    TRY(fd);
-    TRY(my_close(pipes[0][0]));
-    
-    pipes[0][0] = fd;
-    TRY(child_job(pipes[0]));
-    exit(0);
-  }
+  // READ FROM FILE
+  int fd = my_open(argv[1], O_RDONLY);
+  TRY(fd);
   
-  // WRITE
-  pid_t write_child = fork();
-  TRY(write_child);
-  if (write_child == 0)
-  {
-    int fd = my_open(argv[2], O_WRONLY);
-    TRY(fd);
-    TRY(my_close(pipes[1][1]));
-
-    pipes[1][1] = fd;
-    TRY(child_job(pipes[1]));
-    exit(0);
-  }
+  TRY(my_close(pipes[0][0]));
+  pipes[0][0] = fd;
   
-  // MIDDLE
-  for (size_t i = 0; i < num_childs - 2; ++i)
+  // WRITE TO FILE
+  fd = my_open(argv[2], O_WRONLY);
+  TRY(fd);
+  
+  TRY(my_close(pipes[num_childs - 1][1]));
+  pipes[num_childs - 1][1] = fd;
+  
+  // Childs
+  for (size_t i = 0; i < num_childs; ++i)
   {
+    PRINT_GREEN_E(N("New child on: %d,"), pipes[i][0]);
+    PRINT_GREEN_E(N("%d\n"), pipes[i][1]);
     pid_t child = fork();
     TRY(child);
 
     if (child == 0)
     {
-      TRY(child_job(pipes[i + 2]));
+      TRY(child_job(pipes[i]));
       exit(0);
     }
   }
@@ -246,21 +232,17 @@ void init_childs(int** pipes, char** argv, size_t num_childs)
 
 int main(int argc, char** argv)
 {
-  if (argc != 4)
+  if (argc != 4 || atoi(argv[3]) < 2)
   {
     PRINT_RED(BOLD("Bad parameters\n"));
     return -1;
   }
   
-  int num_childs_int = atoi(argv[3]);
-  if (num_childs_int < 2)
-  {
-    PRINT_RED(BOLD("Bad parameters\n"));
-    return -1;
-  }
-  size_t num_childs = (size_t)num_childs_int;
+  size_t num_childs = (size_t)atoi(argv[3]);
+
   char print_buf[BUFSIZ];
   setvbuf(stdout, print_buf, _IOLBF, BUFSIZ);
+
 //////////////////////////////// LOGIC ////////////////////////////////////
   int** pipes = (int**)calloc(num_childs, sizeof(pipes[0]));
   for (size_t i = 0; i < num_childs; ++i)
@@ -274,8 +256,8 @@ int main(int argc, char** argv)
   struct pollfd* fds = (pollfd*)calloc(num_childs, sizeof(fds[0]));
   for (size_t i = 0; i < num_childs; ++i)
   {
-    fds->fd = pipes[i][0];
-    fds->events = POLLIN | POLLNVAL | POLLERR;
+    fds[i].fd = pipes[i][0];
+    fds[i].events = POLLIN | POLLNVAL | POLLERR;
   }
 
 //////////////////////////////// PARENT CYCLE //////////////////////////////
@@ -286,7 +268,6 @@ int main(int argc, char** argv)
     if (status == 0)
       break;
     TRY(status);
-    printf("GOT!!!\n");
     
     for (size_t i = 0; i < num_childs; ++i)
     {
@@ -295,15 +276,19 @@ int main(int argc, char** argv)
 
       if (fds[i].revents & POLLIN)
       {
-        char* buf = NULL;
-        size_t buf_size = 0;
+        char* buf = (char*)calloc(1000, 1);
+        size_t buf_size = 100;
 
-        ssize_t file_size = read_file(pipes[i][0], &buf, &buf_size);
+        ssize_t file_size = read(pipes[i][0], buf, buf_size);
         TRY(file_size);
-        TRY(my_close(pipes[i][0]));
+        
+        printf("%d,%d: GOT: %s", pipes[i][0], pipes[i][1], buf);
         
         TRY(my_write(pipes[i+1][1], buf, (size_t)file_size));
+        printf("Writed in parent cycle\n\n");
+        
         TRY(my_close(pipes[i+1][1]));
+        TRY(my_close(pipes[i][0]));
         free(buf);
       }
     }
