@@ -81,20 +81,14 @@ ssize_t read_file(int fd, char** buf, size_t* cur_buf_size)
 
     // reading
     ssize_t status = read(fd, *buf + succ_read, READ_NUM);
-    if (status < 1)                 //
-    {                               // 
-      if (errno == EINTR)           // 
-        continue;                   //
-      if (errno == EAGAIN || (status == 0 && errno == 0))// Analysing the read errors
-        break;                      //
-                                    //      
-      PRINT_RED_E(BOLD("Error: path=%d\n"), fd);
-      perror("my_read failed");     //
-      return -1;                    //
-    }                               //
-    
+    while (errno == EINTR || errno == EAGAIN)
+    {
+      printf("OOOPS\n");
+      status = read(fd, *buf + succ_read, READ_NUM);
+    }
+    TRY(status);
     succ_read += (size_t)status;
-    if (status > 0 && (size_t)status < READ_NUM)
+    if ((size_t)status < READ_NUM)
       break;
   }
     
@@ -155,7 +149,6 @@ int my_open(const char* path, int flags = O_RDONLY)
 
 int my_close(int fd)
 {
-  return 0;
   assert(fd > 0);
   
   int status = 0;
@@ -178,53 +171,55 @@ int my_close(int fd)
   return fd;
 }
 
-int child_job(int pipe[2])
+int child_job(int child_pipe[2], int father_pipe[2])
 {
-  char* buf = NULL;
+  char*  buf = NULL;
   size_t buf_size = 0;
   
-  printf("%d,%d: Wanna read\n", pipe[0], pipe[1]);
-  ssize_t file_size = read_file(pipe[0], &buf, &buf_size);
+  printf("%d,%d: Wanna read\n", child_pipe[0], child_pipe[1]);
+  ssize_t file_size = read_file(father_pipe[0], &buf, &buf_size);
   if (file_size <= 0)
     return -1;
   
-  printf("%d,%d: Read: %s", pipe[0], pipe[1], buf);
-  TRY(my_write(pipe[1], buf, (size_t)file_size))
-  printf("%d,%d: Writed!\n\n", pipe[0], pipe[1]);
+  printf("%d,%d: Read: %s", child_pipe[0], child_pipe[1], buf);
+  TRY(my_write(child_pipe[1], buf, (size_t)file_size))
+  printf("%d,%d: Writed!\n\n", child_pipe[0], child_pipe[1]);
   
-  TRY(my_close(pipe[0]))
-  TRY(my_close(pipe[1]))
+  TRY(my_close(child_pipe[0]));
+  TRY(my_close(child_pipe[1]));
+  TRY(my_close(father_pipe[0]));
+  TRY(my_close(father_pipe[1]));
   free(buf);
   return 0;
 }
 
-void init_childs(int** pipes, char** argv, size_t num_childs)
+void init_childs(int** childs_pipes, int** father_pipes, char** argv, size_t num_childs)
 {
-  // READ FROM FILE
-  int fd = my_open(argv[1], O_RDONLY);
-  TRY(fd);
-  
-  TRY(my_close(pipes[0][0]));
-  pipes[0][0] = fd;
-  
-  // WRITE TO FILE
-  fd = my_open(argv[2], O_WRONLY);
-  TRY(fd);
-  
-  TRY(my_close(pipes[num_childs - 1][1]));
-  pipes[num_childs - 1][1] = fd;
-  
-  // Childs
   for (size_t i = 0; i < num_childs; ++i)
   {
-    PRINT_GREEN_E(N("New child on: %d,"), pipes[i][0]);
-    PRINT_GREEN_E(N("%d\n"), pipes[i][1]);
+    PRINT_GREEN_E(N("New child on: %d,"), childs_pipes[i][0]);
+    PRINT_GREEN_E(N("%d\n"), childs_pipes[i][1]);
     pid_t child = fork();
     TRY(child);
 
     if (child == 0)
     {
-      TRY(child_job(pipes[i]));
+      if (i == 0)
+      {
+        int fd = my_open(argv[1], O_RDONLY);
+        TRY(fd);
+        TRY(my_close(father_pipes[i][0]));
+        father_pipes[i][0] = fd;
+      }
+      if (i == num_childs - 1)
+      {
+        int fd = my_open(argv[2], O_WRONLY);
+        TRY(fd);
+        TRY(my_close(childs_pipes[i][1]));
+        childs_pipes[i][1] = fd;
+      }
+      
+      TRY(child_job(childs_pipes[i], father_pipes[i]));
       exit(0);
     }
   }
@@ -244,19 +239,27 @@ int main(int argc, char** argv)
   setvbuf(stdout, print_buf, _IOLBF, BUFSIZ);
 
 //////////////////////////////// LOGIC ////////////////////////////////////
-  int** pipes = (int**)calloc(num_childs, sizeof(pipes[0]));
+  // Childs write to this pipe
+  int** childs_pipes = (int**)calloc(num_childs, sizeof(childs_pipes[0]));
   for (size_t i = 0; i < num_childs; ++i)
   {
-    pipes[i] = (int*)calloc(2, sizeof(pipes[0][0]));
-    TRY(pipe(pipes[i]));
+    childs_pipes[i] = (int*)calloc(2, sizeof(childs_pipes[0][0]));
+    TRY(pipe(childs_pipes[i]));
+  }
+  // Father writes to this pipe
+  int** father_pipes = (int**)calloc(num_childs, sizeof(father_pipes[0]));
+  for (size_t i = 0; i < num_childs; ++i)
+  {
+    father_pipes[i] = (int*)calloc(2, sizeof(father_pipes[0][0]));
+    TRY(pipe(father_pipes[i]));
   }
 
-  init_childs(pipes, argv, num_childs);
+  init_childs(childs_pipes, father_pipes, argv, num_childs);
   
   struct pollfd* fds = (pollfd*)calloc(num_childs, sizeof(fds[0]));
   for (size_t i = 0; i < num_childs; ++i)
   {
-    fds[i].fd = pipes[i][0];
+    fds[i].fd = childs_pipes[i][0];
     fds[i].events = POLLIN | POLLNVAL | POLLERR;
   }
 
@@ -276,19 +279,17 @@ int main(int argc, char** argv)
 
       if (fds[i].revents & POLLIN)
       {
-        char* buf = (char*)calloc(1000, 1);
-        size_t buf_size = 100;
+        char* buf = NULL;
+        size_t buf_size = 0;
 
-        ssize_t file_size = read(pipes[i][0], buf, buf_size);
+        ssize_t file_size = read_file(childs_pipes[i][0], &buf, &buf_size);
         TRY(file_size);
         
-        printf("%d,%d: GOT: %s", pipes[i][0], pipes[i][1], buf);
+        printf("%d,%d: GOT: %s", childs_pipes[i][0], childs_pipes[i][1], buf);
         
-        TRY(my_write(pipes[i+1][1], buf, (size_t)file_size));
+        TRY(my_write(father_pipes[i+1][1], buf, (size_t)file_size));
         printf("Writed in parent cycle\n\n");
         
-        TRY(my_close(pipes[i+1][1]));
-        TRY(my_close(pipes[i][0]));
         free(buf);
       }
     }
@@ -297,8 +298,16 @@ int main(int argc, char** argv)
   
   free(fds);
   for (size_t i = 0; i < num_childs; ++i)
-    free(pipes[i]);
-  free(pipes);
+  {
+    TRY(my_close(childs_pipes[i][0]));
+    TRY(my_close(childs_pipes[i][1]));
+    TRY(my_close(father_pipes[i][0]));
+    TRY(my_close(father_pipes[i][1]));
+    free(father_pipes[i]);
+    free(childs_pipes[i]);
+  }
+  free(childs_pipes);
+  free(father_pipes);
 
   return 0;
 }
