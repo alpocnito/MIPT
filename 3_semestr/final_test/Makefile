@@ -1,4 +1,4 @@
-LDLIBS=-I ../../1_semestr/Headers/
+LDLIBS=-I../../1_semestr/Headers/
 CXX:=g++
 PROG=test
 
