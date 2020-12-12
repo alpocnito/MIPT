@@ -1,6 +1,6 @@
 LDLIBS=-I ../../1_semestr/Headers/
 CXX:=g++
-PROG=poll
+PROG=test
 
 # Compilator
 CXXFLAGS += -std=c++17
