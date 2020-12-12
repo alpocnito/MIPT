@@ -49,7 +49,7 @@ long int Analyse(const char* dir_name)
     dir_size += Analyse((std::string(dir_name) + "/" + cur_object->d_name).c_str());
   }
   
-  printf("%-10ld %s\n", dir_size, dir_name);
+  printf("%-7ld %s\n", dir_size, dir_name);
 
   return dir_size;
 }
