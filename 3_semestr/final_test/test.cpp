@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <color.h>
+#include <string>
 
 #define TRY(cmd) \
     do { if ((cmd) < 0) { \
@@ -16,7 +17,7 @@
     } }while(0);
 
 
-size_t Analyse(const char* dir_name)
+long int Analyse(const char* dir_name)
 {
   DIR* dir = opendir(dir_name);
   if (dir == 0)
@@ -26,7 +27,8 @@ size_t Analyse(const char* dir_name)
       struct stat statbuf;
       TRY(stat(dir_name, &statbuf));
       
-      return statbuf
+      //printf("NAME: %s = %ld\n", dir_name, statbuf.st_blocks); 
+      return statbuf.st_blocks;
     }
     else
     {
@@ -34,6 +36,22 @@ size_t Analyse(const char* dir_name)
       exit(-1);
     }
   }
+
+  long int dir_size = 0;
+  errno = 0;
+  struct dirent* cur_object = NULL;
+  while ((cur_object = readdir(dir)) != NULL)
+  {
+    if (std::string("..") == cur_object->d_name || std::string(".") == cur_object->d_name)
+      continue;
+
+    //printf("GET: %s\n", (std::string(dir_name) + "/" + cur_object->d_name).c_str());
+    dir_size += Analyse((std::string(dir_name) + "/" + cur_object->d_name).c_str());
+  }
+  
+  printf("%-10ld %s\n", dir_size, dir_name);
+
+  return dir_size;
 }
 
 int main(int argc, char** argv)
@@ -54,7 +72,7 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  //Analyse(argv[1]);
+  Analyse(argv[1]);
 
   return 0;
 }
