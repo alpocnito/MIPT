@@ -34,7 +34,7 @@ CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally
 
 
 all:
-	@${CXX} ${PROG}.cpp -o ${PROG} ${CXXFLAGS} ${LIBS}
+	@${CXX} ${PROG}.cpp -o ${PROG} ${CXXFLAGS} ${LDLIBS}
 
 clean:
 	@$(RM) $(PROG)
