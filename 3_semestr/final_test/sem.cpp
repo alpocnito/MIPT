@@ -7,15 +7,12 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#define WANT_GO_COAST 0
-#define LADDER_DOWN 4
-#define NUMBER_ON_BOAT 1
-#define NUMBER_ON_COST 2
-#define NUMBER_ON_LADDER 3
-#define VOYAGE_ENDED 5
-#define VOYAGE_STARTED 6
-#define WAS_LAST_TRIP 7
-const int NUMBER_SEM = 8;
+#define BOOK_PLACE 0
+#define CARS_CAN_GO 1
+#define BOATS_CAN_GO 2
+#define SHARED_VAR 3
+
+const int NUMBER_SEM = 4;
 
 #define TRY(cmd) \
     if ((cmd) < 0) { \
@@ -28,13 +25,13 @@ const int NUMBER_SEM = 8;
     TRY( semop(semid, &op, 1) ); \
     } while(0); \
 
-void passanger(int semid, int pass_name)
+void car(int semid, int pass_name)
 {
   sembuf op{};
-  while (1)
-  {
-    Change(LADDER_DOWN, 0);
-    if (semctl(semid, WAS_LAST_TRIP, GETVAL))
+  
+  Change(LADDER_DOWN, 0);
+  
+  if (semctl(semid, WAS_LAST_TRIP, GETVAL))
       break;
 
     Change(NUMBER_ON_BOAT, -1);
@@ -57,7 +54,6 @@ void passanger(int semid, int pass_name)
     PRINT_GREEN_E(N("Passangers %d on coast\n"), pass_name);
     Change(NUMBER_ON_BOAT, 1);
     Change(WANT_GO_COAST, -1);
-  }
   PRINT_GREEN_E(BOLD("Passangers %d thanks for trip\n"), pass_name);
 }
 

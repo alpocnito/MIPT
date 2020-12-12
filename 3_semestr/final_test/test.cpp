@@ -11,8 +11,8 @@
 #define TRY(cmd) \
     do { if ((cmd) < 0) { \
       PRINT_RED_E(BOLD("Error on: %d"), __LINE__);\
-      PRINT_WHITE(N("\n"));\
-      perror(#cmd); \
+      PRINT_WHITE(N(": "));\
+      perror(dir_name); \
       exit(EXIT_FAILURE); \
     } }while(0);
 
@@ -25,10 +25,21 @@ long int Analyse(const char* dir_name)
     if (errno == ENOTDIR)
     {
       struct stat statbuf;
-      TRY(stat(dir_name, &statbuf));
-      
+      if(stat(dir_name, &statbuf) < 0)
+      {
+        printf("Error with: %s\n", dir_name);
+        perror("");
+        exit(-1);
+      }
+
+    
       //printf("NAME: %s = %ld\n", dir_name, statbuf.st_blocks); 
       return statbuf.st_blocks;
+    }
+    if (errno == EACCES)
+    {
+      printf("Permission deined: %s\n", dir_name);
+      return 0;
     }
     else
     {
@@ -45,11 +56,19 @@ long int Analyse(const char* dir_name)
     if (std::string("..") == cur_object->d_name || std::string(".") == cur_object->d_name)
       continue;
 
-    //printf("GET: %s\n", (std::string(dir_name) + "/" + cur_object->d_name).c_str());
+    if (cur_object->d_type == DT_LNK)
+      continue;
+
     dir_size += Analyse((std::string(dir_name) + "/" + cur_object->d_name).c_str());
   }
   
   printf("%-7ld %s\n", dir_size, dir_name);
+  if (closedir(dir) < 0)
+  {
+    printf("Can not close: %s\n", dir_name);
+    perror("");
+    exit(-1);
+  }
 
   return dir_size;
 }
@@ -58,17 +77,22 @@ int main(int argc, char** argv)
 {
   if (argc != 2)
   {
-    perror("Bad parameters\n");
+    printf("Wrong amount of parameters\n");
     exit(-1);
   }
   
   struct stat statbuf;
   char* dir_name = argv[1];
-  TRY(stat(dir_name, &statbuf));
+  if (stat(dir_name, &statbuf) < 0)
+  {
+    printf("Error with: %s\n", dir_name);
+    perror("");
+    exit(-1);
+  }
 
   if ((statbuf.st_mode & S_IFMT) != S_IFDIR)
   {
-    perror("This is not a dir_name\n");
+    printf("This is not a dir_name: %s\n", argv[1]);
     exit(-1);
   }
 
