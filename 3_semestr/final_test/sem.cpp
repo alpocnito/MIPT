@@ -57,7 +57,7 @@ void boat(int semid, int pass_name, Shm* shm)
   PRINT_CYAN_E(N("Boat %d under the bridge: "), pass_name);
     
   DOWN(SHARED_VAR);
-  PRINT_CYAN_E(N("%d near bridge\n"), cur_wait_boats);
+  PRINT_CYAN_E(N("%d near bridge\n"), shm->cur_wait_boats);
   UP(SHARED_VAR);
     
   DOWN(SHARED_VAR);
@@ -98,7 +98,7 @@ void car(int semid, int pass_name, Shm* shm)
   PRINT_GREEN_E(N("Car %d on the bridge: "), pass_name);
   
   DOWN(SHARED_VAR);
-  PRINT_GREEN_E(N("%d near bridge\n"), cur_wait_cars);
+  PRINT_GREEN_E(N("%d near bridge\n"), shm->cur_wait_cars);
   UP(SHARED_VAR);
     
   DOWN(SHARED_VAR);
