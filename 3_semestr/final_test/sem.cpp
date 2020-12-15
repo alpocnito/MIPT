@@ -38,6 +38,7 @@ const size_t MAX_WAIT_BOATS = 4;
 struct Shm {
   size_t cur_wait_boats = 0;
   size_t cur_wait_cars = 0;
+  char bridge_status = 0;   // 0 - bridge is down
 };
 
 
@@ -58,7 +59,7 @@ void boat(int semid, int pass_name, Shm* shm)
   PRINT_CYAN_E(N("Boat %d under the bridge: "), pass_name);
     
   DOWN(SHARED_VAR);
-  PRINT_CYAN_E(N("%d near bridge\n"), shm->cur_wait_boats);
+  PRINT_CYAN_E(N("%l near bridge\n"), shm->cur_wait_boats);
   UP(SHARED_VAR);
     
   DOWN(SHARED_VAR);
@@ -69,12 +70,22 @@ void boat(int semid, int pass_name, Shm* shm)
   if (shm->cur_wait_boats != 0)
   {
     UP(BOAT_CAN_GO);
-    PRINT_CYAN(N("Bridge is upped\n"));
+    if (shm->bridge_status == 0)
+    {
+       PRINT_CYAN(N("Bridge is gonna to be upped -> "));
+       PRINT_CYAN(N("Bridge is upped\n"));
+       shm->bridge_status = 1;
+    }
   }
   else
   {
     UP(CAR_CAN_GO);
-    PRINT_CYAN(N("Bridge id downed\n"));
+    if (shm->bridge_status == 1)
+    {
+       PRINT_CYAN(N("Bridge is gonna to be downed -> "));
+       PRINT_CYAN(N("Bridge is downed\n"));
+       shm->bridge_status = 0;
+    }
   }
   UP(SHARED_VAR);
 
@@ -99,7 +110,7 @@ void car(int semid, int pass_name, Shm* shm)
   PRINT_GREEN_E(N("Car %d on the bridge: "), pass_name);
   
   DOWN(SHARED_VAR);
-  PRINT_GREEN_E(N("%d near bridge\n"), shm->cur_wait_cars);
+  PRINT_GREEN_E(N("%l near bridge\n"), shm->cur_wait_cars);
   UP(SHARED_VAR);
     
   DOWN(SHARED_VAR);
@@ -111,12 +122,22 @@ void car(int semid, int pass_name, Shm* shm)
   if (shm->cur_wait_boats >= MAX_WAIT_BOATS || (shm->cur_wait_cars == 0 && shm->cur_wait_boats != 0))
   {
     UP(BOAT_CAN_GO);
-    PRINT_GREEN(N("Bridge is upped\n"));
+    if (shm->bridge_status == 0)
+    {
+       PRINT_GREEN(N("Bridge is gonna to be upped -> "));
+       PRINT_GREEN(N("Bridge is upped\n"));
+       shm->bridge_status = 1;
+    }
   }
   else
   {
     UP(CAR_CAN_GO);
-    PRINT_GREEN(N("Bridge is downed\n"));
+    if (shm->bridge_status == 1)
+    {
+       PRINT_GREEN(N("Bridge is gonna to be downed -> "));
+       PRINT_GREEN(N("Bridge is downed\n"));
+       shm->bridge_status = 0;
+    }
   }
   UP(SHARED_VAR);
 
