@@ -54,23 +54,30 @@ void boat(int semid, int pass_name, Shm* shm)
 
   // CRITICAL
   DOWN(BOOK_PLACE)
-  PRINT_CYAN_E(N("Boat %d on the bridge\n"), pass_name);
-  
+  PRINT_CYAN_E(N("Boat %d under the bridge: "), pass_name);
+    
+  DOWN(SHARED_VAR);
+  PRINT_CYAN_E(N("%d near bridge\n"), cur_wait_boats);
+  UP(SHARED_VAR);
+    
   DOWN(SHARED_VAR);
   shm->cur_wait_boats--;
   //printf("boats: %d, cars: %d\n", shm->cur_wait_boats, shm->cur_wait_cars);
-
-  if (shm->cur_wait_boats >= MAX_WAIT_BOATS || (shm->cur_wait_cars == 0 && shm->cur_wait_boats != 0))
+  PRINT_CYAN_E(N("Boat %d passed the bridge\n"), pass_name);
+    
+  if (shm->cur_wait_boats != 0)
   {
     UP(BOAT_CAN_GO);
+    PRINT_CYAN(N("Bridge is upped\n"));
   }
   else
   {
     UP(CAR_CAN_GO);
+    PRINT_CYAN(N("Bridge id downed\n"));
   }
   UP(SHARED_VAR);
 
-  PRINT_CYAN_E(N("Boat %d passed the bridge\n"), pass_name);
+  
   UP(BOOK_PLACE);
   //CRITICAL
 }
@@ -88,24 +95,31 @@ void car(int semid, int pass_name, Shm* shm)
   
   // CRITICAL
   DOWN(BOOK_PLACE)
-  PRINT_GREEN_E(N("Car %d on the bridge\n"), pass_name);
+  PRINT_GREEN_E(N("Car %d on the bridge: "), pass_name);
   
+  DOWN(SHARED_VAR);
+  PRINT_GREEN_E(N("%d near bridge\n"), cur_wait_cars);
+  UP(SHARED_VAR);
+    
   DOWN(SHARED_VAR);
   shm->cur_wait_cars--;
 
   //printf("boats: %d, cars: %d\n", shm->cur_wait_boats, shm->cur_wait_cars);
-
+  PRINT_GREEN_E(N("Car %d passed the bridge\n"), pass_name);
+   
   if (shm->cur_wait_boats >= MAX_WAIT_BOATS || (shm->cur_wait_cars == 0 && shm->cur_wait_boats != 0))
   {
     UP(BOAT_CAN_GO);
+    PRINT_GREEN(N("Bridge is upped\n"));
   }
   else
   {
     UP(CAR_CAN_GO);
+    PRINT_GREEN(N("Bridge is downed\n"));
   }
   UP(SHARED_VAR);
 
-  PRINT_GREEN_E(N("Car %d passed the bridge\n"), pass_name);
+  
   UP(BOOK_PLACE);
   // CRITICAL
 }
@@ -185,5 +199,7 @@ int main(int argc, char** argv)
   op = {START, (short int)(number_boats + number_cars), 0};
   TRY( semop(semid, &op, 1) );
   
+  wait(NULL);
+    
   return 0;
 }
