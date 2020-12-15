@@ -10,6 +10,7 @@
 #define PRINT_RED(word)     printf("\033[0;31" word "\033[0m")
 #define PRINT_GREEN(word)   printf("\033[0;32" word "\033[0m")
 #define PRINT_ORANGE(word)  printf("\033[0;33" word "\033[0m")
+#define PRINT_YELLOW(word)  printf("\033[0;33" word "\033[0m")
 #define PRINT_BLUE(word)    printf("\033[0;34" word "\033[0m")
 #define PRINT_MAGENTA(word) printf("\033[0;35" word "\033[0m")
 #define PRINT_CYAN(word)    printf("\033[0;36" word "\033[0m")
