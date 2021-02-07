@@ -68,20 +68,39 @@ void boat(int semid, int pass_name, Shm* shm, unsigned sleep_mcs)
     
   DOWN(SHARED_VAR);
   shm->cur_wait_boats--;
+  shm->cur_passed_cars = 0;
   UP(SHARED_VAR);
   
   PRINT_CYAN_E(N("Boat %d passing the bridge\n"), pass_name);
   usleep(sleep_mcs);
+  PRINT_CYAN_E(N("Boat %d passed the bridge\n"), pass_name);
     
   DOWN(SHARED_VAR);
-  if (shm->cur_wait_boats != 0)
+  shm->cur_passed_boats++;
+  UP(SHARED_VAR);
+  
+  
+  DOWN(SHARED_VAR);
+
+  if (shm->cur_passed_boats >= 3 && shm->cur_wait_cars != 0)
+  {
+    UP(CAR_CAN_GO);
+    if (shm->bridge_status == 1)
+    {
+       PRINT_YELLOW(N("Bridge is gonna to be downed -> "));
+       usleep(sleep_mcs);
+       shm->bridge_status = 0;
+       PRINT_YELLOW(N("Bridge is downed\n"));
+    }
+  }
+  else if (shm->cur_wait_boats != 0)
   {
     UP(BOAT_CAN_GO);
     if (shm->bridge_status == 0)
     {
        PRINT_YELLOW(N("Bridge is gonna to be upped -> "));
-       shm->bridge_status = 1;
        usleep(sleep_mcs);
+       shm->bridge_status = 1;
        PRINT_YELLOW(N("Bridge is upped\n"));
     }
   }
@@ -125,33 +144,50 @@ void car(int semid, int pass_name, Shm* shm, unsigned sleep_mcs)
     
   DOWN(SHARED_VAR);
   shm->cur_wait_cars--;
+  shm->cur_passed_boats = 0;
   UP(SHARED_VAR);
 
   //printf("boats: %d, cars: %d\n", shm->cur_wait_boats, shm->cur_wait_cars);
   PRINT_GREEN_E(N("Car %d passing the bridge\n"), pass_name);
   usleep(sleep_mcs);
+  PRINT_GREEN_E(N("Car %d passed the bridge\n"), pass_name);
    
   DOWN(SHARED_VAR);
-  if (shm->cur_wait_boats >= MAX_WAIT_BOATS || (shm->cur_wait_cars == 0 && shm->cur_wait_boats != 0))
+  shm->cur_passed_cars++;
+  UP(SHARED_VAR);
+  
+  DOWN(SHARED_VAR);
+  if (shm->cur_passed_cars >= 3 && shm->cur_wait_boats != 0)
   {
     UP(BOAT_CAN_GO);
     if (shm->bridge_status == 0)
     {
        PRINT_YELLOW(N("Bridge is gonna to be upped -> "));
-       shm->bridge_status = 1;
        usleep(sleep_mcs);
+       shm->bridge_status = 1;
        PRINT_YELLOW(N("Bridge is upped\n"));
     }
   }
-  else
+  else if (shm->cur_wait_cars != 0)
   {
     UP(CAR_CAN_GO);
     if (shm->bridge_status == 1)
     {
        PRINT_YELLOW(N("Bridge is gonna to be downed -> "));
-       shm->bridge_status = 0;
        usleep(sleep_mcs);
+       shm->bridge_status = 0;
        PRINT_YELLOW(N("Bridge is downed\n"));
+    }
+  }
+  else
+  {
+    UP(BOAT_CAN_GO);
+    if (shm->bridge_status == 0)
+    {
+       PRINT_YELLOW(N("Bridge is gonna to be upped -> "));
+       usleep(sleep_mcs);
+       shm->bridge_status = 1;
+       PRINT_YELLOW(N("Bridge is upped\n"));
     }
   }
   UP(SHARED_VAR);
@@ -165,7 +201,7 @@ int main(int argc, char** argv)
 {
   
   char print_buf[BUFSIZ];
-  setvbuf(stdout, print_buf, _IOLBF, BUFSIZ);
+  setvbuf(stdout, print_buf, _IONBF, BUFSIZ);
   
   if (argc != 4)
   {

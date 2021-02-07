@@ -1,6 +1,6 @@
-LDLIBS=-I../../1_semestr/Headers/
+LDLIBS=-I../Headers
 CXX:=g++
-PROG=temp
+PROG=rbt
 
 # Compilator
 CXXFLAGS += -std=c++17
