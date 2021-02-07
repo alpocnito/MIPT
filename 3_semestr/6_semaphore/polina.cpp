@@ -29,7 +29,7 @@ const int MAX_MSG_SIZE = 1024;
     TRY( semop(semid, &op, 1) ); \
     } while(0); \
 
-void server(int semid, int in_pipe[2], int out_pipe[2][2])
+void server(int semid, int in_pipe[2], int pipe1[2], int pipe2[2])
 { 
   sembuf op{};
   Change(SERVER_CAN_READ, -1);
@@ -38,8 +38,8 @@ void server(int semid, int in_pipe[2], int out_pipe[2][2])
   long int read_num = read(in_pipe[0], msg, MAX_MSG_SIZE);
   TRY( read_num );
 
-  TRY( write(out_pipe[0][1], msg, (size_t)read_num) );
-  TRY( write(out_pipe[1][1], msg, (size_t)read_num) );
+  TRY( write(pipe1[1], msg, (size_t)read_num) );
+  TRY( write(pipe2[1], msg, (size_t)read_num) );
 
   Change(CHILD_CAN_READ, 2);
 }
@@ -81,7 +81,7 @@ int main()
   TRY( pid );
   if (pid == 0)
   {
-    server(semid, pipefd[0], &(pipefd[1]));
+    server(semid, pipefd[0], pipefd[1], pipefd[2]);
     return 0;
   }
   
