@@ -1,9 +1,11 @@
-LDLIBS=-I../Headers
-CXX:=g++
-PROG=rbt
+LDLIBS = -I../Headers
+CXX := g++
 
 # Compilator
 CXXFLAGS += -std=c++17
+
+# For gcov
+CXXFLAGS += --coverage
 
 # Compound flags
 CXXFLAGS += -Wall -Wextra -Weffc++ 
@@ -33,9 +35,16 @@ CXXFLAGS += -Wformat-signedness -Wformat-nonliteral -Wformat-security -Wformat=2
 CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally-supported -Wctor-dtor-privacy -Wempty-body -Wfloat-equal -Winline -Wlarger-than=8192 -Wlogical-op -Wnon-virtual-dtor -Wopenmp-simd -Woverloaded-virtual -Wpacked -Wpointer-arith -Wredundant-decls -Wshadow -Wsync-nand -Wundef -Wunreachable-code -Wunused  -Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing -Wno-varargs -fsized-deallocation -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -lm -pie
 
 
-all:
-	@${CXX} ${PROG}.cpp -o ${PROG} ${CXXFLAGS} ${LDLIBS}
+all: test
+
+test: rbt.h
+test: rbt.o unit_tests.o
+	@${CXX} $^ -o $@ ${CXXFLAGS} ${LDLIBS}
+
+%.o: %.cpp
+	@${CXX} -c $^ -o $@ ${CXXFLAGS} ${LDLIBS}
+
 
 clean:
-	@$(RM) $(PROG)
+	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test
 

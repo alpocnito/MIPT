@@ -1,7 +1,7 @@
 digraph D {
-"0x565473bfde70" [label="17", style=filled, fillcolor=red, fontcolor=white]; 
-"0x565473bfde70" -> "0x565473bfde70left"
-"0x565473bfde70left" [label="NULL", style=filled, fillcolor=black, fontcolor=white]; 
-"0x565473bfde70" -> "0x565473bfde70right"
-"0x565473bfde70right" [label="NULL", style=filled, fillcolor=black, fontcolor=white]; 
+"0x55ebf491c2d0" [label="0", style=filled, fillcolor=black, fontcolor=white]; 
+"0x55ebf491c2d0" -> "0x55ebf491c2d0left"
+"0x55ebf491c2d0left" [label="NULL", style=filled, fillcolor=black, fontcolor=white]; 
+"0x55ebf491c2d0" -> "0x55ebf491c2d0right"
+"0x55ebf491c2d0right" [label="NULL", style=filled, fillcolor=black, fontcolor=white]; 
 }
