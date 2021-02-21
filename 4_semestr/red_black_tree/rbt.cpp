@@ -2,15 +2,10 @@
 
 const char* DOT_FILENAME = "DoxyFiles/tree.dot";
 ///////////////////////////////////// PRINT FUNCTION ///////////////////////////////////////////
-error_t PrintNodes(node_t* node, FILE* file) 
+void PrintNodes(node_t* node, FILE* file) 
 {
-  error_t error = NO_ERROR;
-
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node");
-  if (file == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "file");
-
+  assert(node);
+  assert(file);
 
   if (node->color_ == Red)
     fprintf(file, "\"%p\" [label=\"" PRINTF_DATA "\", style=filled, fillcolor=red, fontcolor=white]; \n", node, node->data_);
@@ -43,8 +38,6 @@ error_t PrintNodes(node_t* node, FILE* file)
     fprintf(file, "\"%p%s\"\n", node, "right");
     fprintf(file, "\"%p%s\" [label=\"%s\", style=filled, fillcolor=black, fontcolor=white]; \n", node, "right", "NULL");
   }
-
- return error;
 }
 
 error_t PrintTree(node_t* root) 
@@ -60,14 +53,11 @@ error_t PrintTree(node_t* root)
 
 
   fprintf(output, "digraph D {\n");
-  error = PrintNodes(root, output);
-  if (error != NO_ERROR)
-    return error;
+  PrintNodes(root, output);
   fprintf(output, "}");
    
   if (fclose(output) == EOF)
     ERROR(ERROR_CLOSE, "Can not be closed: %s\n", "output");
-
  
   const char dot_command[] = "dot -Tps %s -o DoxyFiles/graph.ps";
   char dot_program[PATH_MAX + sizeof(dot_command)];
@@ -100,56 +90,39 @@ error_t ConstructTree(tree_t** tree)
   return error;
 }
 
-error_t FillNode(node_t* new_node, node_t* parent, color_t color, data_t data, node_t* left, node_t* right)
+void FillNode(node_t* new_node, node_t* parent, color_t color, data_t data, node_t* left, node_t* right)
 {
-  error_t error = NO_ERROR;
-  
-  if (new_node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: new_node\n");
+  assert(new_node); 
+  assert(color == Red || color == Black);
 
   new_node->parent_ = parent;
   new_node->color_  = color;
-  if (color != Red && color != Black)
-    ERROR(ERROR_COLOR, "Not a color: %d\n", color);
-
   new_node->data_   = data;
   new_node->left_   = left;
   new_node->right_  = right;
-
-  return error;
 }
 
 error_t NewNode(node_t** new_node, node_t* parent, color_t color, data_t data, node_t* left, node_t* right)
 {
   error_t error = NO_ERROR;
   
-  if (new_node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node->left_");
-
+  assert(new_node);
 
   *new_node = (node_t*) calloc(1, sizeof(node_t));
   if (new_node == NULL)
     ERROR(ERROR_CALLOC, "Can not be null: %s\n", "node->left_");
 
+  FillNode(*new_node, parent, color, data, left, right);
 
-  error = FillNode(*new_node, parent, color, data, left, right);
-
-  if (error != NO_ERROR)
-    return ERROR_DETECTED;
-  
   return error;
 }
 
-error_t FreeNode(node_t* node)
+void FreeNode(node_t* node)
 {
-  error_t error = NO_ERROR;
-
-  if (node == NULL)
-    return error;
+  assert(node);
 
   if (node->parent_ != NULL)
-    if (node->parent_->left_ == node || node->parent_->right_ == node)
-      ERROR(ERROR_LOGIC, "Can not be child of parent: node\n");
+    assert( !(node->parent_->left_ == node || node->parent_->right_ == node) );
 
   node->data_ = 0;
   node->color_ = 0;
@@ -158,8 +131,6 @@ error_t FreeNode(node_t* node)
   node->parent_ = NULL;
 
   free(node);
-
-  return error;
 }
 
 node_t* Grandparent(node_t* node)
@@ -194,15 +165,10 @@ node_t* Sibling(node_t* node)
     return node->parent_->left_;
 }
 
-error_t RotateLeft(node_t* node)
+void RotateLeft(node_t* node)
 {
-  error_t error = NO_ERROR;
-  
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node->left_");
-
-  if (node->right_ == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node->right_");
+  assert(node);
+  assert(node->right_);
 
   node_t* pivot = node->right_;
   pivot->parent_ = node->parent_;
@@ -220,18 +186,12 @@ error_t RotateLeft(node_t* node)
 
   node->parent_ = pivot;
   pivot->left_ = node;
-
-  return error;
 }
 
-error_t RotateRight(node_t* node)
+void RotateRight(node_t* node)
 {
-  error_t error = NO_ERROR;
-  
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node");
-  if (node->left_ == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node->left_");
+  assert(node);
+  assert(node->left_);
 
   node_t* pivot = node->left_;
   pivot->parent_ = node->parent_;
@@ -249,20 +209,13 @@ error_t RotateRight(node_t* node)
 
   node->parent_ = pivot;
   pivot->right_ = node;
-
-  return error;
 }
 
-error_t FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** new_node_parent)
+bool FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** new_node_parent)
 {
-  error_t error = NO_ERROR;
-  
-  if (tree == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "tree");
-  if (new_node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "new_node");
-  if (new_node_parent == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "new_node_parent");
+  assert(tree);
+  assert(new_node);
+  assert(new_node_parent);
 
   *new_node = tree->root_;
   *new_node_parent = tree->root_;
@@ -274,7 +227,7 @@ error_t FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** 
     if (data == (*new_node)->data_)
     {
       WARNING("The node with this data: " PRINTF_DATA " is already in the tree", data);
-      return ERROR_DETECTED;
+      return 0;
     }
     if (data > (*new_node)->data_)
       *new_node = (*new_node)->right_;
@@ -282,32 +235,26 @@ error_t FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** 
       *new_node = (*new_node)->left_;
   }
 
-  return error;
+  return 1;
 }
 
 ///////////// CASE 4: parent is red, uncle is black /////////
-error_t InsertCase4(tree_t* tree, node_t* node)
+void InsertCase4(tree_t* tree, node_t* node)
 {
-  error_t error = NO_ERROR;
-  
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "tree");
-  if (tree == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: tree\n"); 
+  assert(node);
+  assert(tree);
  
   node_t* g = Grandparent(node);
 
   // Rotates to put tree in special order
   if ( (node == node->parent_->right_) && (node->parent_ == g->left_) )
   {
-    if (RotateLeft(node->parent_) != NO_ERROR)
-      return ERROR_DETECTED;
+    RotateLeft(node->parent_);
     node = node->left_;
   }
   else if ( (node == node->parent_->left_) && (node->parent_ == g->right_) )
   {
-    if (RotateRight(node->parent_) != NO_ERROR)
-      return ERROR_DETECTED;
+    RotateRight(node->parent_);
     node = node->right_;
   }
  
@@ -317,27 +264,21 @@ error_t InsertCase4(tree_t* tree, node_t* node)
   {
     if (tree->root_ == g)
       tree->root_ = g->left_;
-    if (RotateRight(g) != NO_ERROR)
-      return ERROR_DETECTED;
+    RotateRight(g);
   }
   else
   {
     if (tree->root_ == g)
       tree->root_ = g->right_;
-    if (RotateLeft(g) != NO_ERROR)
-      return ERROR_DETECTED;
+    RotateLeft(g);
   }
-
-  return error;
 }
 
 //////////// CASE 3: parent and uncle are red ////////////////
-error_t InsertCase3(tree_t* tree, node_t* node)
+void InsertCase3(tree_t* tree, node_t* node)
 {
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node");
-  if (tree == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: tree\n"); 
+  assert(node);
+  assert(tree);
 
   node_t* u = Uncle(node), *g;
   if ( (u != NULL) && (u->color_ == Red) )
@@ -346,59 +287,50 @@ error_t InsertCase3(tree_t* tree, node_t* node)
     u->color_ = Black;
     g = Grandparent(node);
     g->color_ = Red;
-    return InsertCase1(tree, g);
+    InsertCase1(tree, g);
   }
   else
-    return InsertCase4(tree, node);
+    InsertCase4(tree, node);
 }
 
 ///////////// CASE 2: parent is black ////////////////////////
-error_t InsertCase2(tree_t* tree, node_t* node)
+void InsertCase2(tree_t* tree, node_t* node)
 {
-  error_t error = NO_ERROR;
-  
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node");
-  if (tree == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: tree\n"); 
+  assert(node);
+  assert(tree);
 
-  if (node->parent_->color_ == Black)
-    return error;
-  else
-    return InsertCase3(tree, node);
+  if (node->parent_->color_ != Black)
+    InsertCase3(tree, node);
 }
 
 
 ///////////// CASE 1: new_node == root of tree //////////////////
-error_t InsertCase1(tree_t* tree, node_t* node)
+void InsertCase1(tree_t* tree, node_t* node)
 {
-  error_t error = NO_ERROR;
-  
-  if (node == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "node"); 
-  if (tree == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: tree\n"); 
+  assert(node);
+  assert(tree);
 
   if (node->parent_ == NULL)
   {
     node->color_ = Black;
-    return error;
   }
   else
-    return InsertCase2(tree, node);
+    InsertCase2(tree, node);
 }
 
 
 error_t Insert(tree_t* tree, data_t data)
 {
+  error_t error = NO_ERROR;
+   
   if (tree == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null: %s\n", "tree");
-  // if tree is empty
+    ERROR(ERROR_PTR_IS_NULL, "Tree can not be null");
 
+  // if tree is empty
   node_t* new_node = NULL;
   node_t* new_node_parent = NULL;
-  if (FindPlaceForNode(tree, data, &new_node, &new_node_parent) == ERROR_DETECTED)
-    return ERROR_DETECTED;
+  if (!FindPlaceForNode(tree, data, &new_node, &new_node_parent))
+    return error;
 
   if (NewNode(&new_node, new_node_parent, Red, data, NULL, NULL) != NO_ERROR)
     return ERROR_DETECTED;
@@ -417,39 +349,69 @@ error_t Insert(tree_t* tree, data_t data)
     tree->root_ = new_node;
   }
 
-  return InsertCase1(tree, new_node);
+  InsertCase1(tree, new_node);
+  return error;
 }
 
-error_t ReplaceNode(node_t* node, node_t* child)
+void ReplaceNode(node_t* node, node_t* child)
 {
-  error_t error = NO_ERROR;
-
-  if (node == NULL || node->parent_ == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null or root: node");
-  if (child == NULL || node->parent_ == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Can not be null or root: child");
+  assert(node);
+  assert(node->parent_);
  
-  child->parent_ = node->parent_;
+  if (child != NULL)
+    child->parent_ = node->parent_;
   if (node == node->parent_->left_)
     node->parent_->left_ = child;
   else
     node->parent_->right_ = child;
-  
-  return error;
 }
 
-error_t DeleteChild(node_t* node)
+error_t Delete(node_t* node)
 {
   error_t error = NO_ERROR;
 
   if (node == NULL)
     ERROR(ERROR_PTR_IS_NULL, "Can not be null: node");
   
+  if (node->left_ != NULL && node->right_ != NULL)
+  {
+    node_t* tnode = node->left_;
+    while (tnode->right_ != NULL)
+      tnode = tnode->right_;
+
+    assert(!(tnode->data_ > node->right_->data_ || tnode->data_ < node->left_->data_));
+    /*if (tnode->data_ > node->right_->data_ || tnode->data_ < node->left_->data_)
+    {
+      tnode = node->right_;
+     
+      while (tnode->left_ != NULL)
+        tnode = tnode->left_;
+
+      if (tnode->data_ > node->right_->data_ || tnode->data_ < node->left_->data_)
+      {
+        printf("?????????????????????????????\n");
+        abort();
+      }
+    }*/
+
+    node->data_ = tnode->data_;
+    node = tnode;
+  }
+  
   node_t* child = NULL;
   if (node->right_ == NULL)
     child = node->left_;
   else
     child = node->right_;
+  
+  if (child == NULL)
+  {
+    if (node->color_ == Black)
+      DeleteCase1(node);
+    ReplaceNode(node, child);
+    FreeNode(node);
+    return error;
+  }
 
   ReplaceNode(node, child);
   if (node->color_ == Black)
@@ -457,7 +419,7 @@ error_t DeleteChild(node_t* node)
     if (child->color_ == Red)
       child->color_ = Black;
     else
-      DeleteCase1(node);
+      DeleteCase1(child);
   }
 
   FreeNode(node); 
@@ -468,6 +430,8 @@ error_t DeleteChild(node_t* node)
 ///////////// CASE 1: node == root of tree //////////////////////
 void DeleteCase1(node_t* node)
 {
+  assert(node);
+  
   if (node->parent_ != NULL)
     DeleteCase2(node);
 }
@@ -475,7 +439,10 @@ void DeleteCase1(node_t* node)
 ///////////// CASE 2: sibling is red //////////////////////
 void DeleteCase2(node_t* node)
 {
+  assert(node);
+  
   node_t* sib = Sibling(node);
+  assert(sib);
 
   if (sib->color_ == Red)
   {
@@ -494,13 +461,23 @@ void DeleteCase2(node_t* node)
 ///////////// CASE 3: parent, sibling and grandfather red //////////////////////
 void DeleteCase3(node_t* node)
 {
-  node_t* sib = Sibling(node);
+  assert(node);
 
-  if ( (node->parent_->color_ == Black) && (sib->color_ == Black) && 
-          (sib->left_->color_ == Black) && (sib->right_->color_ == Black) )
+  node_t* sib = Sibling(node);
+  assert(sib);
+
+  if ( (node->parent_->color_ == Black) && (sib->color_ == Black) )
   {
-    sib->color_ = Red;
-    DeleteCase1(node->parent_);
+    if ( (sib->left_ == NULL || sib->left_->color_ == Black) &&
+         (sib->right_ == NULL || sib->right_->color_ == Black) )
+    {
+      sib->color_ = Red;
+      DeleteCase1(node->parent_); 
+    }
+    else
+    {
+      DeleteCase4(node);
+    }
   }
   else 
     DeleteCase4(node);
@@ -509,13 +486,23 @@ void DeleteCase3(node_t* node)
 ///////////// CASE 4: sibling and his childs are black, but parent is red //////////
 void DeleteCase4(node_t* node)
 {
-  node_t* sib = Sibling(node);
+  assert(node);
 
-  if ( (node->parent_->color_ == Red) && (sib->color_ == Black) && 
-          (sib->left_->color_ == Black) && (sib->right_->color_ == Black) )
+  node_t* sib = Sibling(node);
+  assert(sib);
+  
+  if ( (node->parent_->color_ == Red) && (sib->color_ == Black) )
   {
-    sib->color_ = Red;
-    node->parent_->color_ = Black;
+     if ( (sib->left_ == NULL || sib->left_->color_ == Black) &&
+         (sib->right_ == NULL || sib->right_->color_ == Black) )
+    {
+      sib->color_ = Red;
+      node->parent_->color_ = Black;
+    }
+    else
+    {
+      DeleteCase5(node);
+    }
   }
   else 
     DeleteCase5(node);
@@ -525,17 +512,22 @@ void DeleteCase4(node_t* node)
 ///////////// CASE 5: sibling black, his left child is red, other is black, and node is left child of parent //////////
 void DeleteCase5(node_t* node)
 {
+  assert(node);
+
   node_t* sib = Sibling(node);
+  assert(sib);
 
   if  (sib->color_ == Black) 
   {
-		if ((node == node->parent_->left_) && (sib->right_->color_ == Black) && (sib->left_->color_ == Red)) 
+		if ((node == node->parent_->left_) && (sib->right_ == NULL || sib->right_->color_ == Black) 
+                                       && (sib->left_->color_ == Red)) 
     { 
 			sib->color_ = Red;
-			sib->left_->color_ = Black;
+		  sib->left_->color_ = Black;
 			RotateRight(sib);
-		} 
-    else if ((node == node->parent_->right_) && (sib->left_->color_ == Black) && (sib->right_->color_ == Red)) 
+		}
+    else if ((node == node->parent_->right_) && (sib->left_ == NULL || sib->left_->color_ == Black) 
+                                             && (sib->right_->color_ == Red)) 
     {
 			sib->color_ = Red;
 			sib->right_->color_ = Black;
@@ -549,23 +541,52 @@ void DeleteCase5(node_t* node)
 /// LAST CASE ////
 void DeleteCase6(node_t* node)
 {
+  assert(node);
+
 	node_t* sib = Sibling(node);
+  assert(sib);
 
 	sib->color_ = node->parent_->color_;
   node->parent_->color_ = Black;
 
 	if (node == node->parent_->left_) 
   {
+    assert(sib->right_);
+    
     sib->right_->color_ = Black;
 		RotateLeft(node->parent_);
 	} 
   else 
   {
-		sib->left_->color_ = Black;
+    assert(sib->left_);
+		
+    sib->left_->color_ = Black;
 		RotateRight(node->parent_);
 	}
 }
 
+node_t* Find(tree_t* tree, data_t data)
+{
+  if (tree == NULL)
+    return NULL;
+  
+  node_t* cur_node = tree->root_;
+  while (cur_node != NULL)
+  {
+    if (data == cur_node->data_)
+      return cur_node;
+
+    if (data < cur_node->data_)
+      cur_node = cur_node->left_;
+    else 
+      cur_node = cur_node->right_;
+  }
+  
+  return NULL;
+}
+
+
+  
 
 
 

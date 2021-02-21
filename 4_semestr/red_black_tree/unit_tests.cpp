@@ -1,12 +1,12 @@
 #include "rbt.h"
 
 void CrashTests();
-void InsertTests();
+void Tests();
 
 int main()
 {
   CrashTests();
-  InsertTests();
+  Tests();
   return 0;
 }
 
@@ -16,45 +16,24 @@ void CrashTests()
   ConstructTree(&tree);
   Insert(tree, 19);
 
-  RotateLeft(NULL);
-  RotateRight(NULL);
-
-  RotateLeft(tree->root_);
-  RotateRight(tree->root_);
-
-  PrintNodes(tree->root_, NULL);
-  PrintNodes(NULL, NULL);
-  
-  // remove file
-  //PrintTree(tree->root_);
+  Find(tree, 18);
+  Find(NULL, 19);
 
   ConstructTree(NULL);
-  FillNode(NULL,          NULL, 3, 1, NULL, NULL);
-  FillNode(tree->root_,   NULL, 3, 1, NULL, NULL);
-  NewNode(NULL,           NULL, 3, 1, NULL, NULL);
-  NewNode(&(tree->root_), NULL, 3, 1, NULL, NULL);
   
   Grandparent(NULL);
   Uncle(NULL);
   Sibling(NULL);
 
-  FindPlaceForNode(NULL, 1, NULL, NULL);
-  FindPlaceForNode(tree, 1, NULL, NULL);
-  FindPlaceForNode(tree, 1, &(tree->root_), NULL);
-
   Insert(NULL, 1);
+  Delete(NULL);
   
-  ReplaceNode(NULL, NULL);
-  ReplaceNode(NULL, tree->root_);
-  
-  DeleteChild(NULL);
-  
-  printf("Crash tests completed!\n");
+  PrintTree(NULL);
 
-  return; 
+  printf("Crash tests completed!\n");
 }
 
-void InsertTests()
+void Tests()
 { 
   tree_t* tree = NULL;
   ConstructTree(&tree);
@@ -83,19 +62,67 @@ void InsertTests()
   Insert(tree, 28);
   Insert(tree, 29);
   
+  Delete(Find(tree, 16));
+  Delete(Find(tree, 23));
+  Delete(Find(tree, 22));
+  Delete(Find(tree, 14));
+  Delete(Find(tree, 17));
+  Delete(Find(tree, 18));
+  Delete(Find(tree, 21));
+  Delete(Find(tree, 13));
+
+  Insert(tree, 16);
+  Insert(tree, 23);
+  Insert(tree, 22);
+  Insert(tree, 14);
+  Insert(tree, 17);
+  Insert(tree, 18);
+  Insert(tree, 21);
+  Insert(tree, 7);
+  Insert(tree, 6);
+  Insert(tree, 5);
+  Insert(tree, 4);
+  Insert(tree, 3);
+  Insert(tree, 2);
+  Insert(tree, 2);
+  
+  Delete(Find(tree, 25));
+  Delete(Find(tree, 17));
+  Delete(Find(tree, 15));
+  Delete(Find(tree, 18));
+  Delete(Find(tree, 16));
+  Delete(Find(tree, 9));
+  Delete(Find(tree, 29));
+  Delete(Find(tree, 19));
+  Delete(Find(tree, 20));
+  Delete(Find(tree, 2));
+  Delete(Find(tree, 5));
+
+  Insert(tree, 9);
+  Insert(tree, 2);
+  Insert(tree, 5);
+  Insert(tree, 25);
+  Insert(tree, 17);
+  Insert(tree, 15);
+  Insert(tree, 18);
+  Insert(tree, 16);
+  Insert(tree, 29);
+  Insert(tree, 19);
+  Insert(tree, 20);
+  
+  Delete(Find(tree, 6));
+  PrintTree(tree->root_);
+  
   tree_t* tree1 = NULL;
   ConstructTree(&tree1);
   
-  Insert(tree1, 19);
-  Insert(tree1, 18);
-  Insert(tree1, 20);
-  Insert(tree1, 17);
-  Insert(tree1, 21);
   Insert(tree1, 16);
-  Insert(tree1, 22);
-  Insert(tree1, 20);
- 
-  return;
+  Insert(tree1, 18);
+  Insert(tree1, 19);
+  Insert(tree1, 14);
+  Insert(tree1, 17);
+  Insert(tree1, 15);
+  printf("Tests completed!\n");
 }
 
 

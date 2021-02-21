@@ -4,9 +4,6 @@ CXX := g++
 # Compilator
 CXXFLAGS += -std=c++17
 
-# For gcov
-CXXFLAGS += --coverage
-
 # Compound flags
 CXXFLAGS += -Wall -Wextra -Weffc++ 
 
@@ -38,13 +35,16 @@ CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally
 all: test
 
 test: rbt.h
-test: rbt.o unit_tests.o
-	@${CXX} $^ -o $@ ${CXXFLAGS} ${LDLIBS}
+test: unit_tests.o rbt.o
+	@${CXX} $^ -o $@ -fprofile-arcs ${CXXFLAGS} ${LDLIBS}
 
 %.o: %.cpp
-	@${CXX} -c $^ -o $@ ${CXXFLAGS} ${LDLIBS}
+	@${CXX} -c $^ -o $@ --coverage ${CXXFLAGS} ${LDLIBS}
 
+lcov: test
+	@lcov/bin/lcov -t "result" -o ex_test.info -c -d .; lcov/bin/genhtml -o res ex_test.info
+	@make clean
 
 clean:
-	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test
+	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info
 
