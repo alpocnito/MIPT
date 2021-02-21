@@ -84,13 +84,15 @@ error_t DestructTree(tree_t* tree);
 //! [in] node - tree root to bypass
 //! [in] job - function, which is worked under
 //!            for each node. From the smallest to
-//!            the biggest node in tree
+//!            the biggest node in tree. Should 
+//!            return 0, if all is alright. Else
+//!            error is created
 //! [in] extra - extra data for job
 //!
 //! @return pointer to node with value = data,
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t Foreach(node_t* tree, int(*job)(node_t* node, data_t data, void* extra), void* extra);
+error_t Foreach(node_t* root, int(*job)(node_t* node, data_t data, void* extra), void* extra);
 
 
