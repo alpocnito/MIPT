@@ -81,7 +81,7 @@ error_t DestructTree(tree_t* tree);
 //! For each node in tree DO job. The order is:
 //!   left child, parent, right child (inorder)
 //!
-//! [in] tree - tree to bypass
+//! [in] node - tree root to bypass
 //! [in] job - function, which is worked under
 //!            for each node. From the smallest to
 //!            the biggest node in tree
@@ -91,6 +91,6 @@ error_t DestructTree(tree_t* tree);
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t Foreach(node_t* tree, int(*job)(tree_t* tree, data_t data, void* extra), void* extra);
+error_t Foreach(node_t* tree, int(*job)(node_t* node, data_t data, void* extra), void* extra);
 
 
