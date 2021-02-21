@@ -91,6 +91,6 @@ error_t DestructTree(tree_t* tree);
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t Foreach(tree_t* tree, int(*job)(tree_t* tree, data_t data, void* extra), void* extra);
+error_t Foreach(node_t* tree, int(*job)(tree_t* tree, data_t data, void* extra), void* extra);
 
 
