@@ -1,5 +1,25 @@
 #include "rbt.h"
 
+error_t Foreach(node_t* root, int(*job)(node_t* node, data_t data, void* extra), void* extra)
+{
+  error_t error = NO_ERROR;
+
+  if (root == NULL)
+    ERROR(ERROR_PTR_IS_NULL, "Tree root can not be NULL");
+  if (job == NULL)
+    ERROR(ERROR_PTR_IS_NULL, "Job can not be NULL");
+  
+  if (root->left_ != NULL)
+    Foreach(root->left_, job, extra);
+  
+  if (job(root, data, extra) != 0)
+    ERROR(ERROR_DETECTED, "Error in job");  
+  
+  if (root->right_ != NULL)
+    Foreach(root->right_, job, extra);
+	
+  return error;
+}
 const char* DOT_FILENAME = "DoxyFiles/tree.dot";
 ///////////////////////////////////// PRINT FUNCTION ///////////////////////////////////////////
 void PrintNodes(node_t* node, FILE* file) 
@@ -72,6 +92,51 @@ error_t PrintTree(node_t* root)
 
   return error;
 }
+
+int PrintTree_job(node_t* node, data_t data, void* extra)
+{
+  if (node == NULL)
+    return NULL;
+  if (extra == NULL)
+    return 1;
+  
+  FILE* file = (FILE*)extra; 
+
+  if (node->color_ == Red)
+    fprintf(file, "\"%p\" [label=\"" PRINTF_DATA "\", style=filled, fillcolor=red, fontcolor=white]; \n", node, node->data_);
+  else
+    fprintf(file, "\"%p\" [label=\"" PRINTF_DATA "\", style=filled, fillcolor=black, fontcolor=white]; \n", node, node->data_);
+  
+  
+  fprintf(file, "\"%p\" -> " ,node);
+  
+  if (node->left_ != NULL) 
+  {
+   fprintf(file, "\"%p\"\n", node->left_);
+   PrintNodes(node->left_, file);
+  }
+  else
+  {
+    fprintf(file, "\"%p%s\"\n", node, "left");
+    fprintf(file, "\"%p%s\" [label=\"%s\", style=filled, fillcolor=black, fontcolor=white]; \n", node, "left", "NULL");
+  }
+
+  fprintf(file, "\"%p\" -> " ,node);
+
+  if (node->right_ != NULL) 
+  {
+    fprintf(file, "\"%p\"\n", node->right_);
+    PrintNodes(node->right_, file); 
+  }
+  else
+  {
+    fprintf(file, "\"%p%s\"\n", node, "right");
+    fprintf(file, "\"%p%s\" [label=\"%s\", style=filled, fillcolor=black, fontcolor=white]; \n", node, "right", "NULL");
+  }
+  
+  return NULL;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 error_t ConstructTree(tree_t** tree)
@@ -88,6 +153,37 @@ error_t ConstructTree(tree_t** tree)
   (*tree)->root_ = NULL;
 
   return error;
+}
+
+int DestructTree_job(node_t* node, data_t data, void* extra)
+{
+  if (node == NULL)
+    return 0;
+
+  if (node->parent_ != NULL)
+    if (node->parent_->left_ == node)
+      node->parent_->left_ = NULL
+    else
+      node->parent_->left_ = NULL
+
+  node->data_ = 0;
+  node->color_ = 0;
+  node->left_ = NULL;
+  node->left_ = NULL;
+  node->parent_ = NULL;
+
+  free(node);
+	
+  return 0;
+}
+error_t DestructTree(tree_t* tree)
+{
+  error_t error = NO_ERROR;
+
+  if (tree == NULL)
+    return NO_ERROR;
+
+  return Foreach(tree->root_, DestructTree_job, NULL);
 }
 
 void FillNode(node_t* new_node, node_t* parent, color_t color, data_t data, node_t* left, node_t* right)
