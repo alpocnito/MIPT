@@ -90,3 +90,5 @@ void DeleteCase4(node_t* node);
 void DeleteCase5(node_t* node);
 void DeleteCase6(node_t* node);
 
+int DestructTree_job(node_t* node, data_t data, void* extra);
+int PrintTree_job(node_t* node, data_t data, void* extra);
