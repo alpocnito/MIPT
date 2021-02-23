@@ -16,15 +16,19 @@ const color_t Black = 1;
 typedef int data_t;
 #define PRINTF_DATA "%d"
 
+struct node_t;
+typedef struct node_t node_t;
 struct node_t
 {
-  node_t* parent_;
+  struct node_t* parent_;
   color_t color_;
   data_t  data_;
-  node_t* left_;
-  node_t* right_;
+  struct node_t* left_;
+  struct node_t* right_;
 };
 
+struct tree_t;
+typedef struct tree_t tree_t;
 struct tree_t
 {
   node_t* root_;
@@ -32,7 +36,7 @@ struct tree_t
 
 
 typedef int error_t;
-enum Procedures
+typedef enum
 {
   NO_ERROR = 0,
   ERROR_DETECTED,
@@ -42,7 +46,7 @@ enum Procedures
   ERROR_CLOSE,
   ERROR_SYSTEM,
   ERROR_LOGIC
-};
+} Procedures;
 
 #define ERROR(TYPE_ERROR, MSG, ...)                           \
   do {                                                        \
@@ -77,7 +81,7 @@ node_t* Sibling(node_t* node);
 void RotateLeft(node_t* node);
 void RotateRight(node_t* node);
 
-bool FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** new_node_parent);
+char FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** new_node_parent);
 void InsertCase1(tree_t* tree, node_t* node);
 void InsertCase2(tree_t* tree, node_t* node);
 void InsertCase3(tree_t* tree, node_t* node);

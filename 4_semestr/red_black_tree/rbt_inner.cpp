@@ -178,7 +178,7 @@ void RotateRight(node_t* node)
   pivot->right_ = node;
 }
 
-bool FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** new_node_parent)
+char FindPlaceForNode(tree_t* tree, data_t data, node_t** new_node, node_t** new_node_parent)
 {
   assert(tree);
   assert(new_node);

@@ -2,7 +2,7 @@ LDLIBS = -I../Headers
 CXX := g++
 
 # Compilator
-CXXFLAGS += -std=c++17
+#CXXFLAGS += -std=c++17
 
 # Cast and conversation warnings
 CXXFLAGS += -Wcast-align -Wcast-qual -Wuseless-cast -Wno-old-style-cast -Wconversion -Wsign-conversion -Wsign-promo

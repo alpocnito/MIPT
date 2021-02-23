@@ -11,13 +11,13 @@ static int my_fopen_work  = 1;
 static int my_system_work = 1;
 static int my_fclose_work = 1;
 
-enum SYSTEM_CALLS
+typedef enum 
 {
   MY_CALLOC = 1,
   MY_FOPEN,
   MY_SYSTEM,
   MY_FCLOSE
-};
+} SYSTEM_CALLS;
 
 void BreakSystemCall(int);
 void RestoreSystemCall(int);
