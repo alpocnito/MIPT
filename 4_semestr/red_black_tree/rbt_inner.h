@@ -1,6 +1,6 @@
 #ifndef RBT_INNER_H
 #define RBT_INNER_H 1
-
+  
 #include "my_system.h"
 #include "color.h"
 #include <stdio.h>
@@ -94,5 +94,6 @@ void DeleteCase6(node_t* node);
 
 int DestructTree_job(node_t* node, void* extra);
 int PrintTree_job(node_t* node, void* extra);
+int Bad_job(node_t* node, void* extra);
 
 #endif

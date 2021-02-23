@@ -6,18 +6,16 @@ error_t Foreach(node_t* root, int(*job)(node_t* node, void* extra), void* extra)
 
   if (root == NULL)
     ERROR(ERROR_PTR_IS_NULL, "Tree root can not be NULL");
-  if (job == NULL)
-    ERROR(ERROR_PTR_IS_NULL, "Job can not be NULL");
   
   if (root->left_ != NULL)
     Foreach(root->left_, job, extra);
   
-  if (job(root, extra) != 0)
-    ERROR(ERROR_DETECTED, "Error in job");  
-  
   if (root->right_ != NULL)
     Foreach(root->right_, job, extra);
 	
+  if (job(root, extra) != 0)
+    ERROR(ERROR_DETECTED, "Error in job");  
+  
   return error;
 }
 
@@ -53,7 +51,6 @@ error_t PrintTree(node_t* root)
   if (my_system("xdg-open DoxyFiles/graph.ps") == -1)
     ERROR(ERROR_SYSTEM, "Can not execute");
 
-
   return error;
 }
 
@@ -79,7 +76,10 @@ error_t DestructTree(tree_t* tree)
   if (tree == NULL)
     return NO_ERROR;
 
-  return Foreach(tree->root_, DestructTree_job, NULL);
+  error_t error = Foreach(tree->root_, DestructTree_job, NULL);
+  free(tree);
+  
+  return error;
 }
 
 error_t Insert(tree_t* tree, data_t data)
@@ -129,21 +129,6 @@ error_t Delete(node_t* node)
     while (tnode->right_ != NULL)
       tnode = tnode->right_;
 
-    assert(!(tnode->data_ > node->right_->data_ || tnode->data_ < node->left_->data_));
-    /*if (tnode->data_ > node->right_->data_ || tnode->data_ < node->left_->data_)
-    {
-      tnode = node->right_;
-     
-      while (tnode->left_ != NULL)
-        tnode = tnode->left_;
-
-      if (tnode->data_ > node->right_->data_ || tnode->data_ < node->left_->data_)
-      {
-        printf("?????????????????????????????\n");
-        abort();
-      }
-    }*/
-
     node->data_ = tnode->data_;
     node = tnode;
   }
@@ -165,12 +150,7 @@ error_t Delete(node_t* node)
 
   ReplaceNode(node, child);
   if (node->color_ == Black)
-  {
-    if (child->color_ == Red)
       child->color_ = Black;
-    else
-      DeleteCase1(child);
-  }
 
   FreeNode(node); 
   return error;

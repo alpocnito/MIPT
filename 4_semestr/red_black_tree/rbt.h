@@ -79,7 +79,7 @@ error_t DestructTree(tree_t* tree);
 ////////////////////////////////////////////////
 //!
 //! For each node in tree DO job. The order is:
-//!   left child, parent, right child (inorder)
+//!   left child, right child, parent (postorder)
 //!
 //! [in] node - tree root to bypass
 //! [in] job - function, which is worked under

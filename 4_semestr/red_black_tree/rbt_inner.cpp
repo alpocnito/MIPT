@@ -2,11 +2,6 @@
 
 int PrintTree_job(node_t* node, void* extra)
 {
-  if (node == NULL)
-    return 0;
-  if (extra == NULL)
-    return 1;
-  
   FILE* file = (FILE*)extra; 
 
   if (node->color_ == Red)
@@ -38,9 +33,6 @@ int PrintTree_job(node_t* node, void* extra)
 
 int DestructTree_job(node_t* node, void* extra)
 {
-  if (node == NULL)
-    return 0;
-
   if (node->parent_ != NULL)
   {
     if (node->parent_->left_ == node)
@@ -52,12 +44,17 @@ int DestructTree_job(node_t* node, void* extra)
   node->data_ = 0;
   node->color_ = 0;
   node->left_ = NULL;
-  node->left_ = NULL;
+  node->right_ = NULL;
   node->parent_ = NULL;
 
   free(node);
 	
   return 0;
+}
+
+int Bad_job(node_t* node, void* extra)
+{
+  return 1;
 }
 
 void FillNode(node_t* new_node, node_t* parent, color_t color, data_t data, node_t* left, node_t* right)
@@ -79,8 +76,8 @@ error_t NewNode(node_t** new_node, node_t* parent, color_t color, data_t data, n
   assert(new_node);
 
   *new_node = (node_t*) my_calloc(1, sizeof(node_t));
-  if (new_node == NULL)
-    ERROR(ERROR_CALLOC, "Can not be null: node->left_");
+  if (*new_node == NULL)
+    ERROR(ERROR_CALLOC, "Can not calloc memory");
 
   FillNode(*new_node, parent, color, data, left, right);
 

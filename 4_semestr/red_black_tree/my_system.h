@@ -10,7 +10,6 @@ static int my_calloc_work = 1;
 static int my_fopen_work  = 1;
 static int my_system_work = 1;
 static int my_fclose_work = 1;
-#pragma GCC diagnostic pop
 
 enum SYSTEM_CALLS
 {
@@ -28,4 +27,5 @@ FILE* my_fopen(const char* filename, const char* mode);
 int   my_system(const char* cmd);
 int   my_fclose(FILE* stream);
 
+#pragma GCC diagnostic pop
 #endif
