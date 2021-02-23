@@ -34,8 +34,8 @@ CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally
 
 all: test
 
-test: rbt.h
-test: unit_tests.o rbt.o
+test: rbt.h rbt_inner.h my_system.h
+test: unit_tests.o rbt.o my_system.o rbt_inner.o
 	@${CXX} $^ -o $@ -fprofile-arcs ${CXXFLAGS} ${LDLIBS}
 
 %.o: %.cpp

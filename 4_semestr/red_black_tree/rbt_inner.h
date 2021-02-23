@@ -1,5 +1,7 @@
-#pragma once
+#ifndef RBT_INNER_H
+#define RBT_INNER_H 1
 
+#include "my_system.h"
 #include "color.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -90,5 +92,7 @@ void DeleteCase4(node_t* node);
 void DeleteCase5(node_t* node);
 void DeleteCase6(node_t* node);
 
-int DestructTree_job(node_t* node, data_t data, void* extra);
-int PrintTree_job(node_t* node, data_t data, void* extra);
+int DestructTree_job(node_t* node, void* extra);
+int PrintTree_job(node_t* node, void* extra);
+
+#endif

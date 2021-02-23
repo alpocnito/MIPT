@@ -15,8 +15,8 @@ void CrashTests()
   tree_t* tree = NULL;
   ConstructTree(&tree);
   Insert(tree, 19);
-
   Find(tree, 18);
+
   Find(NULL, 19);
 
   ConstructTree(NULL);
@@ -29,7 +29,29 @@ void CrashTests()
   Delete(NULL);
   
   PrintTree(NULL);
+  BreakSystemCall(MY_SYSTEM);
+  PrintTree(tree->root_);
+  RestoreSystemCall(MY_SYSTEM);
+  
+  BreakSystemCall(MY_FOPEN);
+  PrintTree(tree->root_);
+  RestoreSystemCall(MY_FOPEN);
 
+  BreakSystemCall(MY_FCLOSE);
+  PrintTree(tree->root_);
+  RestoreSystemCall(MY_FCLOSE);
+  
+  BreakSystemCall(MY_CALLOC);
+  ConstructTree(&tree);
+  RestoreSystemCall(MY_CALLOC);
+ 
+  BreakSystemCall(MY_CALLOC);
+  Insert(tree, 1);
+  RestoreSystemCall(MY_CALLOC);
+
+  Foreach(NULL, PrintTree_job, NULL);
+
+  DestructTree(tree);
   printf("Crash tests completed!\n");
 }
 
@@ -112,7 +134,8 @@ void Tests()
   
   Delete(Find(tree, 6));
   PrintTree(tree->root_);
-  
+  DestructTree(tree);
+
   tree_t* tree1 = NULL;
   ConstructTree(&tree1);
   
@@ -122,7 +145,9 @@ void Tests()
   Insert(tree1, 14);
   Insert(tree1, 17);
   Insert(tree1, 15);
-  printf("Tests completed!\n");
+  DestructTree(tree1);
+
+  printf("Normal tests completed!\n");
 }
 
 

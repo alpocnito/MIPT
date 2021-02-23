@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RBT_H
+#define RBT_H 1
 
 #include "rbt_inner.h"
 
@@ -50,7 +51,6 @@ error_t Insert(tree_t* tree, data_t data);
 ////////////////////////////////////////////////
 error_t Delete(node_t* node);
 
-
 ////////////////////////////////////////////////
 //!
 //! Creates new tree
@@ -93,6 +93,6 @@ error_t DestructTree(tree_t* tree);
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t Foreach(node_t* root, int(*job)(node_t* node, data_t data, void* extra), void* extra);
+error_t Foreach(node_t* root, int(*job)(node_t* node, void* extra), void* extra);
 
-
+#endif
