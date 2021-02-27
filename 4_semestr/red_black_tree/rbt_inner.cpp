@@ -1,4 +1,5 @@
 #include "rbt.h"
+#include "rbt_inner.h"
 
 int PrintTree_job(node_t* node, void* extra)
 {
@@ -50,11 +51,6 @@ int DestructTree_job(node_t* node, void* extra)
   free(node);
 	
   return 0;
-}
-
-int Bad_job(node_t* node, void* extra)
-{
-  return 1;
 }
 
 void FillNode(node_t* new_node, node_t* parent, color_t color, data_t data, node_t* left, node_t* right)

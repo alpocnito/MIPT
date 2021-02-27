@@ -1,6 +1,7 @@
 #include "rbt.h"
+#include "rbt_inner.h"
 
-error_t Foreach(node_t* root, int(*job)(node_t* node, void* extra), void* extra)
+error_t TreeForeach(node_t* root, int(*job)(node_t* node, void* extra), void* extra)
 {
   error_t error = NO_ERROR;
 
@@ -8,10 +9,10 @@ error_t Foreach(node_t* root, int(*job)(node_t* node, void* extra), void* extra)
     ERROR(ERROR_PTR_IS_NULL, "Tree root can not be NULL");
   
   if (root->left_ != NULL)
-    Foreach(root->left_, job, extra);
+    TreeForeach(root->left_, job, extra);
   
   if (root->right_ != NULL)
-    Foreach(root->right_, job, extra);
+    TreeForeach(root->right_, job, extra);
 	
   if (job(root, extra) != 0)
     ERROR(ERROR_DETECTED, "Error in job");  
@@ -20,21 +21,19 @@ error_t Foreach(node_t* root, int(*job)(node_t* node, void* extra), void* extra)
 }
 
 
-const char* DOT_FILENAME = "DoxyFiles/tree.dot";
-error_t PrintTree(node_t* root) 
+error_t TreePrint(node_t* root, const char* temp_file) 
 {
   error_t error = NO_ERROR;
 
   if (root == NULL)
     return NO_ERROR;
 
-  FILE* output = my_fopen(DOT_FILENAME, "w");
+  FILE* output = my_fopen(temp_file, "w");
   if (output == NULL)
     ERROR(ERROR_PTR_IS_NULL, "Output file can not be null");
 
-
   fprintf(output, "digraph D {\n");
-  Foreach(root, PrintTree_job, output);
+  TreeForeach(root, PrintTree_job, output);
   //PrintNodes(root, output);
   fprintf(output, "}");
    
@@ -43,7 +42,7 @@ error_t PrintTree(node_t* root)
  
   const char dot_command[] = "dot -Tps %s -o DoxyFiles/graph.ps";
   char dot_program[PATH_MAX + sizeof(dot_command)];
-  sprintf(dot_program, dot_command, DOT_FILENAME);
+  sprintf(dot_program, dot_command, temp_file);
   
   if (my_system(dot_program) == -1)
     ERROR(ERROR_SYSTEM, "Can not execute");
@@ -55,7 +54,7 @@ error_t PrintTree(node_t* root)
 }
 
 
-error_t ConstructTree(tree_t** tree)
+error_t TreeConstruct(tree_t** tree)
 {
   error_t error = NO_ERROR;
 
@@ -71,18 +70,18 @@ error_t ConstructTree(tree_t** tree)
   return error;
 }
 
-error_t DestructTree(tree_t* tree)
+error_t TreeDestruct(tree_t* tree)
 {
   if (tree == NULL)
     return NO_ERROR;
 
-  error_t error = Foreach(tree->root_, DestructTree_job, NULL);
+  error_t error = TreeForeach(tree->root_, DestructTree_job, NULL);
   free(tree);
   
   return error;
 }
 
-error_t Insert(tree_t* tree, data_t data)
+error_t TreeInsert(tree_t* tree, data_t data)
 {
   error_t error = NO_ERROR;
    
@@ -116,7 +115,7 @@ error_t Insert(tree_t* tree, data_t data)
   return error;
 }
 
-error_t Delete(node_t* node)
+error_t TreeDelete(node_t* node)
 {
   error_t error = NO_ERROR;
 
@@ -156,7 +155,7 @@ error_t Delete(node_t* node)
   return error;
 }
 
-node_t* Find(tree_t* tree, data_t data)
+node_t* TreeFind(tree_t* tree, data_t data)
 {
   if (tree == NULL)
     return NULL;
@@ -174,4 +173,20 @@ node_t* Find(tree_t* tree, data_t data)
   }
   
   return NULL;
+}
+
+node_t* TreeGetRoot(tree_t* tree)
+{
+  if (tree != NULL)
+    return tree->root_;
+
+  return NULL;
+}
+
+data_t NodeGetData(node_t* node)
+{
+  if (node != NULL)
+    return node->data_;
+
+  return 0;
 }

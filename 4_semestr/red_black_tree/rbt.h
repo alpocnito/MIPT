@@ -1,7 +1,19 @@
 #ifndef RBT_H
 #define RBT_H 1
 
-#include "rbt_inner.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+struct node_t;
+typedef struct node_t node_t;
+
+struct tree_t;
+typedef struct tree_t tree_t;
+
+typedef unsigned char color_t;
+typedef int data_t;
+
+typedef int error_t;
 
 ////////////////////////////////////////////////
 //!
@@ -14,7 +26,7 @@
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-node_t* Find(tree_t* tree, data_t data);
+node_t* TreeFind(tree_t* tree, data_t data);
 
 ////////////////////////////////////////////////
 //!
@@ -25,7 +37,7 @@ node_t* Find(tree_t* tree, data_t data);
 //! @return NO_ERROR, if all is alright; Some 
 //!         error, if it occured
 ////////////////////////////////////////////////
-error_t PrintTree(node_t* root);
+error_t TreePrint(node_t* root, const char* temp_file);
 
 ////////////////////////////////////////////////
 //!
@@ -37,7 +49,7 @@ error_t PrintTree(node_t* root);
 //! @return NO_ERROR, if all is alright; Some 
 //!         error, if it occured
 ////////////////////////////////////////////////
-error_t Insert(tree_t* tree, data_t data);
+error_t TreeInsert(tree_t* tree, data_t data);
 
 ////////////////////////////////////////////////
 //!
@@ -49,7 +61,7 @@ error_t Insert(tree_t* tree, data_t data);
 //! @return NO_ERROR, if all is alright; Some 
 //!         error, if it occured
 ////////////////////////////////////////////////
-error_t Delete(node_t* node);
+error_t TreeDelete(node_t* node);
 
 ////////////////////////////////////////////////
 //!
@@ -62,7 +74,7 @@ error_t Delete(node_t* node);
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t ConstructTree(tree_t** tree);
+error_t TreeConstruct(tree_t** tree);
 
 ////////////////////////////////////////////////
 //!
@@ -74,7 +86,7 @@ error_t ConstructTree(tree_t** tree);
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t DestructTree(tree_t* tree);
+error_t TreeDestruct(tree_t* tree);
 
 ////////////////////////////////////////////////
 //!
@@ -93,6 +105,27 @@ error_t DestructTree(tree_t* tree);
 //!         NULL, if this value does not exist in
 //!         tree
 ////////////////////////////////////////////////
-error_t Foreach(node_t* root, int(*job)(node_t* node, void* extra), void* extra);
+error_t TreeForeach(node_t* root, int(*job)(node_t* node, void* extra), void* extra);
+
+////////////////////////////////////////////////
+//!
+//! Returns poiner to the root
+//!
+//! [in] tree - pointer to the tree
+//!
+//! @return pointer to node with value;
+//!         NULL, if tree = NULL
+////////////////////////////////////////////////
+node_t* TreeGetRoot(tree_t* tree);
+
+////////////////////////////////////////////////
+//!
+//! Returns data of the node
+//!
+//! [in] node - pointer to the nnode
+//!
+//! @return data; 0, if node = NULL
+////////////////////////////////////////////////
+data_t NodeGetData(node_t* node);
 
 #endif

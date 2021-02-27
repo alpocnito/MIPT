@@ -1,4 +1,4 @@
-LDLIBS = -I../Headers
+LDLIBS = -I../Headers -I.
 CXX := g++
 
 # Compilator
@@ -28,15 +28,15 @@ CXXFLAGS += -Wformat-signedness -Wformat-nonliteral -Wformat-security -Wformat=2
 # Other Very usefull warnings
 CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally-supported -Wctor-dtor-privacy -Wempty-body -Wfloat-equal -Winline -Wlarger-than=8192 -Wlogical-op -Wnon-virtual-dtor -Wopenmp-simd -Woverloaded-virtual -Wpacked -Wpointer-arith -Wredundant-decls -Wshadow -Wsync-nand -Wundef -Wunreachable-code -Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing -Wno-varargs -fsized-deallocation -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -lm -pie
 
+OBJS = rbt_inner.o rbt.o my_system.o unit_tests.o
 
 all: test
 
-test: rbt.h rbt_inner.h my_system.h
-test: unit_tests.o rbt.o my_system.o rbt_inner.o
-	@${CXX} $^ -o $@ -fprofile-arcs ${CXXFLAGS} ${LDLIBS}
+test: $(OBJS)
+	@${CXX} $^ -o $@ -MD -fprofile-arcs ${CXXFLAGS} ${LDLIBS}
 
 %.o: %.cpp
-	@${CXX} -c $^ -o $@ --coverage ${CXXFLAGS} ${LDLIBS}
+	@${CXX} -c $^ -o  $@ -MD --coverage ${CXXFLAGS} ${LDLIBS}
 
 lcov: test
 	@lcov/bin/lcov -t "result" -o ex_test.info -c -d .; lcov/bin/genhtml -o res ex_test.info
@@ -48,3 +48,4 @@ valgrind: test
 clean:
 	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt
 
+-include $(OBJ:.o=.d)

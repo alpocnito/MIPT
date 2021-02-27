@@ -1,4 +1,11 @@
 #include "rbt.h"
+#include "rbt_inner.h"
+
+int Bad_job(node_t* node, void* extra)
+{
+  return 1;
+}
+
 
 void CrashTests();
 void Tests();
@@ -13,140 +20,145 @@ int main()
 void CrashTests()
 {
   tree_t* tree = NULL;
-  ConstructTree(&tree);
-  Insert(tree, 19);
-  Find(tree, 18);
+  TreeConstruct(&tree);
+  TreeInsert(tree, 19);
+  TreeFind(tree, 18);
+  TreeGetRoot(tree);
+  TreeGetRoot(NULL);
+  NodeGetData(TreeGetRoot(tree));
+  NodeGetData(NULL);
 
-  Find(NULL, 19);
-
-  ConstructTree(NULL);
-  
+  TreeFind(NULL, 19);
+  TreeConstruct(NULL);
+ 
+ /*
   Grandparent(NULL);
   Uncle(NULL);
   Sibling(NULL);
-
-  Insert(NULL, 1);
-  Delete(NULL);
+*/
+  TreeInsert(NULL, 1);
+  TreeDelete(NULL);
   
-  PrintTree(NULL);
+  TreePrint(NULL, NULL);
   BreakSystemCall(MY_SYSTEM);
-  PrintTree(tree->root_);
+  TreePrint(TreeGetRoot(tree), "DoxyFiles/tree.dot");
   RestoreSystemCall(MY_SYSTEM);
   
   BreakSystemCall(MY_FOPEN);
-  PrintTree(tree->root_);
+  TreePrint(TreeGetRoot(tree), "DoxyFiles/tree.dot");
   RestoreSystemCall(MY_FOPEN);
 
   BreakSystemCall(MY_FCLOSE);
-  PrintTree(tree->root_);
+  TreePrint(TreeGetRoot(tree), "DoxyFiles/tree.dot");
   RestoreSystemCall(MY_FCLOSE);
 
   BreakSystemCall(MY_CALLOC);
-  Insert(tree, 1);
+  TreeInsert(tree, 1);
   
   tree_t* temp_tree = (tree_t*)3;
-  ConstructTree(&temp_tree);
+  TreeConstruct(&temp_tree);
   RestoreSystemCall(MY_CALLOC);
 
-  Foreach(NULL, PrintTree_job, NULL);
-  Foreach(tree->root_, Bad_job, NULL);
+  TreeForeach(NULL, Bad_job, NULL);
+  TreeForeach(tree->root_, Bad_job, NULL);
 
-  DestructTree(tree);
-  DestructTree(NULL);
+  TreeDestruct(tree);
+  TreeDestruct(NULL);
+  
   printf("Crash tests completed!\n");
 }
 
 void Tests()
 { 
   tree_t* tree = NULL;
-  ConstructTree(&tree);
+  TreeConstruct(&tree);
   
-  Insert(tree, 19);
-  Insert(tree, 18);
-  Insert(tree, 17);
-  Insert(tree, 16);
-  Insert(tree, 15);
-  Insert(tree, 14);
-  Insert(tree, 13);
-  Insert(tree, 12);
-  Insert(tree, 11);
-  Insert(tree, 10);
-  Insert(tree, 9);
-  Insert(tree, 8);
+  TreeInsert(tree, 19);
+  TreeInsert(tree, 18);
+  TreeInsert(tree, 17);
+  TreeInsert(tree, 16);
+  TreeInsert(tree, 15);
+  TreeInsert(tree, 14);
+  TreeInsert(tree, 13);
+  TreeInsert(tree, 12);
+  TreeInsert(tree, 11);
+  TreeInsert(tree, 10);
+  TreeInsert(tree, 9);
+  TreeInsert(tree, 8);
   
-  Insert(tree, 20);
-  Insert(tree, 21);
-  Insert(tree, 22);
-  Insert(tree, 23);
-  Insert(tree, 24);
-  Insert(tree, 25);
-  Insert(tree, 26);
-  Insert(tree, 27);
-  Insert(tree, 28);
-  Insert(tree, 29);
+  TreeInsert(tree, 20);
+  TreeInsert(tree, 21);
+  TreeInsert(tree, 22);
+  TreeInsert(tree, 23);
+  TreeInsert(tree, 24);
+  TreeInsert(tree, 25);
+  TreeInsert(tree, 26);
+  TreeInsert(tree, 27);
+  TreeInsert(tree, 28);
+  TreeInsert(tree, 29);
   
-  Delete(Find(tree, 16));
-  Delete(Find(tree, 23));
-  Delete(Find(tree, 22));
-  Delete(Find(tree, 14));
-  Delete(Find(tree, 17));
-  Delete(Find(tree, 18));
-  Delete(Find(tree, 21));
-  Delete(Find(tree, 13));
-
-  Insert(tree, 16);
-  Insert(tree, 23);
-  Insert(tree, 22);
-  Insert(tree, 14);
-  Insert(tree, 17);
-  Insert(tree, 18);
-  Insert(tree, 21);
-  Insert(tree, 7);
-  Insert(tree, 6);
-  Insert(tree, 5);
-  Insert(tree, 4);
-  Insert(tree, 3);
-  Insert(tree, 2);
-  Insert(tree, 2);
+  TreeDelete(TreeFind(tree, 16));
+  TreeDelete(TreeFind(tree, 23));
+  TreeDelete(TreeFind(tree, 22));
+  TreeDelete(TreeFind(tree, 14));
+  TreeDelete(TreeFind(tree, 17));
+  TreeDelete(TreeFind(tree, 18));
+  TreeDelete(TreeFind(tree, 21));
+  TreeDelete(TreeFind(tree, 13));
   
-  Delete(Find(tree, 25));
-  Delete(Find(tree, 17));
-  Delete(Find(tree, 15));
-  Delete(Find(tree, 18));
-  Delete(Find(tree, 16));
-  Delete(Find(tree, 9));
-  Delete(Find(tree, 29));
-  Delete(Find(tree, 19));
-  Delete(Find(tree, 20));
-  Delete(Find(tree, 2));
-  Delete(Find(tree, 5));
-
-  Insert(tree, 9);
-  Insert(tree, 2);
-  Insert(tree, 5);
-  Insert(tree, 25);
-  Insert(tree, 17);
-  Insert(tree, 15);
-  Insert(tree, 18);
-  Insert(tree, 16);
-  Insert(tree, 29);
-  Insert(tree, 19);
-  Insert(tree, 20);
-    
-  Delete(Find(tree, 6));
-  PrintTree(tree->root_);
-  DestructTree(tree);
-
+  TreeInsert(tree, 16);
+  TreeInsert(tree, 23);
+  TreeInsert(tree, 22);
+  TreeInsert(tree, 14);
+  TreeInsert(tree, 17);
+  TreeInsert(tree, 18);
+  TreeInsert(tree, 21);
+  TreeInsert(tree, 7);
+  TreeInsert(tree, 6);
+  TreeInsert(tree, 5);
+  TreeInsert(tree, 4);
+  TreeInsert(tree, 3);
+  TreeInsert(tree, 2);
+  TreeInsert(tree, 2);
+   
+  TreeDelete(TreeFind(tree, 25));
+  TreeDelete(TreeFind(tree, 17));
+  TreeDelete(TreeFind(tree, 15));
+  TreeDelete(TreeFind(tree, 18));
+  TreeDelete(TreeFind(tree, 16));
+  TreeDelete(TreeFind(tree, 9));
+  TreeDelete(TreeFind(tree, 29));
+  TreeDelete(TreeFind(tree, 19));
+  TreeDelete(TreeFind(tree, 20));
+  TreeDelete(TreeFind(tree, 2));
+  TreeDelete(TreeFind(tree, 5));
+  
+  TreeInsert(tree, 9);
+  TreeInsert(tree, 2);
+  TreeInsert(tree, 5);
+  TreeInsert(tree, 25);
+  TreeInsert(tree, 17);
+  TreeInsert(tree, 15);
+  TreeInsert(tree, 18);
+  TreeInsert(tree, 16);
+  TreeInsert(tree, 29);
+  TreeInsert(tree, 19);
+  TreeInsert(tree, 20);
+  
+  TreeDelete(TreeFind(tree, 6));
+  TreePrint(TreeGetRoot(tree), "DoxyFiles/tree.dot");
+  TreeDestruct(tree);
+  
   tree_t* tree1 = NULL;
-  ConstructTree(&tree1);
+  TreeConstruct(&tree1);
   
-  Insert(tree1, 16);
-  Insert(tree1, 18);
-  Insert(tree1, 19);
-  Insert(tree1, 14);
-  Insert(tree1, 17);
-  Insert(tree1, 15);
-  DestructTree(tree1);
+  TreeInsert(tree1, 16);
+  TreeInsert(tree1, 18);
+  TreeInsert(tree1, 19);
+  TreeInsert(tree1, 14);
+  TreeInsert(tree1, 17);
+  TreeInsert(tree1, 15);
+  TreeDestruct(tree1);
 
   printf("Normal tests completed!\n");
 }
