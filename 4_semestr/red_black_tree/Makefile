@@ -33,19 +33,19 @@ OBJS = rbt_inner.o rbt.o my_system.o unit_tests.o
 all: test
 
 test: $(OBJS)
-	@${CXX} $^ -o $@ -MD -fprofile-arcs ${CXXFLAGS} ${LDLIBS}
+	${CXX} $^ -o $@ -MD -fprofile-arcs ${CXXFLAGS} ${LDLIBS}
 
 %.o: %.cpp
-	@${CXX} -c $^ -o  $@ -MD --coverage ${CXXFLAGS} ${LDLIBS}
+	${CXX} -c $^ -o  $@ -MD --coverage ${CXXFLAGS} ${LDLIBS}
 
 lcov: test
-	@lcov/bin/lcov -t "result" -o ex_test.info -c -d .; lcov/bin/genhtml -o res ex_test.info
-	@make clean
+	lcov/bin/lcov -t "result" -o ex_test.info -c -d .; lcov/bin/genhtml -o res ex_test.info
+	make clean
 
 valgrind: test
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./test
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./test
 
 clean:
-	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt
+	$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt
 
 -include $(OBJ:.o=.d)

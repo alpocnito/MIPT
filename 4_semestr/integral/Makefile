@@ -17,7 +17,7 @@ CXXFLAGS += -Wstrict-null-sentinel -Wstrict-overflow=2 -fstrict-overflow
 CXXFLAGS += -fstack-check -fstack-protector -Wstack-usage=8192
 
 # Suggestions
-CXXFLAGS += -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wsuggest-override
+CXXFLAGS += -Wsuggest-final-methods -Wsuggest-final-types -Wsuggest-override
 
 # switch warnings
 CXXFLAGS += -Wswitch-default -Wswitch-enum
