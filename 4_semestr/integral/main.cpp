@@ -141,12 +141,20 @@ void* calculate(void* data)
   double step  = (stop - start) / thread_data->step_n;
   assert(step > 0);
 
+#ifdef DEBUG
+  printf("CPU of start: %lg = %d\n", start, sched_getcpu());
+#endif
+
   double temp_res = 0;
   for (size_t i = 0; i < thread_data->step_n; ++i) 
   {
     temp_res += function(start + double(i) * step);
   }
   *(thread_data->res) = temp_res * step;
+
+#ifdef DEBUG
+  printf("Thread with start: %lg near to end\n", start);
+#endif
 
   pthread_exit(NULL);
 }
@@ -192,10 +200,10 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
   //-------------------------------------------
   for (unsigned i = 0; i < n_threads; ++i) 
   {
-    thread_data[i].start = start + double(i) * big_step;
-    thread_data[i].stop  = start + double(i + 1) * big_step;
-    thread_data[i].step_n= TOTAL_STEPS / n_threads;
-    thread_data[i].res   = (double*) memalign(ALIGNMENT, sizeof(double));
+    thread_data[i].start  = start + double(i) * big_step;
+    thread_data[i].stop   = start + double(i + 1) * big_step;
+    thread_data[i].step_n = TOTAL_STEPS / n_threads;
+    thread_data[i].res    = (double*) memalign(ALIGNMENT, sizeof(double));
     
     assert(thread_data[i].res);
     results[i] = thread_data[i].res;
@@ -213,7 +221,11 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
     printf("Created new thead with cpu: %u! Start from %f\n", cpu_list[current_cpu % cpu_list_size], thread_data[i].start);
 #endif
   }
-  
+
+#ifdef DEBUG
+  printf("Init has ended\n"); 
+#endif
+ 
   double res = 0;
   for (size_t i = 0; i < n_threads; ++i) 
   {
