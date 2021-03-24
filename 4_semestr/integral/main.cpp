@@ -15,7 +15,7 @@
 #include <sched.h>
 #include <malloc.h>
 
-#define DEBUG
+//#define DEBUG
 
 #define MAX_CPU 256
 #define FILE_AVAILABLE_CPU "/sys/devices/system/cpu/online"
@@ -25,7 +25,7 @@
 #define N_CORES 8
 #define START 0
 #define STOP  1
-#define TOTAL_STEPS 3000000000
+const long unsigned TOTAL_STEPS = 10000000000;
 
 inline double function(double x)
 {
@@ -37,8 +37,9 @@ struct data_t
 {
   double start;
   double stop;
-  unsigned step_n;
+  long unsigned step_n;
   double* res;
+  unsigned cpu_n;
 };
 
 typedef struct cpu_info_t cpu_info_t;
@@ -55,6 +56,7 @@ struct cpu_info_t
 //!
 //! Add core_id, associated with virtual_core_number in cpu_info->real_cpu[]
 //!
+//! Return 1, if cire is added; 0 otherwise
 ///////////////////////////////////////////////////////////////////////////
 int AddRealCore(cpu_info_t* cpu_info, unsigned virtual_core_number)
 {
@@ -86,6 +88,8 @@ int AddRealCore(cpu_info_t* cpu_info, unsigned virtual_core_number)
     cpu_info->cores[cpu_info->real_cpu_num] = core_id;
     cpu_info->real_cpu[cpu_info->real_cpu_num] = virtual_core_number;
     cpu_info->real_cpu_num++;
+    
+    return 1;
   }
 
   return 0;
@@ -109,14 +113,19 @@ int GetCpuInfo(cpu_info_t* cpu_info)
   FILE* file_available_cpus = fopen(FILE_AVAILABLE_CPU, "r");
   assert(file_available_cpus);
  
+  unsigned repeated_virtual_cores[MAX_CPU];
+  unsigned repeated_virtual_cores_num = 0;
+
   // parse file. It has format: a1-b1,a2-b2...
   unsigned a = 0, b = 0;
   while (fscanf(file_available_cpus, "%u-%u", &a, &b) == 2)
   {
     for (unsigned i = a; i <= b; ++i)
     {
-      cpu_info->virtual_cpu[(cpu_info->virtual_cpu_num)++] = i;
-      AddRealCore(cpu_info, i);
+      if (AddRealCore(cpu_info, i))
+        cpu_info->virtual_cpu[(cpu_info->virtual_cpu_num)++] = i;
+      else
+        repeated_virtual_cores[repeated_virtual_cores_num++] = i;
     }
     
     // read comma
@@ -124,6 +133,9 @@ int GetCpuInfo(cpu_info_t* cpu_info)
     fscanf(file_available_cpus, "%c", &c);
   }
   assert(fclose(file_available_cpus) == 0);
+  
+  for (unsigned i = 0; i < repeated_virtual_cores_num; ++i)
+    cpu_info->virtual_cpu[(cpu_info->virtual_cpu_num)++] = repeated_virtual_cores[i];
 
   return 0;
 }
@@ -136,17 +148,24 @@ int GetCpuInfo(cpu_info_t* cpu_info)
 void* calculate(void* data) 
 {
   data_t* thread_data = (data_t*)data;
+  
+  cpu_set_t cpu_set;
+  CPU_ZERO(&cpu_set);
+  CPU_SET(thread_data->cpu_n, &cpu_set);
+  assert(pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpu_set) == 0);
+
   double start = thread_data->start;
   double stop  = thread_data->stop;
-  double step  = (stop - start) / thread_data->step_n;
+  double step  = (stop - start) / double(thread_data->step_n);
   assert(step > 0);
+  
 
 #ifdef DEBUG
-  printf("CPU of start: %lg = %d\n", start, sched_getcpu());
+  printf("CPU = %d for start: %0.3lg;\n", sched_getcpu(), start);
 #endif
 
   double temp_res = 0;
-  for (size_t i = 0; i < thread_data->step_n; ++i) 
+  for (long unsigned i = 0; i < thread_data->step_n; ++i) 
   {
     temp_res += function(start + double(i) * step);
   }
@@ -198,24 +217,20 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
     cpu_list_size = cpu_info->real_cpu_num;
   }
   //-------------------------------------------
+  
   for (unsigned i = 0; i < n_threads; ++i) 
   {
     thread_data[i].start  = start + double(i) * big_step;
     thread_data[i].stop   = start + double(i + 1) * big_step;
     thread_data[i].step_n = TOTAL_STEPS / n_threads;
-    thread_data[i].res    = (double*) memalign(ALIGNMENT, sizeof(double));
-    
+    thread_data[i].res    = (double*) memalign(ALIGNMENT, sizeof(double)); 
+    thread_data[i].cpu_n  = cpu_list[current_cpu % cpu_list_size];
+    current_cpu++;
+
     assert(thread_data[i].res);
     results[i] = thread_data[i].res;
     
     assert(pthread_create(&pthread_id[i], NULL, &calculate, &thread_data[i]) == 0); 
-
-    cpu_set_t cpu_set;
-    CPU_ZERO(&cpu_set);
-    CPU_SET(cpu_list[current_cpu & cpu_list_size], &cpu_set);
-    current_cpu++;
-
-    assert(pthread_setaffinity_np(pthread_id[i], sizeof(cpu_set_t), &cpu_set) == 0);
 
 #ifdef DEBUG
     printf("Created new thead with cpu: %u! Start from %f\n", cpu_list[current_cpu % cpu_list_size], thread_data[i].start);
