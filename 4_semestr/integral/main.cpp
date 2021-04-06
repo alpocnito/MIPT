@@ -17,12 +17,20 @@
 
 //#define DEBUG
 
+#define Assert(expr) do {              \
+                       if (!(expr)) {  \
+                         printf("ERROR!\n"); \
+                         printf("In %s:%d -> assert(", __PRETTY_FUNCTION__, __LINE__); \
+                         puts(#expr); \
+                         printf(")\n\n"); \
+                       } } while (0); 
+
+
 #define MAX_CPU 256
 #define FILE_AVAILABLE_CPU "/sys/devices/system/cpu/online"
 #define FILE_TOPOLOGY_LENGTH (sizeof("/sys/devices/system/cpu/cpu0/topology/core_id") + 3)
 
 #define ALIGNMENT 4096
-#define N_CORES 8
 #define START 0
 #define STOP  1
 const long unsigned TOTAL_STEPS = 10000000000;
@@ -45,9 +53,9 @@ struct data_t
 typedef struct cpu_info_t cpu_info_t;
 struct cpu_info_t
 {
-  unsigned cores[MAX_CPU];
-  unsigned real_cpu[MAX_CPU];
-  unsigned virtual_cpu[MAX_CPU];
+  unsigned* cores;
+  unsigned* real_cpu;
+  unsigned* virtual_cpu;
   unsigned real_cpu_num;
   unsigned virtual_cpu_num;
 };
@@ -66,11 +74,11 @@ int AddRealCore(cpu_info_t* cpu_info, unsigned virtual_core_number)
   sprintf(file_topology_name, "/sys/devices/system/cpu/cpu%u/topology/core_id", virtual_core_number);
   
   FILE* file_topology = fopen(file_topology_name, "r");
-  assert(file_topology);
+  Assert(file_topology);
 
   unsigned core_id = 0;
-  assert(fscanf(file_topology, "%u", &core_id) == 1);
-  assert(fclose(file_topology) == 0);
+  Assert(fscanf(file_topology, "%u", &core_id) == 1);
+  Assert(fclose(file_topology) == 0);
 
   
   // insert core_id in cpu_info
@@ -95,6 +103,36 @@ int AddRealCore(cpu_info_t* cpu_info, unsigned virtual_core_number)
   return 0;
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+//!
+//! Returns number of virtual threads in computer
+//!
+///////////////////////////////////////////////////////////////////////////
+unsigned GetNumVirtThreads()
+{
+  unsigned max_number_threads = 0;
+  
+  // file with available virtual cpus
+  FILE* file_available_cpus = fopen(FILE_AVAILABLE_CPU, "r");
+  Assert(file_available_cpus);
+ 
+  // parse file. It has format: a1-b1,a2-b2...
+  unsigned a = 0, b = 0;
+  while (fscanf(file_available_cpus, "%u-%u", &a, &b) == 2)
+  {
+    for (unsigned i = a; i <= b; ++i)
+      if (b > max_number_threads)
+        max_number_threads = b;
+    
+    // read comma
+    char c;
+    fscanf(file_available_cpus, "%c", &c);
+  }
+  
+  return max_number_threads;
+}
+
 ///////////////////////////////////////////////////////////////////////////
 //!
 //! Reads sys/devices/system/cpu/online and 
@@ -102,19 +140,23 @@ int AddRealCore(cpu_info_t* cpu_info, unsigned virtual_core_number)
 //!       and fills cpu_info struct
 //!   
 ///////////////////////////////////////////////////////////////////////////
-int GetCpuInfo(cpu_info_t* cpu_info)
+int GetCpuInfo(cpu_info_t* cpu_info, unsigned requested_threads)
 {
   assert(cpu_info);
-
-  cpu_info->virtual_cpu_num = 0;
-  cpu_info->real_cpu_num = 0;
-
+  
+  unsigned max_number_threads = GetNumVirtThreads();
+  if (requested_threads > max_number_threads)
+    max_number_threads = requested_threads;
+  
+  cpu_info->cores =                  (unsigned*)calloc(max_number_threads, sizeof(unsigned));
+  cpu_info->real_cpu =               (unsigned*)calloc(max_number_threads, sizeof(unsigned));
+  cpu_info->virtual_cpu =            (unsigned*)calloc(max_number_threads, sizeof(unsigned));
+  unsigned* repeated_virtual_cores = (unsigned*)calloc(max_number_threads, sizeof(unsigned));
+  unsigned repeated_virtual_cores_num = 0;
+ 
   // file with available virtual cpus
   FILE* file_available_cpus = fopen(FILE_AVAILABLE_CPU, "r");
-  assert(file_available_cpus);
- 
-  unsigned repeated_virtual_cores[MAX_CPU];
-  unsigned repeated_virtual_cores_num = 0;
+  Assert(file_available_cpus);
 
   // parse file. It has format: a1-b1,a2-b2...
   unsigned a = 0, b = 0;
@@ -132,13 +174,30 @@ int GetCpuInfo(cpu_info_t* cpu_info)
     char c;
     fscanf(file_available_cpus, "%c", &c);
   }
-  assert(fclose(file_available_cpus) == 0);
+  Assert(fclose(file_available_cpus) == 0);
   
   for (unsigned i = 0; i < repeated_virtual_cores_num; ++i)
     cpu_info->virtual_cpu[(cpu_info->virtual_cpu_num)++] = repeated_virtual_cores[i];
-
+  
+  
+  free(repeated_virtual_cores);
   return 0;
 }
+
+///////////////////////////////////////////////////////////////////////////
+//!
+//! Free all memory in cpu_info
+//!
+///////////////////////////////////////////////////////////////////////////
+void FreeCpuInfo(cpu_info_t* cpu_info)
+{
+  assert(cpu_info);
+
+  free(cpu_info->cores);
+  free(cpu_info->real_cpu);
+  free(cpu_info->virtual_cpu);
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 //!
@@ -147,12 +206,14 @@ int GetCpuInfo(cpu_info_t* cpu_info)
 ///////////////////////////////////////////////////////////////////////////
 void* calculate(void* data) 
 {
+  assert(data);
+
   data_t* thread_data = (data_t*)data;
   
   cpu_set_t cpu_set;
   CPU_ZERO(&cpu_set);
   CPU_SET(thread_data->cpu_n, &cpu_set);
-  assert(pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpu_set) == 0);
+  Assert(pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpu_set) == 0);
 
   double start = thread_data->start;
   double stop  = thread_data->stop;
@@ -193,13 +254,13 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
 
   // local array for results
   double** results = (double**)calloc(n_threads, sizeof(double*));
-  assert(results);
+  Assert(results);
 
   pthread_t* pthread_id = (pthread_t*)calloc(n_threads, sizeof(pthread_t));
-  assert(pthread_id);
+  Assert(pthread_id);
 
   struct data_t* thread_data = (data_t*)calloc(n_threads, sizeof(data_t));
-  assert(thread_data);
+  Assert(thread_data);
   
 
   //------choosing real cpus or virtual-------
@@ -227,10 +288,10 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
     thread_data[i].cpu_n  = cpu_list[current_cpu % cpu_list_size];
     current_cpu++;
 
-    assert(thread_data[i].res);
+    Assert(thread_data[i].res);
     results[i] = thread_data[i].res;
     
-    assert(pthread_create(&pthread_id[i], NULL, &calculate, &thread_data[i]) == 0); 
+    Assert(pthread_create(&pthread_id[i], NULL, &calculate, &thread_data[i]) == 0); 
 
 #ifdef DEBUG
     printf("Created new thead with cpu: %u! Start from %f\n", cpu_list[current_cpu % cpu_list_size], thread_data[i].start);
@@ -244,7 +305,7 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
   double res = 0;
   for (size_t i = 0; i < n_threads; ++i) 
   {
-    assert(pthread_join(pthread_id[i], NULL) == 0);
+    Assert(pthread_join(pthread_id[i], NULL) == 0);
 #ifdef DEBUG
     printf("Thread with start = %f ended!\n", thread_data[i].start);
 #endif
@@ -266,7 +327,7 @@ int main (int argc, char** argv)
   unsigned n_threads = unsigned(atoi(argv[1]));
 
   cpu_info_t cpu_info = {};
-  GetCpuInfo(&cpu_info);
+  GetCpuInfo(&cpu_info, n_threads);
   
 #ifdef DEBUG
   printf("Real cpu number: %u, Virtual cpu number: %u\n", cpu_info.real_cpu_num, cpu_info.virtual_cpu_num);
@@ -280,7 +341,8 @@ int main (int argc, char** argv)
 #endif
   
   DistributeThreads(&cpu_info, n_threads);
-  
+  FreeCpuInfo(&cpu_info);
+
   return 0;
 }
 
