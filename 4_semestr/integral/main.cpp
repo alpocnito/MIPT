@@ -25,15 +25,17 @@
                          printf(")\n\n"); \
                        } } while (0); 
 
+#define MAX(a, b) (a) > (b) ? (a) : (b)
 
-#define MAX_CPU 256
+const unsigned MaxCpu = 256;
 #define FILE_AVAILABLE_CPU "/sys/devices/system/cpu/online"
 #define FILE_TOPOLOGY_LENGTH (sizeof("/sys/devices/system/cpu/cpu0/topology/core_id") + 3)
 
-#define ALIGNMENT 4096
-#define START 0
-#define STOP  1
-const long unsigned TOTAL_STEPS = 10000000000;
+const unsigned Alignment = 4096;
+const unsigned Start = 0;
+const unsigned Stop  = 1;
+
+const long unsigned TotalSteps = 10000000000;
 
 inline double function(double x)
 {
@@ -248,23 +250,17 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
 {
   assert(cpu_info);
   
-  double start = START;
-  double stop  = STOP;
-  double big_step = (stop - start) / double(n_threads);
-
   // local array for results
   double** results = (double**)calloc(n_threads, sizeof(double*));
   Assert(results);
 
-  pthread_t* pthread_id = (pthread_t*)calloc(n_threads, sizeof(pthread_t));
+  pthread_t* pthread_id = (pthread_t*)calloc(MAX(cpu_info->virtual_cpu_num, n_threads), sizeof(pthread_t));
   Assert(pthread_id);
 
-  struct data_t* thread_data = (data_t*)calloc(n_threads, sizeof(data_t));
+  struct data_t* thread_data = (data_t*)calloc(MAX(cpu_info->virtual_cpu_num, n_threads), sizeof(data_t));
   Assert(thread_data);
   
-
   //------choosing real cpus or virtual-------
-  unsigned  current_cpu = 0;
   unsigned* cpu_list;
   unsigned  cpu_list_size;
   if (n_threads > cpu_info->real_cpu_num)
@@ -279,22 +275,52 @@ int DistributeThreads(cpu_info_t* cpu_info, unsigned n_threads)
   }
   //-------------------------------------------
   
-  for (unsigned i = 0; i < n_threads; ++i) 
+  double big_step = (Stop - Start) / double(n_threads);
+  unsigned cur_thread = 0;
+  unsigned for_limit = MAX(cpu_info->virtual_cpu_num, n_threads);
+  for (unsigned i = 0; i < for_limit; ++i) 
   {
-    thread_data[i].start  = start + double(i) * big_step;
-    thread_data[i].stop   = start + double(i + 1) * big_step;
-    thread_data[i].step_n = TOTAL_STEPS / n_threads;
-    thread_data[i].res    = (double*) memalign(ALIGNMENT, sizeof(double)); 
-    thread_data[i].cpu_n  = cpu_list[current_cpu % cpu_list_size];
-    current_cpu++;
-
-    Assert(thread_data[i].res);
-    results[i] = thread_data[i].res;
     
-    Assert(pthread_create(&pthread_id[i], NULL, &calculate, &thread_data[i]) == 0); 
+    thread_data[i].start  = Start + double(0)     * big_step;
+    thread_data[i].stop   = Start + double(0 + 1) * big_step;
+
+    thread_data[i].step_n = TotalSteps / n_threads;
+    thread_data[i].res    = (double*) memalign(Alignment, sizeof(double)); 
+    thread_data[i].cpu_n  = cpu_info->virtual_cpu[i % cpu_info->virtual_cpu_num];
+    Assert(thread_data[i].res);
+   
+    //-------------- Filling threads with normal work -------------
+    if (n_threads < cpu_info->virtual_cpu_num)
+    {
+      for (unsigned j = 0; j < n_threads; ++j)
+      {
+        if (i == cpu_list[j % cpu_list_size])
+        {
+          results[cur_thread] = thread_data[i].res;    
+          thread_data[i].start  = Start + double(cur_thread)     * big_step;
+          thread_data[i].stop   = Start + double(cur_thread + 1) * big_step;
+          cur_thread++;
+        } 
+      }
+    }
+    else
+    {
+      results[cur_thread++] = thread_data[i].res;
+      thread_data[i].start  = Start + double(i)     * big_step;
+      thread_data[i].stop   = Start + double(i + 1) * big_step; 
+    }
+    //-------------------------------------------------------------
+   
+    if (pthread_create(&pthread_id[i], NULL, &calculate, &thread_data[i]) != 0)
+    {
+      printf("Error!\n");
+      printf("To much number of threads\n");
+      FreeCpuInfo(cpu_info);
+      return -1;
+    }
 
 #ifdef DEBUG
-    printf("Created new thead with cpu: %u! Start from %f\n", cpu_list[current_cpu % cpu_list_size], thread_data[i].start);
+    printf("Created new thead with cpu: %u! Start from %f\n", cpu_info->virtual_cpu[i % cpu_info->virtual_cpu_num], thread_data[i].start);
 #endif
   }
 
