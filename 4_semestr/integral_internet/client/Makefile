@@ -1,4 +1,4 @@
-LDLIBS = -I../Headers -I.
+LDLIBS = -I../../../Headers -I. -I../
 CXX := g++
 
 # Compilator
@@ -29,16 +29,13 @@ CXXFLAGS += -Wformat-signedness -Wformat-nonliteral -Wformat-security -Wformat=2
 CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally-supported -Wctor-dtor-privacy -Wempty-body -Wfloat-equal -Winline -Wlarger-than=8192 -Wlogical-op -Wnon-virtual-dtor -Wopenmp-simd -Woverloaded-virtual -Wpacked -Wpointer-arith -Wredundant-decls -Wshadow -Wsync-nand -Wundef -Wunreachable-code -Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing -Wno-varargs -fsized-deallocation -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -lm -pie
 
 #flags for specific API
-CXXFLAGS += -pthread
+CXXFLAGS += -pthread -lubsan
 
-OBJS_S = server.o 
 OBJS_C = client.o
 
-all: server
-s: server
-c: client
+all: client
 
-s: $(OBJS_S)
+client: $(OBJS_C)
 	@${CXX} $^ -o $@ -MD ${CXXFLAGS} ${LDLIBS}
 
 %.o: %.cpp
