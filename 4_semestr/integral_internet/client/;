@@ -73,46 +73,30 @@ int ConnectToServer(sockaddr_in* servaddr)
 
 void SendThreadInformation(int tcp_socket)
 {
-  printf("\nReady to send Thread information\n");
+  printf("Ready to send Thread information\n");
   
   cpu_info_t cpu_info{};
   GetCpuInfo(&cpu_info);
 
-  SendSocketUnsigned(tcp_socket, cpu_info.virtual_cpu_num);
-  printf("Sended from:\n");
+  unsigned cpu_num = cpu_info.virtual_cpu_num;
+  char     cpu_num_str[MaxBufLen];
+
+  int str_len = snprintf(cpu_num_str, 0, "%u", cpu_num);
+  Assert(str_len > 0);
+  Assert(snprintf(cpu_num_str, size_t(str_len + 1), "%d", cpu_num == unsigned(str_len + 1)) == str_len);
+  cpu_num_str[str_len] = '\0';
+
+  SendSocket(tcp_socket, cpu_num_str, size_t(str_len + 1));
+  printf("information sended from!\n");
   PrintSocket(tcp_socket);
 
   FreeCpuInfo(&cpu_info);
 }
 
-struct integral_message* ReceiveJob(int sock)
-{
-  struct integral_message* job = (struct integral_message*) calloc(1, sizeof(struct integral_message));
-  Assert(job);
-
-  int recv_bytes = (int)recv(sock, (void*)job, sizeof(struct integral_message), 0);
-  Assert(recv_bytes > 0);
-  Assert((size_t)recv_bytes == sizeof(struct integral_message));
-  
-  return job;
-}
-
-double DoJob(struct integral_message* job)
-{
-  Assert(job);
-
-  cpu_info_t cpu_info = {};
-  GetCpuInfo(&cpu_info);
-  
-  double ans = 0;
-  DistributeThreads(&cpu_info, cpu_info.virtual_cpu_num, &ans);
-  FreeCpuInfo(&cpu_info);
-
-  return ans;
-} 
 
 int main(int argc, char** argv)
 {
+  
   struct sockaddr_in* servaddr = WaitServer(); 
   
   printf("listener: got packet from ");
@@ -122,17 +106,9 @@ int main(int argc, char** argv)
   int tcp_socket = ConnectToServer(servaddr);
   SendThreadInformation(tcp_socket);
   
-  struct integral_message* job = ReceiveJob(tcp_socket);
-  printf("Get job:\nStart: %lg\nStop: %lg\nN_steps: %llu\n----------------\n", \
-         job->start, job->stop, job->n_steps);
-
-  double ans = DoJob(job);
-  printf("I calculated: %lg\n", ans);
-
-  sleep(5);
+  sleep(10);
   
   close(tcp_socket);
   free(servaddr); 
-  free(job);
   return 0;
 }

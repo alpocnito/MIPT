@@ -1,4 +1,4 @@
-LDLIBS = -I../../../Headers -I. -I../
+LDLIBS = -I../../../Headers -I. -I../ -I../../integral
 CXX := g++
 
 # Compilator
@@ -41,8 +41,8 @@ server: $(OBJS_S)
 %.o: %.cpp
 	@${CXX} -c $^ -o $@ -MD ${CXXFLAGS} ${LDLIBS}
 
-valgrind: test
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./test
+valgrind: server
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./server 2
 
 clean:
 	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt

@@ -31,7 +31,7 @@ CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally
 #flags for specific API
 CXXFLAGS += -pthread
 
-OBJS = main.o
+OBJS = main.o calc.o
 
 all: calc
 

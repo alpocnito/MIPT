@@ -1,4 +1,4 @@
-LDLIBS = -I../../../Headers -I. -I../
+LDLIBS = -I../../../Headers -I. -I../ -I../../integral
 CXX := g++
 
 # Compilator
@@ -31,7 +31,7 @@ CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wconditionally
 #flags for specific API
 CXXFLAGS += -pthread -lubsan
 
-OBJS_C = client.o
+OBJS_C = client.o ../../integral/calc.o
 
 all: client
 
@@ -41,8 +41,8 @@ client: $(OBJS_C)
 %.o: %.cpp
 	@${CXX} -c $^ -o  $@ -MD ${CXXFLAGS} ${LDLIBS}
 
-valgrind: test
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./test
+valgrind: client
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$^
 
 clean:
 	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt

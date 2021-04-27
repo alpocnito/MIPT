@@ -1,4 +1,4 @@
-main.o: main.cpp /usr/include/stdc-predef.h /usr/include/stdio.h \
+main.o: main.cpp /usr/include/stdc-predef.h calc.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
