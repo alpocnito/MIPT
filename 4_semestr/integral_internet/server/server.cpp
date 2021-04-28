@@ -165,6 +165,58 @@ void SendTasks(struct clients_information* clients_inf, unsigned connected_comps
 }
 
 
+double ReceiveAnswers(struct clients_information* clients_inf, unsigned connected_comps)
+{
+  Assert(clients_inf);
+  
+  struct pollfd* fds = (struct pollfd*) calloc(connected_comps, sizeof(struct pollfd));
+  Assert(fds);
+
+  for (unsigned i = 0; i < connected_comps; ++i)
+  {
+    fds[i].fd = clients_inf[i].socket;
+    fds[i].events = POLLIN;
+  }
+
+  unsigned gived_ans = 0;
+  double ans = 0;
+  int error = 0;
+
+  while (gived_ans != connected_comps && !error)
+  {
+    int ret = poll(fds, connected_comps, TimeoutWaitClientsAnswer_m);
+
+    if (ret > 0)
+      for (unsigned i = 0; i < connected_comps; ++i)
+      {
+        if (fds[i].revents & POLLIN)
+        {
+          double cur_ans = 0;
+          int recv_bytes = (int)recv(clients_inf[i].socket, &ans, sizeof(ans), 0);
+          Assert(recv_bytes > 0);
+          Assert((size_t)recv_bytes == sizeof(ans));
+          
+          ans += cur_ans;
+          gived_ans += 1;
+          fds[i].fd = -1;
+        }
+        else if (fds[i].revents & (POLLERR | POLLHUP | POLLNVAL))
+        {
+          printf("Error on socket %d occured\n", clients_inf[i].socket);
+          error = 1;
+          break;
+        }
+      }
+  }
+
+  if (gived_ans != connected_comps)
+  {
+    printf("Can not calculate integral, errors occured\n");
+  }
+  return ans;
+}
+
+
 int main(int argc, char** argv)
 {
   if (argc != 2)
@@ -186,6 +238,9 @@ int main(int argc, char** argv)
 
   unsigned connected_comps = GetClientsInf(clients_inf, n_comp_find, clients_sockets);
   SendTasks(clients_inf, connected_comps);
+  
+  double ans = ReceiveAnswers(clients_inf, connected_comps);
+  printf("Ans: %lg\n", ans);
 
   free(clients_inf);
   free(clients_sockets);

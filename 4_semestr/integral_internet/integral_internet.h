@@ -13,6 +13,7 @@
 #include <malloc.h>
 #include <time.h>
 #include <limits.h>
+#include <poll.h>
 
 #include <sys/types.h>
 #include <sys/stat.h> 
@@ -38,7 +39,7 @@
 
 //////////////////////////////// INTEGRAL ///////////////////////////////////
 
-const unsigned long long TotalStepsI = ULONG_MAX / 100;
+const unsigned long long TotalStepsI = ULONG_MAX / 100 / 1000000;
 double StartI  = 0;
 double StopI = 100000;
 
@@ -53,6 +54,8 @@ struct integral_message
   double stop;
   unsigned long long n_steps;
 };
+
+const unsigned TimeoutWaitClientsAnswer_m = 10000;
 
 //////////////////////////////// INTERNET ///////////////////////////////////
 const unsigned MaxBufLen = 100;

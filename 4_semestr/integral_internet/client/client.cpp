@@ -128,6 +128,8 @@ int main(int argc, char** argv)
 
   double ans = DoJob(job);
   printf("I calculated: %lg\n", ans);
+  
+  SendSocketDouble(tcp_socket, ans);
 
   sleep(5);
   
