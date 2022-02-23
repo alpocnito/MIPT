@@ -1,0 +1,2 @@
+Compile: make
+Run:     make run np=10 N=10000
