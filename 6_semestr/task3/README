@@ -1,0 +1,3 @@
+Compile: make
+Run:     make run Top=r np=3 Arr='1 2 3'
+Run:     make run Top=s np=3 Arr='1 2 3'

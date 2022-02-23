@@ -8,7 +8,7 @@
 #include "stdlib.h"
 
 #ifdef DEBUG
-	#define Printf(...) printf(...);
+	#define Printf(...) printf(__VAR__ARGS__);
 #else
 	#define Printf(...) ;
 #endif
@@ -19,7 +19,7 @@ void server_job(int size, int rank, unsigned int N)
 	assert(rank == 0);
 	assert(N > 1);
 	
-	// Requests for ISend
+	// Requests for Isend
 	MPI_Request* requests = (MPI_Request*)calloc((unsigned int)(size - 1), sizeof(requests[0]));
 	assert(requests);
 
@@ -49,6 +49,7 @@ void server_job(int size, int rank, unsigned int N)
 		assert(MPI_Isend(buffers[i], 2, MPI_UNSIGNED, int(i + 1), 0, MPI_COMM_WORLD, &(requests[i])) == MPI_SUCCESS);
 	}
 	
+	// Wait untile Isend ends
 	for (unsigned int i = 0; i < size - 1; ++i)
 		assert(MPI_Wait(&(requests[i]), MPI_STATUS_IGNORE) == MPI_SUCCESS);
 
@@ -82,6 +83,7 @@ void client_job(int size, int rank, unsigned int N)
 
 	Printf("%2u: process get information: from %6u to %6u\n", rank, buffer[0], buffer[1]);
 	
+	// client counts
 	unsigned int ans = 0;
 	for (unsigned int i = buffer[0]; i <= buffer[1]; ++i)
 		ans += i;
@@ -93,6 +95,7 @@ void client_job(int size, int rank, unsigned int N)
 	printf("%2d: PROC TIME IN SEC: %lg\n", rank, MPI_Wtime() - start_time);	
 }
 
+// if size == 1
 unsigned int sum(unsigned int N)
 {
 	assert(N > 0);
@@ -164,7 +167,6 @@ int main(int argc, char** argv)
 		assert(MPI_Finalize() == MPI_SUCCESS);
 	  return 0;	
 	}
-	
 	
 	printf("TOTAL TIME IN SEC: %lg\n", MPI_Wtime() - start_time);	
   assert(MPI_Finalize() == MPI_SUCCESS);
