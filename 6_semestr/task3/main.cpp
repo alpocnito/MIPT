@@ -45,6 +45,8 @@ int main(int argc, char** argv)
 		ring(size, rank, arr);
 	
   assert(MPI_Finalize() == MPI_SUCCESS);
+
+	free(arr);
 	return 0;
 }
 

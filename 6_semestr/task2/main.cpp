@@ -62,6 +62,11 @@ void server_job(int size, int rank, unsigned int N)
 	}
 
 	printf("Answer: %u\n", ans);
+	
+	free(requests);
+	for (unsigned int i = 0; i < size-1; ++i)
+		free(buffers[i]);
+	free(buffers);
 	return;
 }
 
@@ -93,6 +98,9 @@ void client_job(int size, int rank, unsigned int N)
 
 	Printf("%2d: process killed with ans: %u\n", rank, ans);
 	printf("%2d: PROC TIME IN SEC: %lg\n", rank, MPI_Wtime() - start_time);	
+
+	free(buffer);
+	return;
 }
 
 // if size == 1
