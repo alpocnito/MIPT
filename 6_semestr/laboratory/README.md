@@ -2,8 +2,8 @@
 - Works only with white themes
 ```
 Because of github markdown features:
-+ is <img src="https://render.githubusercontent.com/render/math?math=\pm">
-- is <img src="https://render.githubusercontent.com/render/math?math=\mp">
+ + is <img src="https://render.githubusercontent.com/render/math?math=\pm">
+ - is <img src="https://render.githubusercontent.com/render/math?math=\mp">
 
 # MPI laboratory
 
