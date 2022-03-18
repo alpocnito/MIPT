@@ -1,5 +1,5 @@
 //
-// Сделаны все доп. задания
+// Из доп. заданий посчитано число пи
 //
 
 #include "math.h"
@@ -21,7 +21,8 @@
 double job(unsigned start, unsigned end, char type);
 double pi(unsigned index);
 double exp(unsigned index);
-double sin(unsigned index);
+unsigned fact(unsigned x);
+double inv_fact(unsigned x);
 
 int main(int argc, char** argv)
 {
@@ -95,14 +96,35 @@ double job(unsigned start, unsigned end, char type)
 
 double exp(unsigned index)
 {
-	double ans = 1;
-	for (unsigned i = 2; i <= index; ++i)
-		ans /= i;
-
-	return ans;
+	return 1 / fact(index);
 }
 
 double pi(unsigned index)
 {
-	return 4 * pow(-1, index) / (2 * index + 1);	
+	return 4 * pow(-1, index) / (2 * index + 1);
+}
+
+unsigned fact(unsigned x)
+{
+	if (x == 0)
+		return 1;
+	
+	unsigned ans = 1;
+	for (unsigned i = 2; i <= x; ++i)
+		ans *= i;
+
+	return ans;
+}
+
+
+double inv_fact(unsigned x)
+{
+	if (x == 0)
+		return 1;
+	
+	double ans = 1;
+	for (unsigned i = 2; i <= x; ++i)
+		ans /= i;
+
+	return ans;
 }
