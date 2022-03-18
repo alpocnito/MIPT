@@ -1,16 +1,13 @@
 ```diff
 - Works only with white themes
 ```
-Because of github markdown features:
-
-<img src="https://render.githubusercontent.com/render/math?math=\pm"> is +
 
 # MPI laboratory
 
 ## Theory
 The goal of this program is to solve differential equation:
 
-<img src="https://render.githubusercontent.com/render/math?math=\frac{\partial u(t, x)}{\partial t} \pm a\cdot \frac{\partial u(t, x)}{\partial x} = f(t,x)">
+<img src="https://render.githubusercontent.com/render/math?math=\frac{\partial u(t, x)}{\partial t} \dotplus a\cdot \frac{\partial u(t, x)}{\partial x} = f(t,x)">
 <img src="https://render.githubusercontent.com/render/math?math=u(0,x) = \varphi (x), 0 \leqslant x \leqslant X">
 <img src="https://render.githubusercontent.com/render/math?math=u(t,o) = \psi (t), 0 \leqslant t \leqslant T">
 
