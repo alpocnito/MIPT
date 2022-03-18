@@ -21,4 +21,4 @@ Function u(t,x) is considered in:
 In order to calculate function we will use difference schemes
 
 1. Explicit left corner
-<img src="https://render.githubusercontent.com/render/math?math=\frac{u_m^{k \pm 1} - u_m^{k}}{\tau} \oplus \frac{u_m^{k} - u_{m \mp 1}^{k}}{h} = f_m^k, k = 0, ..., K - 1, m = 0, ..., M">
+<img src="https://render.githubusercontent.com/render/math?math=\frac{u_m^{k \dotplus 1} - u_m^{k}}{\tau} \dotplus \frac{u_m^{k} - u_{m - 1}^{k}}{h} = f_m^k, k = 0, ..., K - 1, m = 0, ..., M">
