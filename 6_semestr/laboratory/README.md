@@ -5,8 +5,6 @@ Because of github markdown features:
 
 <img src="https://render.githubusercontent.com/render/math?math=\pm"> is +
 
-<img src="https://render.githubusercontent.com/render/math?math=\mp"> is -
-
 # MPI laboratory
 
 ## Theory
