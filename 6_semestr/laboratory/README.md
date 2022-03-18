@@ -1,6 +1,10 @@
 ```diff
 - Works only with white themes
 ```
+Because of github markdown features:
++ is <img src="https://render.githubusercontent.com/render/math?math=\pm">
+- is <img src="https://render.githubusercontent.com/render/math?math=\mp">
+
 # MPI laboratory
 
 ## Theory
@@ -19,4 +23,4 @@ Function u(t,x) is considered in:
 
 In order to calculate function we will use difference schemes
 
-1. <img src="https://render.githubusercontent.com/render/math?math=u_m^{k+1}">
+1. <img src="https://render.githubusercontent.com/render/math?math=u_m^{k \pm 1}">
