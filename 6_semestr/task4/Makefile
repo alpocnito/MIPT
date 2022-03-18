@@ -19,6 +19,7 @@ CXXFLAGS += -Wformat-nonliteral -Wformat-security -Wformat=2
 CXXFLAGS += -g -Waggressive-loop-optimizations -Wchar-subscripts -Wctor-dtor-privacy -Wempty-body -Wfloat-equal -Winline -Wlarger-than=8192 -Wlogical-op -Wnon-virtual-dtor -Woverloaded-virtual -Wpacked -Wpointer-arith -Wredundant-decls -Wshadow -Wsync-nand -Wundef -Wunreachable-code -Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing -Wno-varargs -fno-omit-frame-pointer -fPIE -lm -pie
 
 
+
 OBJS = main.o
 
 all: main
