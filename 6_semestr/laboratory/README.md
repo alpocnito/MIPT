@@ -91,12 +91,7 @@ Time: 0.00134599
 ```
 Output is the same except for the sequence of style characters: | 
 
-In order to disable output we have to comment line:
-```
-#define PRINT
-```
-
-After commenting this line we can measure time needed to calculate big matrices.
+In order to disable output we have to comment ```#define PRINT``` line in main.cpp. After commenting this line we can measure time needed to calculate big matrices.
 
 ## Effectiveness
 
