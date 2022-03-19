@@ -95,8 +95,8 @@ In order to disable output we have to comment ```#define PRINT``` line in __main
 
 ## Effectiveness
 
-
-
+- <img src="https://render.githubusercontent.com/render/math?math=T_1"> time it takes for one processor to complete a job
+- <img src="https://render.githubusercontent.com/render/math?math=T_p"> time it takes for <img src="https://render.githubusercontent.com/render/math?math=p"> processors to complete a job
 
 
 
