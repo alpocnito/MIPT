@@ -63,3 +63,47 @@ Time: 0.000115267
 - np - Number of process 
 - K - Height of the matrix
 - M - Widht of the matrix
+
+Let's look at this matrix with one more processor:
+```
+make run np=2 K=5 M=5
+```
+Output:
+```
+            0     1     2     3     4     5
+      ------------------------------------------
+0     |     0     4     2e+01 4e+01 6e+01 1e+02
+
+1     |     -2    0     4     2e+01 4e+01 6e+01
+      |
+2     |     2     -3    -3    8     2e+01 3e+01
+      |
+3     |     -1    -1    -8    5     7     9
+      |
+4     |     -0.6  -6    -9    3     3     -3
+      |
+5     |     2     -7    -2e+016     0.8   -1e+01
+      |
+
+
+Time: 0.00134599
+      |                                          
+```
+Output is the same except for the sequence of style characters: | 
+
+In order to disable output we have to comment line:
+```
+#define PRINT
+```
+
+After commenting this line we can measure time needed to calculate big matrices.
+
+## Effectiveness
+
+
+
+
+
+
+
+
