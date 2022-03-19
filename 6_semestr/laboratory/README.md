@@ -4,7 +4,7 @@
 
 # Parallel calculations laboratory
 
-## Theory
+## Task
 The goal of this program is to solve differential equation:
 
 <img src="https://render.githubusercontent.com/render/math?math=\frac{\partial u(t, x)}{\partial t} \dotplus a\cdot \frac{\partial u(t, x)}{\partial x} = f(t,x)">
