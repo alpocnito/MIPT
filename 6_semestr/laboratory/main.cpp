@@ -14,7 +14,7 @@
 	#define Printf(...) ;
 #endif
 
-//#define PRINT
+#define PRINT
 
 #ifdef PRINT
 	#define Print_line(...) print_line(__VA_ARGS__);
