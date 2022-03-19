@@ -33,3 +33,5 @@ Firstly, let's calculate the time is take to send a message from one processor t
 make dopusk
 make dopusk_run
 ```
+For my computer it is: ```Time: 0.000175648```
+
