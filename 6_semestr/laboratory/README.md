@@ -35,3 +35,31 @@ make dopusk_run
 ```
 For my computer it is: ```Time: 0.000175648```
 
+Secondly, let's look at the matrix that the program calculates:
+```
+make 
+make run np=1 K=5 M=5
+```
+It will output this matrix:
+```
+            0     1     2     3     4     5
+      ------------------------------------------
+0     |     0     4     2e+01 4e+01 6e+01 1e+02
+      |
+1     |     -2    0     4     2e+01 4e+01 6e+01
+      |
+2     |     2     -3    -3    8     2e+01 3e+01
+      |
+3     |     -1    -1    -8    5     7     9
+      |
+4     |     -0.6  -6    -9    3     3     -3
+      |
+5     |     2     -7    -2e+016     0.8   -1e+01
+      |
+
+
+Time: 0.000115267
+```
+- np - Number of process 
+- K - Height of the matrix
+- M - Widht of the matrix
