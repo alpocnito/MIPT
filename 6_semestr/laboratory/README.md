@@ -103,6 +103,7 @@ In order to disable output we have to comment ```#define PRINT``` line in __main
 Maximal theoretical acceleration is equal to
 
 <img src="https://render.githubusercontent.com/render/math?math=S = \frac{T_1}{T_p} = \frac{T_1}{\alpha T_1 \dotplus \frac{T_1 (1 - \alpha)}{p}} \leqslant \frac{1}{\alpha}">
+
 Where <img src="https://render.githubusercontent.com/render/math?math=\alpha"> is the proportion of consecutive commands.
 
 In experiment we will measure dependence of <img src="https://render.githubusercontent.com/render/math?math=S"> and <img src="https://render.githubusercontent.com/render/math?math=E"> on number of processors and matrix size.
