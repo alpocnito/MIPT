@@ -1,0 +1,4 @@
+Compile: make
+Run:     ./main 8
+
+8 - num of threads
