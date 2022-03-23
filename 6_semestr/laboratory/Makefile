@@ -41,7 +41,7 @@ dopusk_run:
 	@mpirun -np 2 --oversubscribe --allow-run-as-root ./dopusk
 
 run:
-	@mpirun -np $(np) --oversubscribe --allow-run-as-root ./main $(K) $(M)
+	@mpirun -np $(np) --oversubscribe --allow-run-as-root -v ./main $(K) $(M)
 
 clean:
 	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt
