@@ -111,9 +111,12 @@ void OneProc(unsigned K, unsigned M)
 	for (unsigned k = 0; k < K; ++k)
 	{
 		for (unsigned m = 1; m <= M; ++m)
-			u[k+1][m] = f(k * T/K, m * X/M) * tau + u[k][m] - (u[k][m] - u[k][m-1]) * tau / h;
-	}
-	Print_u(u, K, M);
+        {
+            u[k+1][m] = f(k * T/K, m * X/M) * tau + u[k][m] - (u[k][m] - u[k][m-1]) * tau / h;
+            //printf("(%u, %u)   F: %lg; u_1: %lg; u_2: %lg\n", k+1, m, f(k * T/K, m * X/M), u[k][m], u[k][m-1]);
+	    }
+    }
+	//Print_u(u, K, M);
 	
 	for (unsigned i = 0; i <= K; ++i)
 		free(u[i]);
@@ -123,17 +126,17 @@ void OneProc(unsigned K, unsigned M)
 void Print_several_proc(unsigned K, unsigned M, unsigned size, unsigned rank, double* u, unsigned width)
 {   
 
+    unsigned all_width = (M + 1) / size;
+    unsigned last_width = width;
+
     if (rank != size-1)
     {
         MPI_Request req;
-        assert(MPI_Isend(u, int(width * (K + 1)), MPI_DOUBLE, int(rank + 1), int(rank), MCW, &req) == MPI_SUCCESS);
+        assert(MPI_Isend(u, int(all_width * (K + 1)), MPI_DOUBLE, int(size-1), int(rank), MCW, &req) == MPI_SUCCESS);
     }
         
     else
     {  
-        unsigned all_width = (M + 1) / size;
-        unsigned last_width = width;
-
         // u with K * M elements
         double** u_all = (double**) calloc((K + 1), sizeof(u_all[0]));
         for (unsigned i = 0; i <= K; ++i)
@@ -144,15 +147,16 @@ void Print_several_proc(unsigned K, unsigned M, unsigned size, unsigned rank, do
         for (unsigned i = 0; i < size-1; ++i)
         {
             u_recv[i] = (double*) calloc(all_width * (K + 1), sizeof(u_recv[0][0]));
-		    
+		    //printf("TEST\n"); 
             assert(MPI_Recv(u_recv[i], int(all_width * (K + 1)), MPI_DOUBLE, MPI_ANY_SOURCE, int(i), MCW, MPI_STATUS_IGNORE) == MPI_SUCCESS);
-
+		    //printf("TEST\n"); 
         } 
         
         // u from rank == size-1 process
         u_recv[size-1] = (double*) calloc(last_width*(K + 1), sizeof(u_recv[0][0]));
         assert(memcpy(u_recv[size-1], u, sizeof(double) * last_width * (K + 1)));
  
+        /*
         for (unsigned j = 0; j < all_width * (K+1); ++j)
             printf("%lg ", u_recv[0][j]); 
         printf("\nwidth: %u\n", all_width);
@@ -160,7 +164,8 @@ void Print_several_proc(unsigned K, unsigned M, unsigned size, unsigned rank, do
         for (unsigned j = 0; j < last_width * (K+1); ++j)
             printf("%lg ", u_recv[1][j]); 
         printf("\nwidth: %u\n", last_width);
-      
+        */
+
         // filling K*M u
         for (unsigned i = 0; i <= K; ++i)
         {   
@@ -195,65 +200,90 @@ void SeveralProc(unsigned K, unsigned M, unsigned size, unsigned rank)
 	assert(M > 0);
 	assert(size > 1);
 	
-	if (rank > K)
+	if (rank >= M)
 		return;
+    
+    if (size > M + 1)
+        size = M + 1;
 
 	double tau = T / K;
 	double h   = X / M;
 
     // Algorithm will calculate on [first_col; last_col)
-    unsigned first_col = (rank)     * (M + 1) / size;
-    unsigned last_col  = (rank + 1) * (M + 1) / size;
+    unsigned div = (M + 1) / size;
+
+    unsigned first_col = (rank)     * div;
+    unsigned last_col  = (rank + 1) * div;
     if (rank == size - 1) last_col = M + 1;
     
     unsigned width = last_col - first_col;
+    assert(width > 0);
+    //printf("rank : %u; width: %u\n", rank, width);
+
     double* u = (double*) calloc(width * (K + 1), sizeof(u[0]));
     
     // fill first row
     for (unsigned i = 0; i < width; ++i)
         u[i] = phi( (i + first_col) * X / M );
     
-
     for (unsigned i = 1; i <= K; ++i)
     {
         // Calculate last element ans send it
-	    u[i*width + width - 1] = f((i-1) * T/K, (last_col - 1)  * X/M) * tau + 
+	    if (width > 1)
+        {
+            u[i*width + width - 1] = f((i-1) * T/K, (last_col - 1)  * X/M) * tau + 
             u[(i-1)*width + width - 1] - 
             (u[(i-1)*width + width - 1] - u[(i-1)*width + width - 2]) * tau / h;
-	    printf("% u; LAST: %lg\n", rank, u[i*width + width - 1]);	
-        
+	        //printf("% u; LAST: %lg\n", rank, u[i*width + width - 1]);	
+        }
+
         if (rank != size - 1)
         {
             MPI_Request req;
             assert(MPI_Isend(&(u[i*width + width - 1]), 1, MPI_DOUBLE, 
-                        int(rank + 1), int(i), MCW, &req) == MPI_SUCCESS);
+                        int(rank + 1), int(i+1), MCW, &req) == MPI_SUCCESS);
         }
 
         // Calculate other elements
-        for (unsigned j = 1; j < width - 1; ++j)
-            u[i * width + j] = f((i-1) * T/K, (first_col + j) * X/M ) * tau + 
+        if (width > 2)
+        {
+            for (unsigned j = 1; j < width - 1; ++j)
+                u[i * width + j] = f((i-1) * T/K, (first_col + j) * X/M ) * tau + 
                 u[(i-1) * width + j] - 
                 (u[(i-1) * width + j] - u[(i-1) * width + j-1]) * tau / h ;
+        }
 
         // Calculate first element
-        double recv_u = 0;
-        if (rank != 0)
+        if (rank == 0)
         {
-            assert(MPI_Recv(&recv_u, 1, MPI_DOUBLE, MPI_ANY_SOURCE, 
-                        int(i), MCW, MPI_STATUS_IGNORE) == MPI_SUCCESS);
-	        
+            u[i*width] = psi(i *T/K);
+        }
+        else if (i == 1)
+        {
+            double recv_u = phi( (first_col-1) * X / M );
+    
             u[i*width] = f((i-1) * T/K, first_col * X/M) * tau + u[(i-1)*width] - 
             (u[(i-1)*width] - recv_u) * tau / h;
         }
         else
-            u[i*width] = psi(i * T / K);
+        {
+            double recv_u = 0;
+            assert(MPI_Recv(&recv_u, 1, MPI_DOUBLE, MPI_ANY_SOURCE, 
+                        int(i), MCW, MPI_STATUS_IGNORE) == MPI_SUCCESS);
+	        
+
+            u[i*width] = f((i-1) * T/K, first_col * X/M) * tau + u[(i-1)*width] - 
+            (u[(i-1)*width] - recv_u) * tau / h;
+            //printf("(%u, %u)   F: %lg; u_1: %lg, u_2: %lg\n", i, first_col, f((i-1) * T/K, first_col * X/M), u[(i-1)*width], recv_u);
+        }
     }
     
 
-    for (unsigned i = 0; i < width * (K+1); ++i)
-        printf("%lg ", u[i]);
-    printf("\n---\n");
-    Print_several_proc(K, M, size, rank, u, width);
+    //for (unsigned i = 0; i < width * (K+1); ++i)
+    //    printf("%lg ", u[i]);
+    //printf("\n---\n");
+    
+    //Print_several_proc(K, M, size, rank, u, width);
     free(u);
 }
 
