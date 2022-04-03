@@ -30,9 +30,8 @@ main: $(OBJS)
 %.o: %.cpp
 	@${CXX} -c $^ -o  $@ -MD ${CXXFLAGS} ${LDLIBS}
 
-valgrind: test
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./test
-
+valgrind:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt mpirun -np $(np) --oversubscribe --allow-run-as-root -v ./main $(K) $(M)
 
 dopusk:
 	@${CXX} dopusk.cpp -o dopusk ${CXXFLAGS} 
@@ -43,8 +42,11 @@ dopusk_run:
 run:
 	@mpirun -np $(np) --oversubscribe --allow-run-as-root -v ./main $(K) $(M)
 
+
+
 clean:
 	@$(RM) $(PROG) *.o *.d *.gcov *.gcda *.gcno *.swp test *.info valgrind-out.txt
 	@rm -rf main dopusk
+
 
 

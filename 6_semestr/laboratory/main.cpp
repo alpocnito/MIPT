@@ -25,6 +25,18 @@
 	#define Print_u(...) ;
 #endif
 
+void* Calloc(size_t nmemb, size_t size)
+{
+    void* ptr = calloc(nmemb, size);
+    
+    if (ptr == NULL)
+    {
+        perror("ERROR\n\nCalloced size is too big\n\n\n");
+        assert(ptr);
+    }
+    return ptr;
+}
+
 
 const double X = 10;
 const double T = 10;
@@ -47,15 +59,15 @@ int main(int argc, char** argv)
 	assert(M > 0);
 	
 
-  assert(MPI_Init(NULL, NULL) == MPI_SUCCESS);
+    assert(MPI_Init(NULL, NULL) == MPI_SUCCESS);
 	int i_size, i_rank;
 	assert(MPI_Comm_size(MCW, &i_size) == MPI_SUCCESS);
-  assert(MPI_Comm_rank(MCW, &i_rank) == MPI_SUCCESS);
+    assert(MPI_Comm_rank(MCW, &i_rank) == MPI_SUCCESS);
 	assert(i_size >= 0 && i_rank >= 0);
 	unsigned size = (unsigned)i_size;
 	unsigned rank = (unsigned)i_rank;
 	
-	
+
 	double start_time = MPI_Wtime();
 	if (size <= 1)
 	{
@@ -95,12 +107,12 @@ void OneProc(unsigned K, unsigned M)
 	assert(K > 0);
 	assert(M > 0);
 	
-	double** u = (double**)calloc(K+1, sizeof(u[0]));
+	double** u = (double**)Calloc(K+1, sizeof(u[0]));
 	double tau = T / K;
 	double h   = X / M;
 	
 	for (unsigned i = 0; i <= K; ++i)
-		u[i] = (double*)calloc(M+1, sizeof(u[0][0]));
+		u[i] = (double*)Calloc(M+1, sizeof(u[0][0]));
 	
 	for (unsigned i = 0; i <= K; ++i)
 		u[i][0] = psi(i * T / K);
@@ -138,22 +150,22 @@ void Print_several_proc(unsigned K, unsigned M, unsigned size, unsigned rank, do
     else
     {  
         // u with K * M elements
-        double** u_all = (double**) calloc((K + 1), sizeof(u_all[0]));
+        double** u_all = (double**) Calloc((K + 1), sizeof(u_all[0]));
         for (unsigned i = 0; i <= K; ++i)
-            u_all[i] = (double*) calloc((M + 1), sizeof(u_all[0][0]));
+            u_all[i] = (double*) Calloc((M + 1), sizeof(u_all[0][0]));
         
         // Received u from smaller rank processes
-        double** u_recv = (double**) calloc(size, sizeof(u_recv[0]));
+        double** u_recv = (double**) Calloc(size, sizeof(u_recv[0]));
         for (unsigned i = 0; i < size-1; ++i)
         {
-            u_recv[i] = (double*) calloc(all_width * (K + 1), sizeof(u_recv[0][0]));
+            u_recv[i] = (double*) Calloc(all_width * (K + 1), sizeof(u_recv[0][0]));
 		    //printf("TEST\n"); 
             assert(MPI_Recv(u_recv[i], int(all_width * (K + 1)), MPI_DOUBLE, MPI_ANY_SOURCE, int(i), MCW, MPI_STATUS_IGNORE) == MPI_SUCCESS);
 		    //printf("TEST\n"); 
         } 
         
         // u from rank == size-1 process
-        u_recv[size-1] = (double*) calloc(last_width*(K + 1), sizeof(u_recv[0][0]));
+        u_recv[size-1] = (double*) Calloc(last_width*(K + 1), sizeof(u_recv[0][0]));
         assert(memcpy(u_recv[size-1], u, sizeof(double) * last_width * (K + 1)));
  
         /*
@@ -220,8 +232,9 @@ void SeveralProc(unsigned K, unsigned M, unsigned size, unsigned rank)
     assert(width > 0);
     //printf("rank : %u; width: %u\n", rank, width);
 
-    double* u = (double*) calloc(width * (K + 1), sizeof(u[0]));
+    double* u = (double*) Calloc(width * (K + 1), sizeof(u[0]));
     
+
     // fill first row
     for (unsigned i = 0; i < width; ++i)
         u[i] = phi( (i + first_col) * X / M );
@@ -315,6 +328,3 @@ void print_u(double** u, unsigned K, unsigned M)
 	}
 	printf("\n\n\n");
 }
- 
-
-
