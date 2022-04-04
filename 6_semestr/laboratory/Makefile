@@ -42,6 +42,8 @@ dopusk_run:
 run:
 	@mpirun -np $(np) --oversubscribe --allow-run-as-root -v ./main $(K) $(M)
 
+gdb:
+	@mpirun -np $(np) --oversubscribe --allow-run-as-root xterm -hold -e gdb -ex run --args ./main $(K) $(M)
 
 
 clean:

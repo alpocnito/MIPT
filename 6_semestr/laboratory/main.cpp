@@ -230,15 +230,16 @@ void SeveralProc(unsigned K, unsigned M, unsigned size, unsigned rank)
     
     unsigned width = last_col - first_col;
     assert(width > 0);
-    //printf("rank : %u; width: %u\n", rank, width);
 
     double* u = (double*) Calloc(width * (K + 1), sizeof(u[0]));
-    
 
     // fill first row
     for (unsigned i = 0; i < width; ++i)
+    {
         u[i] = phi( (i + first_col) * X / M );
-    
+
+    }
+
     for (unsigned i = 1; i <= K; ++i)
     {
         // Calculate last element ans send it
@@ -260,10 +261,12 @@ void SeveralProc(unsigned K, unsigned M, unsigned size, unsigned rank)
         // Calculate other elements
         if (width > 2)
         {
-            for (unsigned j = 1; j < width - 1; ++j)
+            for (unsigned j = 1; j < width - 1; ++j) 
+            {
                 u[i * width + j] = f((i-1) * T/K, (first_col + j) * X/M ) * tau + 
                 u[(i-1) * width + j] - 
                 (u[(i-1) * width + j] - u[(i-1) * width + j-1]) * tau / h ;
+            }
         }
 
         // Calculate first element
