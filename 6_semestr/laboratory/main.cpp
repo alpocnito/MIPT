@@ -230,6 +230,7 @@ void SeveralProc(unsigned K, unsigned M, unsigned size, unsigned rank)
     
     unsigned width = last_col - first_col;
     assert(width > 0);
+    printf("Rank: %u; width: %u\n", rank, width);
 
     double* u = (double*) Calloc(width * (K + 1), sizeof(u[0]));
 
