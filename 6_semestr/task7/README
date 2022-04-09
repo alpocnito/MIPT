@@ -1,0 +1,5 @@
+Compile: make
+Run:     ./main 8 10
+
+8  = num of threads
+10 = N
