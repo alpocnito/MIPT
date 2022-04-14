@@ -1,6 +1,9 @@
 Compile: make
-Run:     ./main 8 10 0.1
+Run:     ./main 8 1 10 0.1 x
 
 8   = num of threads
-10  = N
+1   = start
+10  = end
 0,1 = step
+x   = integral x dx
+h   = integral cos(x^2) * arctg(x) dx 

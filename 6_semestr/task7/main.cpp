@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <semaphore.h>
 #include <time.h>
+#include <math.h>
 
 #define handle_error_en(er, msg) \
 	do {errno = er; perror(msg); exit(EXIT_FAILURE); } while (0)
@@ -18,12 +19,12 @@
 
 
 void client_job(unsigned size, unsigned rank, unsigned N, double step);
-void server_job(unsigned size, unsigned rank, unsigned N, double step);
+void server_job(unsigned size, unsigned rank, unsigned N, unsigned a, double step);
 void* thread_func(void* v_num);
 double func(double start, double stop, double step);
 
-const double Start = 1;
 const double EPS = 0.00000001;
+int IntegralType = 0;
 
 // for thread_func
 sem_t sem_calloc;
@@ -36,6 +37,8 @@ struct Thread_args
 {
     unsigned rank;
     unsigned np;
+    unsigned a;
+    unsigned b;
     unsigned N;
     double step;
 };
@@ -46,19 +49,29 @@ int main(int argc, char** argv)
     double elapsed;
     clock_gettime(CLOCK_REALTIME, &begin);
 
-	assert(argc == 4);
+	assert(argc == 6);
     char* tmp;
 	unsigned int np    = (unsigned int)atoi(argv[1]);
-	unsigned int N     = (unsigned int)atoi(argv[2]);
-	double       step  =               strtod(argv[3], &tmp);
-	assert(N > 0);
+	unsigned int a     = (unsigned int)atoi(argv[2]);
+	unsigned int b     = (unsigned int)atoi(argv[3]);
+	double       step  =               strtod(argv[4], &tmp);
+	char integral_type = argv[5][0];
+    
+    assert(a > 0);
+	assert(b > a);
 	assert(np > 0);
 	assert(step > 0);
+	assert(step < double(b-a));
+    if (integral_type == 'x') IntegralType = 1;
+    if (integral_type == 'h') IntegralType = 2;
+    assert(integral_type == 'x' || integral_type == 'h');
 
+    unsigned N = unsigned(floor(double(b - a) / step));
+    
 	// special cases
 	if (N == 1 or np == 1)
 	{
-		printf("Ans: %lg\n", func(Start, Start + N*step, step));
+		printf("Ans: %lg\n", func(a, a + N*step, step));
         
         clock_gettime(CLOCK_REALTIME, &end);
         elapsed = double(end.tv_sec - begin.tv_sec);
@@ -84,8 +97,10 @@ int main(int argc, char** argv)
 	for (unsigned j = 0; j < np; ++j)
 	{
 		thread_args[j].rank = j;
-		thread_args[j].np = np;
-		thread_args[j].N = N;
+		thread_args[j].np   = np;
+		thread_args[j].a    = a;
+		thread_args[j].b    = b;
+		thread_args[j].N    = N;
 		thread_args[j].step = step;
 		
 		int ret = pthread_create(&(thread_ids[j]), NULL, thread_func, (void*)(&(thread_args[j])));
@@ -117,12 +132,22 @@ double func(double start, double stop, double step)
 	assert(step > 0);
 
 	double ans = 0;
+    if (IntegralType == 2)
+    while (start + EPS < stop)
+    {
+        //printf("    start: %lg; step: %lg; stop: %lg\n", start, step, stop);
+        ans += (cos(start*start) * atan(start)) * step;
+        start += step;
+    }
+
+    if (IntegralType == 1)
     while (start + EPS < stop)
     {
         //printf("    start: %lg; step: %lg; stop: %lg\n", start, step, stop);
         ans += start * step;
         start += step;
     }
+
 
 	return ans;
 }
@@ -136,6 +161,8 @@ void* thread_func(void* v_num)
     unsigned rank = ((Thread_args*)v_num)->rank;
     unsigned np   = ((Thread_args*)v_num)->np;
     unsigned N    = ((Thread_args*)v_num)->N;
+    unsigned a    = ((Thread_args*)v_num)->a;
+    unsigned b    = ((Thread_args*)v_num)->b;
     double   step = ((Thread_args*)v_num)->step;
 
     if (rank == 0)
@@ -159,7 +186,7 @@ void* thread_func(void* v_num)
 
         ////
 	    
-        server_job(np, rank, N, step);
+        server_job(np, rank, N, a, step);
         
         ////
         
@@ -200,7 +227,7 @@ void* thread_func(void* v_num)
 }
 
 
-void server_job(unsigned size, unsigned rank, unsigned N, double step)
+void server_job(unsigned size, unsigned rank, unsigned N, unsigned a, double step)
 {
 	assert(size > 1);
 	assert(rank == 0);
@@ -211,12 +238,12 @@ void server_job(unsigned size, unsigned rank, unsigned N, double step)
 	{
 		// Начала и конец отсчета для каждого процессора
 		if (i == 0)
-			args[i][0] = Start;
+			args[i][0] = a;
 		else
 			args[i][0] = args[i-1][1];
 			
 		if (i == size - 2)
-			args[i][1] = Start + step*N;
+			args[i][1] = a + step*N;
 		else
 			args[i][1] = args[i][0] + double(N / (size - 1)) * step;
 	    
