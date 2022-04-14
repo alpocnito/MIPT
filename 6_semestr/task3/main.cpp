@@ -29,10 +29,10 @@ int main(int argc, char** argv)
 	for (unsigned i = 0; i < argc - 2; ++i)
 		arr[i] = atoi(argv[i+2]);
 
-  assert(MPI_Init(NULL, NULL) == MPI_SUCCESS);
-  int size, rank;
+    assert(MPI_Init(NULL, NULL) == MPI_SUCCESS);
+    int size, rank;
 	assert(MPI_Comm_size(MPI_COMM_WORLD, &size) == MPI_SUCCESS);
-  assert(MPI_Comm_rank(MPI_COMM_WORLD, &rank) == MPI_SUCCESS);
+    assert(MPI_Comm_rank(MPI_COMM_WORLD, &rank) == MPI_SUCCESS);
 	assert(size == argc-2);	
 	
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	if (argv[1][0] == 'r')
 		ring(size, rank, arr);
 	
-  assert(MPI_Finalize() == MPI_SUCCESS);
+    assert(MPI_Finalize() == MPI_SUCCESS);
 
 	free(arr);
 	return 0;

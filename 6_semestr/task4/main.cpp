@@ -30,20 +30,25 @@ int main(int argc, char** argv)
 	unsigned num_elems = (unsigned)atoi(argv[1]);
 	char type = argv[2][0];
 
-  assert(MPI_Init(NULL, NULL) == MPI_SUCCESS);
+    assert(MPI_Init(NULL, NULL) == MPI_SUCCESS);
 	int i_size, i_rank;
 	assert(MPI_Comm_size(MCW, &i_size) == MPI_SUCCESS);
-  assert(MPI_Comm_rank(MCW, &i_rank) == MPI_SUCCESS);
+    assert(MPI_Comm_rank(MCW, &i_rank) == MPI_SUCCESS);
 	assert(i_size >= 0 && i_rank >= 0);
 	unsigned size = (unsigned)i_size;
 	unsigned rank = (unsigned)i_rank;
-	
+    
+    double start_time = MPI_Wtime();
+
 	if (num_elems == 0)
 	{
 		if (rank == 0) printf("Ans: 0\n");
+        printf("Time all prog: %lg\n", MPI_Wtime() - start_time);
+
  		assert(MPI_Finalize() == MPI_SUCCESS);
 		return 0;
 	}
+
 	// set start and end for each process
 	unsigned start;
 	unsigned end;
@@ -64,15 +69,20 @@ int main(int argc, char** argv)
 
 	assert(MPI_Reduce(&ans, &total, 1, MPI_DOUBLE, MPI_SUM, 0, MCW) == MPI_SUCCESS);
 
-	if (rank == 0) printf("Ans: %lg\n", total);
-  assert(MPI_Finalize() == MPI_SUCCESS);
-	
+	if (rank == 0) 
+    {
+        printf("Ans: %lg\n", total);
+        printf("Time for all prog: %lg\n", MPI_Wtime() - start_time);
+    }
+
+    assert(MPI_Finalize() == MPI_SUCCESS);
 	return 0;
 }
 
 double job(unsigned start, unsigned end, char type)
 {
 	assert(start <= end);
+    double start_time = MPI_Wtime();
 	
 	double ans = 0;
 	double (*func)(unsigned) = pi;
@@ -91,6 +101,7 @@ double job(unsigned start, unsigned end, char type)
 	for (unsigned i = start; i <= end; ++i)
 		ans += func(i);
 
+    printf("Time for proc with start %3u: %lg\n", start, MPI_Wtime() - start_time);
 	return ans;
 }
 
