@@ -23,6 +23,7 @@ void* thread_func(void* v_num);
 double func(double start, double stop, double step);
 
 const double Start = 1;
+const double EPS = 0.00000001;
 
 // for thread_func
 sem_t sem_calloc;
@@ -46,9 +47,10 @@ int main(int argc, char** argv)
     clock_gettime(CLOCK_REALTIME, &begin);
 
 	assert(argc == 4);
+    char* tmp;
 	unsigned int np    = (unsigned int)atoi(argv[1]);
 	unsigned int N     = (unsigned int)atoi(argv[2]);
-	double       step  = (double)      strtod(argv[3]);
+	double       step  =               strtod(argv[3], &tmp);
 	assert(N > 0);
 	assert(np > 0);
 	assert(step > 0);
@@ -56,7 +58,8 @@ int main(int argc, char** argv)
 	// special cases
 	if (N == 1 or np == 1)
 	{
-		printf("Ans: %u\n", func(Start, Start + N*step, step));
+		printf("Ans: %lg\n", func(Start, Start + N*step, step));
+        
         clock_gettime(CLOCK_REALTIME, &end);
         elapsed = double(end.tv_sec - begin.tv_sec);
         elapsed += double(end.tv_nsec - begin.tv_nsec) / 1000000000.0;
@@ -80,12 +83,12 @@ int main(int argc, char** argv)
         
 	for (unsigned j = 0; j < np; ++j)
 	{
-		thread_args[j].rank = j
+		thread_args[j].rank = j;
 		thread_args[j].np = np;
 		thread_args[j].N = N;
 		thread_args[j].step = step;
 		
-		int ret = pthread_create(&(thread_ids[j]), NULL, thread_func, (void*)(thread_args[j]));
+		int ret = pthread_create(&(thread_ids[j]), NULL, thread_func, (void*)(&(thread_args[j])));
 		if (ret != 0)
 			handle_error_en(ret, "pthread_create");
 	}
@@ -108,16 +111,17 @@ int main(int argc, char** argv)
 }
 
 
-double func(double start, double stop, double step);
+double func(double start, double stop, double step)
 {
 	assert(start < stop);
 	assert(step > 0);
 
 	double ans = 0;
-    while (start < stop)
+    while (start + EPS < stop)
     {
+        //printf("    start: %lg; step: %lg; stop: %lg\n", start, step, stop);
         ans += start * step;
-        start += step
+        start += step;
     }
 
 	return ans;
@@ -214,25 +218,25 @@ void server_job(unsigned size, unsigned rank, unsigned N, double step)
 		if (i == size - 2)
 			args[i][1] = Start + step*N;
 		else
-			args[i][1] = args[i][0] + N * step / (size - 1);
+			args[i][1] = args[i][0] + double(N / (size - 1)) * step;
 	    
         sem_post(&(sem_args[i]));
 
-		printf("SERVER Process %2u has start at %6u, end at %6u\n", i, args[i][0], args[i][1]); 
+		//printf("SERVER Process %2u has start at %3.4lg, end at %3.4lg\n", i, args[i][0], args[i][1]); 
 	}
     
 	// Wait clients
-    unsigned int ans = 0;
+    double ans = 0;
 	for (unsigned int i = 0; i < size - 1; ++i)
     {
-        printf("SERVER Wait for %u\n", i);
+        //printf("SERVER Wait for %u\n", i);
         if (sem_wait(&(sem_ans[i])) == -1)
             handle_error("sem_wait");
 
         ans += args[i][0];
     }
 
-	printf("Answer: %u\n", ans);
+	printf("Answer: %lg\n", ans);
 	return;
 }
 
@@ -241,16 +245,16 @@ void client_job(unsigned size, unsigned rank, unsigned N, double step)
 	assert(size > 1);
 	assert(rank > 0);
 	assert(N > 1);
-	assert(step > 1);
+	assert(step > 0);
 
-    printf("CLIENT Process %u is waiting\n", rank-1);
+    //printf("CLIENT Process %u is waiting\n", rank-1);
     if (sem_wait(&(sem_args[rank-1])) == -1)
         handle_error("sem_wait");
 	
 	// client counts
-	args[rank-1][0] = func(args[rank-1][0], args[rank-1][0], step);
+	args[rank-1][0] = func(args[rank-1][0], args[rank-1][1], step);
     
-    printf("CLIENT Process %u is ending\n", rank-1);
+    //printf("CLIENT Process %u is ending\n", rank-1);
     if (sem_post(&(sem_ans[rank-1])) == -1)
         handle_error("sem_post");
 

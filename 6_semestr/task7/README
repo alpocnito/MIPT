@@ -1,5 +1,6 @@
 Compile: make
-Run:     ./main 8 10
+Run:     ./main 8 10 0.1
 
-8  = num of threads
-10 = N
+8   = num of threads
+10  = N
+0,1 = step

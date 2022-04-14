@@ -96,7 +96,14 @@ double job(unsigned start, unsigned end, char type)
 
 double exp(unsigned index)
 {
-	return 1 / fact(index);
+    if (index == 0)
+		return 1;
+	
+	double ans = 1;
+	for (unsigned i = 2; i <= index; ++i)
+		ans /= i;
+
+	return ans;
 }
 
 double pi(unsigned index)
@@ -112,19 +119,6 @@ unsigned fact(unsigned x)
 	unsigned ans = 1;
 	for (unsigned i = 2; i <= x; ++i)
 		ans *= i;
-
-	return ans;
-}
-
-
-double inv_fact(unsigned x)
-{
-	if (x == 0)
-		return 1;
-	
-	double ans = 1;
-	for (unsigned i = 2; i <= x; ++i)
-		ans /= i;
 
 	return ans;
 }
