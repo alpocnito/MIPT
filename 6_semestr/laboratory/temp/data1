@@ -1,0 +1,540 @@
+M =    5000; K =    5000; np =  1 -> Time: 3.42762
+M =    5000; K =    5000; np =  1 -> Time: 3.42856
+M =    5000; K =    5000; np =  1 -> Time: 3.42457
+M =    5000; K =    5000; np =  1 -> Time: 3.44728
+M =    5000; K =    5000; np =  1 -> Time: 2.99902
+M =    5000; K =    5000; np =  1 -> Time: 3.42438
+M =    5000; K =    5000; np =  1 -> Time: 3.43963
+M =    5000; K =    5000; np =  1 -> Time: 3.22489
+M =    5000; K =    5000; np =  1 -> Time: 3.33877
+M =    5000; K =    5000; np =  1 -> Time: 3.22194
+M =    5000; K =    5000; np =  2 -> Time: 1.71801
+M =    5000; K =    5000; np =  2 -> Time: 1.56026
+M =    5000; K =    5000; np =  2 -> Time: 1.48624
+M =    5000; K =    5000; np =  2 -> Time: 1.71811
+M =    5000; K =    5000; np =  2 -> Time: 1.71758
+M =    5000; K =    5000; np =  2 -> Time: 1.72019
+M =    5000; K =    5000; np =  2 -> Time: 1.69961
+M =    5000; K =    5000; np =  2 -> Time: 1.4865
+M =    5000; K =    5000; np =  2 -> Time: 1.69406
+M =    5000; K =    5000; np =  2 -> Time: 1.72485
+M =    5000; K =    5000; np =  3 -> Time: 1.94262
+M =    5000; K =    5000; np =  3 -> Time: 2.228
+M =    5000; K =    5000; np =  3 -> Time: 1.48083
+M =    5000; K =    5000; np =  3 -> Time: 2.06846
+M =    5000; K =    5000; np =  3 -> Time: 2.62594
+M =    5000; K =    5000; np =  3 -> Time: 1.96332
+M =    5000; K =    5000; np =  3 -> Time: 1.77492
+M =    5000; K =    5000; np =  3 -> Time: 1.25597
+M =    5000; K =    5000; np =  3 -> Time: 2.24172
+M =    5000; K =    5000; np =  3 -> Time: 1.86622
+M =    5000; K =    5000; np =  4 -> Time: 0.796726
+M =    5000; K =    5000; np =  4 -> Time: 1.64636
+M =    5000; K =    5000; np =  4 -> Time: 1.49838
+M =    5000; K =    5000; np =  4 -> Time: 1.61745
+M =    5000; K =    5000; np =  4 -> Time: 1.53735
+M =    5000; K =    5000; np =  4 -> Time: 0.688864
+M =    5000; K =    5000; np =  4 -> Time: 1.58279
+M =    5000; K =    5000; np =  4 -> Time: 1.64175
+M =    5000; K =    5000; np =  4 -> Time: 1.58643
+M =    5000; K =    5000; np =  4 -> Time: 1.55047
+M =    5000; K =    5000; np =  5 -> Time: 0.554208
+M =    5000; K =    5000; np =  5 -> Time: 1.41697
+M =    5000; K =    5000; np =  5 -> Time: 0.619822
+M =    5000; K =    5000; np =  5 -> Time: 0.619099
+M =    5000; K =    5000; np =  5 -> Time: 0.622724
+M =    5000; K =    5000; np =  5 -> Time: 1.31375
+M =    5000; K =    5000; np =  5 -> Time: 1.17963
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23136 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  5 -> Time: 0.617928
+M =    5000; K =    5000; np =  5 -> Time: 1.27259
+M =    5000; K =    5000; np =  5 -> Time: 1.18798
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 23176 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  6 -> Time: 1.2874
+M =    5000; K =    5000; np =  6 -> Time: 1.68658
+M =    5000; K =    5000; np =  6 -> Time: 1.71226
+M =    5000; K =    5000; np =  6 -> Time: 1.3055
+M =    5000; K =    5000; np =  6 -> Time: 1.39846
+M =    5000; K =    5000; np =  6 -> Time: 1.2693
+M =    5000; K =    5000; np =  6 -> Time: 1.24153
+M =    5000; K =    5000; np =  6 -> Time: 1.59917
+M =    5000; K =    5000; np =  6 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 23303 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  6 -> Time: 1.53798
+M =    5000; K =    5000; np =  7 -> Time: 1.39048
+M =    5000; K =    5000; np =  7 -> Time: 1.399
+M =    5000; K =    5000; np =  7 -> Time: 1.24472
+M =    5000; K =    5000; np =  7 -> Time: 0.988182
+M =    5000; K =    5000; np =  7 -> Time: 1.22267
+M =    5000; K =    5000; np =  7 -> Time: 0.929096
+M =    5000; K =    5000; np =  7 -> Time: 1.41201
+M =    5000; K =    5000; np =  7 -> Time: 1.34283
+M =    5000; K =    5000; np =  7 -> Time: 1.06377
+M =    5000; K =    5000; np =  7 -> Time: 0.793948
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23461 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  8 -> Time: 0.443295
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 23473 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  8 -> Time: 0.34813
+M =    5000; K =    5000; np =  8 -> Time: 1.01517
+M =    5000; K =    5000; np =  8 -> Time: 0.345087
+M =    5000; K =    5000; np =  8 -> Time: 0.404844
+M =    5000; K =    5000; np =  8 -> Time: 0.685444
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23546 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  8 -> Time: 0.43753
+M =    5000; K =    5000; np =  8 -> Time: 0.349965
+M =    5000; K =    5000; np =  8 -> Time: 0.635092
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  8 -> Time: 0.459896
+M =    5000; K =    5000; np =  9 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23617 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  9 -> Time: 1.01616
+M =    5000; K =    5000; np =  9 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 23644 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  9 -> Time: 1.03477
+M =    5000; K =    5000; np =  9 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 23671 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  9 -> Time: 1.19775
+M =    5000; K =    5000; np =  9 -> Time: 1.33767
+M =    5000; K =    5000; np =  9 -> [n06:8258] *** An error occurred in MPI_Isend
+[n06:8258] *** reported by process [2506162177,93973884436487]
+[n06:8258] *** on communicator MPI_COMM_WORLD
+[n06:8258] *** MPI_ERR_INTERN: internal error
+[n06:8258] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:8258] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np =  9 -> Time: 1.01639
+M =    5000; K =    5000; np =  9 -> Time: 1.1339
+M =    5000; K =    5000; np = 10 -> Time: 0.497537
+M =    5000; K =    5000; np = 10 -> Time: 1.07152
+M =    5000; K =    5000; np = 10 -> Time: 0.520728
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23789 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 10 -> Time: 0.660222
+M =    5000; K =    5000; np = 10 -> Time: 0.286549
+M =    5000; K =    5000; np = 10 -> Time: 0.27543
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 10 -> Time: 0.286994
+M =    5000; K =    5000; np = 10 -> Time: 0.322048
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23858 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 10 -> Time: 0.374855
+[n06:8633] *** An error occurred in MPI_Isend
+[n06:8633] *** reported by process [2495873025,93870805221383]
+[n06:8633] *** on communicator MPI_COMM_WORLD
+[n06:8633] *** MPI_ERR_INTERN: internal error
+[n06:8633] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:8633] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 23871 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 10 -> Time: 0.353871
+M =    5000; K =    5000; np = 11 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 23898 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 11 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 23915 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 11 -> Time: 0.974677
+M =    5000; K =    5000; np = 11 -> Time: 0.833893
+M =    5000; K =    5000; np = 11 -> Time: 1.00014
+M =    5000; K =    5000; np = 11 -> Time: 0.882549
+M =    5000; K =    5000; np = 11 -> [n06:8907] *** An error occurred in MPI_Isend
+[n06:8907] *** reported by process [2488532993,94008244174855]
+[n06:8907] *** on communicator MPI_COMM_WORLD
+[n06:8907] *** MPI_ERR_INTERN: internal error
+[n06:8907] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:8907] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 11 -> Time: 1.1437
+M =    5000; K =    5000; np = 11 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 24011 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 11 -> Time: 0.875822
+M =    5000; K =    5000; np = 12 -> Time: 0.797345
+M =    5000; K =    5000; np = 12 -> Time: 0.755298
+M =    5000; K =    5000; np = 12 -> Time: 0.971936
+M =    5000; K =    5000; np = 12 -> Time: 1.18233
+M =    5000; K =    5000; np = 12 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24098 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 12 -> Time: 0.703327
+M =    5000; K =    5000; np = 12 -> Time: 0.794642
+M =    5000; K =    5000; np = 12 -> Time: 0.927832
+M =    5000; K =    5000; np = 12 -> [n06:9315] *** An error occurred in MPI_Isend
+[n06:9315] *** reported by process [2544435201,94424856002567]
+[n06:9315] *** on communicator MPI_COMM_WORLD
+[n06:9315] *** MPI_ERR_INTERN: internal error
+[n06:9315] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:9315] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24155 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 12 -> Time: 1.29261
+M =    5000; K =    5000; np = 13 -> Time: 0.707481
+M =    5000; K =    5000; np = 13 -> Time: 0.527348
+M =    5000; K =    5000; np = 13 -> Time: 0.725583
+M =    5000; K =    5000; np = 13 -> Time: 0.771758
+M =    5000; K =    5000; np = 13 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 24237 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 13 -> Time: 0.785448
+M =    5000; K =    5000; np = 13 -> [n06:9587] *** An error occurred in MPI_Isend
+[n06:9587] *** reported by process [2537095169,94283122081799]
+[n06:9587] *** on communicator MPI_COMM_WORLD
+[n06:9587] *** MPI_ERR_INTERN: internal error
+[n06:9587] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:9587] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24267 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 13 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24281 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 13 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 13 -> Time: 0.899073
+M =    5000; K =    5000; np = 14 -> Time: 0.779542
+[n06:9723] *** An error occurred in MPI_Isend
+[n06:9723] *** reported by process [2533556225,7]
+[n06:9723] *** on communicator MPI_COMM_WORLD
+[n06:9723] *** MPI_ERR_INTERN: internal error
+[n06:9723] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:9723] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 5 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 14 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 24338 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 14 -> Time: 0.70329
+--------------------------------------------------------------------------
+mpirun noticed that process rank 8 with PID 0 on node n05.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 14 -> Time: 0.642796
+M =    5000; K =    5000; np = 14 -> Time: 0.574969
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24381 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 14 -> Time: 0.796012
+M =    5000; K =    5000; np = 14 -> Time: 0.606482
+M =    5000; K =    5000; np = 14 -> Time: 0.777596
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24424 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 14 -> Time: 0.459234
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 14 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 24449 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 15 -> Time: 0.618075
+M =    5000; K =    5000; np = 15 -> [n06:10099] *** An error occurred in MPI_Isend
+[n06:10099] *** reported by process [2523136001,93999654240263]
+[n06:10099] *** on communicator MPI_COMM_WORLD
+[n06:10099] *** MPI_ERR_INTERN: internal error
+[n06:10099] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:10099] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 15 -> Time: 0.862408
+--------------------------------------------------------------------------
+mpirun noticed that process rank 6 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 15 -> Time: 0.695851
+M =    5000; K =    5000; np = 15 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 24521 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 15 -> Time: 0.818324
+M =    5000; K =    5000; np = 15 -> [n06:10267] *** An error occurred in MPI_Isend
+[n06:10267] *** reported by process [2518810625,94918777241607]
+[n06:10267] *** on communicator MPI_COMM_WORLD
+[n06:10267] *** MPI_ERR_INTERN: internal error
+[n06:10267] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:10267] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 15 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24565 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 15 -> Time: 0.837893
+M =    5000; K =    5000; np = 15 -> Time: 0.96046
+--------------------------------------------------------------------------
+mpirun noticed that process rank 10 with PID 0 on node n05.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 16 -> Time: 0.58211
+M =    5000; K =    5000; np = 16 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 24621 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 16 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 16 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 24648 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 16 -> Time: 0.69138
+M =    5000; K =    5000; np = 16 -> Time: 0.445404
+M =    5000; K =    5000; np = 16 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 24690 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 16 -> [n06:10642] *** An error occurred in MPI_Isend
+[n06:10642] *** reported by process [2844131329,94459215740935]
+[n06:10642] *** on communicator MPI_COMM_WORLD
+[n06:10642] *** MPI_ERR_INTERN: internal error
+[n06:10642] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:10642] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 5 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 16 -> Time: 0.802504
+M =    5000; K =    5000; np = 16 -> Time: 0.698373
+M =    5000; K =    5000; np = 17 -> Time: 0.478787
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24749 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 17 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 24760 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 17 -> Time: 0.315083
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24777 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 17 -> Time: 0.467891
+M =    5000; K =    5000; np = 17 -> Time: 0.425334
+--------------------------------------------------------------------------
+mpirun noticed that process rank 10 with PID 0 on node n05.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 17 -> Time: 0.448516
+--------------------------------------------------------------------------
+mpirun noticed that process rank 13 with PID 0 on node n04.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 17 -> Time: 0.435206
+M =    5000; K =    5000; np = 17 -> Time: 0.556661
+M =    5000; K =    5000; np = 17 -> Time: 0.562262
+M =    5000; K =    5000; np = 17 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 24876 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 18 -> [n04:29134] *** An error occurred in MPI_Isend
+[n04:29134] *** reported by process [2831745025,15]
+[n04:29134] *** on communicator MPI_COMM_WORLD
+[n04:29134] *** MPI_ERR_INTERN: internal error
+[n04:29134] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n04:29134] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 24891 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 18 -> Time: 0.753037
+M =    5000; K =    5000; np = 18 -> Time: 0.801618
+M =    5000; K =    5000; np = 18 -> [n06:11184] *** An error occurred in MPI_Isend
+[n06:11184] *** reported by process [2829254657,94386201296903]
+[n06:11184] *** on communicator MPI_COMM_WORLD
+[n06:11184] *** MPI_ERR_INTERN: internal error
+[n06:11184] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:11184] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 24932 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 18 -> Time: 0.587434
+M =    5000; K =    5000; np = 18 -> Time: 0.724571
+M =    5000; K =    5000; np = 18 -> Time: 0.477359
+M =    5000; K =    5000; np = 18 -> Time: 0.664255
+M =    5000; K =    5000; np = 18 -> Time: 0.452393
+M =    5000; K =    5000; np = 18 -> [n06:11388] *** An error occurred in MPI_Isend
+[n06:11388] *** reported by process [2823749633,94695438942215]
+[n06:11388] *** on communicator MPI_COMM_WORLD
+[n06:11388] *** MPI_ERR_INTERN: internal error
+[n06:11388] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:11388] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25017 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 25030 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> Time: 0.527782
+M =    5000; K =    5000; np = 19 -> Time: 0.631231
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 25071 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25087 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> Time: 0.572233
+M =    5000; K =    5000; np = 19 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25116 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 25130 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 19 -> Time: 0.285002
+M =    5000; K =    5000; np = 19 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25159 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 20 -> Time: 0.211394
+--------------------------------------------------------------------------
+mpirun noticed that process rank 9 with PID 0 on node n05.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 20 -> Time: 0.143801
+--------------------------------------------------------------------------
+mpirun noticed that process rank 10 with PID 0 on node n05.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 20 -> Time: 0.139049
+M =    5000; K =    5000; np = 20 -> Time: 0.127785
+M =    5000; K =    5000; np = 20 -> Time: 0.206645
+M =    5000; K =    5000; np = 20 -> Time: 0.25241
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 20 -> Time: 0.142375
+[n04:29941] *** An error occurred in MPI_Isend
+[n04:29941] *** reported by process [2875064321,140728898420751]
+[n04:29941] *** on communicator MPI_COMM_WORLD
+[n04:29941] *** MPI_ERR_INTERN: internal error
+[n04:29941] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n04:29941] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25258 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 20 -> Time: 0.170987
+M =    5000; K =    5000; np = 20 -> Time: 0.136517
+M =    5000; K =    5000; np = 20 -> Time: 0.143374
+M =    5000; K =    5000; np = 21 -> Time: 0.225039
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25314 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 21 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 25326 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 21 -> Time: 0.422739
+[n04:30129] *** An error occurred in MPI_Isend
+[n04:30129] *** reported by process [2869559297,94824287961103]
+[n04:30129] *** on communicator MPI_COMM_WORLD
+[n04:30129] *** MPI_ERR_INTERN: internal error
+[n04:30129] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n04:30129] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 21 -> Time: 0.533164
+--------------------------------------------------------------------------
+mpirun noticed that process rank 5 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 21 -> Time: 0.446197
+M =    5000; K =    5000; np = 21 -> Time: 0.300603
+M =    5000; K =    5000; np = 21 -> Time: 0.491694
+M =    5000; K =    5000; np = 21 -> Time: 0.297717
+[n06:12339] *** An error occurred in MPI_Isend
+[n06:12339] *** reported by process [2864840705,94704028876807]
+[n06:12339] *** on communicator MPI_COMM_WORLD
+[n06:12339] *** MPI_ERR_INTERN: internal error
+[n06:12339] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:12339] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 4 with PID 0 on node n06.vdi.mipt.ru exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 21 -> Time: 0.397883
+[n06:12373] *** An error occurred in MPI_Isend
+[n06:12373] *** reported by process [2863661057,94575179857927]
+[n06:12373] *** on communicator MPI_COMM_WORLD
+[n06:12373] *** MPI_ERR_INTERN: internal error
+[n06:12373] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:12373] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25428 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 21 -> Time: 0.379862
+[n06:12407] *** An error occurred in MPI_Isend
+[n06:12407] *** reported by process [2863005697,94218697572359]
+[n06:12407] *** on communicator MPI_COMM_WORLD
+[n06:12407] *** MPI_ERR_INTERN: internal error
+[n06:12407] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:12407] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25442 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> Time: 0.555316
+M =    5000; K =    5000; np = 22 -> Time: 0.530926
+M =    5000; K =    5000; np = 22 -> [n06:12508] *** An error occurred in MPI_Isend
+[n06:12508] *** reported by process [2859991041,94308891885575]
+[n06:12508] *** on communicator MPI_COMM_WORLD
+[n06:12508] *** MPI_ERR_INTERN: internal error
+[n06:12508] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n06:12508] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25484 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> [n03:28804] *** An error occurred in MPI_Isend
+[n03:28804] *** reported by process [2859335681,94119913324563]
+[n03:28804] *** on communicator MPI_COMM_WORLD
+[n03:28804] *** MPI_ERR_INTERN: internal error
+[n03:28804] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n03:28804] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25498 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 25510 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 25524 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 25538 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25554 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 22 -> Time: 0.473927
+M =    5000; K =    5000; np = 22 -> [n04:30659] *** An error occurred in MPI_Isend
+[n04:30659] *** reported by process [2853502977,140728898420751]
+[n04:30659] *** on communicator MPI_COMM_WORLD
+[n04:30659] *** MPI_ERR_INTERN: internal error
+[n04:30659] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n04:30659] ***    and potentially your MPI job)
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 25582 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 23 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 25596 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 23 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25611 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 23 -> Time: 0.321021
+M =    5000; K =    5000; np = 23 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 2 with PID 25640 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 23 -> --------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 25651 on node n07 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+M =    5000; K =    5000; np = 23 -> 
