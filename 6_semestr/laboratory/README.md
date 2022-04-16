@@ -107,7 +107,7 @@ In these pictures you can see graphs that demonstrate the dependence of time on 
 
 ![1](images/500_500.png)
 
-From these graphs, we can conclude that there is an optimal number of processors equal to 6 processors. When the number of processors is equal to the optimal number, the program time is the smallest. When the number of processors is less than optimal, the time is longer. This is because the program runs faster when the work is shared across processors and computed in parallel. But the time of a program running on more than optimal processors is also bigger than the time on the optimal number of processors. This is because an increase in the number of processors leads to a decrease in the number of calculations for each process, while the number of data transmissions increases.
+From these graphs, we can conclude that there is an optimal number of processors equal to ~5 processors. When the number of processors is equal to the optimal number, the program time is the smallest. When the number of processors is less than optimal, the time is longer. This is because the program runs faster when the work is shared across processors and computed in parallel. But the time of a program running on more than optimal processors is also bigger than the time on the optimal number of processors. This is because an increase in the number of processors leads to a decrease in the number of calculations for each process, while the number of data transmissions increases.
 
 ## Effectiveness
 
@@ -128,4 +128,4 @@ In experiment we measured dependence of <img src="https://render.githubuserconte
 
 ![1](images/E.png)
 
-
+The maximum acceleration takes place at np ~ 5 processors, S = 1.5. The maximum effectiveness takes place at np = 1 processor.
