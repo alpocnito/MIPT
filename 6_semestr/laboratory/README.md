@@ -82,7 +82,7 @@ Time: 0.00134599
 ```
 Output is the same except for the sequence of style characters: | 
 
-So, time with two processors is 0.00134599s, while time with one proc is 0.000115267s. Why is the time with two processors 10 times longer than the time with one processor? Because program on two processors divides matrix into 2 equal parts with width=3 and height=6, and the most part of time is consumed by MPI Send and Receive functions between this parts!: 
+So, time with two processors is 0.00134599s, while time with one proc is 0.000115267s. Why is the time with two processors 10 times longer than the time with one processor? Because program on two processors divides matrix into 2 equal parts with width=3 and height=6, and the most part of time is consumed by MPI Send and Receive functions between this parts!
 
 ![1](images/2.png)
 
@@ -122,8 +122,10 @@ Maximal theoretical acceleration is equal to
 
 Where <img src="https://render.githubusercontent.com/render/math?math=\alpha"> is the proportion of consecutive commands.
 
-In experiment we will measure dependence of <img src="https://render.githubusercontent.com/render/math?math=S"> and <img src="https://render.githubusercontent.com/render/math?math=E"> on number of processors and matrix size.
+In experiment we measured dependence of <img src="https://render.githubusercontent.com/render/math?math=S"> and <img src="https://render.githubusercontent.com/render/math?math=E"> on number of processors for M=5000 and K=5 matrix
 
+![1](images/S.png)
 
+![1](images/E.png)
 
 
