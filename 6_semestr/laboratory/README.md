@@ -1,11 +1,11 @@
 ```diff
-- Works only with white themes
+Works only with white themes
 ```
 
 # Parallel calculations laboratory
 
 ## Task
-The goal of this program is to solve differential equation:
+The main task of this laboratory work is the development and study of a parallel program that searches for a numerical solution for differential equation:
 
 <img src="https://render.githubusercontent.com/render/math?math=\frac{\partial u(t, x)}{\partial t} \dotplus a\cdot \frac{\partial u(t, x)}{\partial x} = f(t,x)">
 <img src="https://render.githubusercontent.com/render/math?math=u(0,x) = \varphi (x), 0 \leqslant x \leqslant X">
@@ -13,29 +13,20 @@ The goal of this program is to solve differential equation:
 
 ## Method of soultion
 
-Function u(t,x) is considered in:
+In order to solve equation, we constract a uniform grid and function u(t,x) is considered in:
 <img src="https://render.githubusercontent.com/render/math?math=t = k\tau, 0 \leqslant k \leqslant K">
 <img src="https://render.githubusercontent.com/render/math?math=x = mh, 0 \leqslant m \leqslant M">
 
-In order to calculate function we will use difference schemes
-
-1. Explicit left corner
+We will use "Explicit left corner" difference scheme:
 
 ![1](images/1.png)
 
 Formula: <img src="https://render.githubusercontent.com/render/math?math=\frac{u_m^{k \dotplus 1} - u_m^{k}}{\tau} \dotplus \frac{u_m^{k} - u_{m - 1}^{k}}{h} = f_m^k, k = 0, ..., K - 1, m = 0, ..., M">
 
 ## Programming
-This equation will be solved using MPI library.
+This equation solved using MPI library.
 
-Firstly, let's calculate the time is take to send a message from one processor to another:
-```
-make dopusk
-make dopusk_run
-```
-For my computer it is: ```Time: 0.000175648```
-
-Secondly, let's look at the matrix that the program calculates:
+Let's look at the solution matrix that program calculates:
 ```
 make 
 make run np=1 K=5 M=5
@@ -64,7 +55,7 @@ Time: 0.000115267
 - K - Height of the matrix
 - M - Widht of the matrix
 
-Let's look at this matrix with one more processor:
+Let's solve this equation using two processors:
 ```
 make run np=2 K=5 M=5
 ```
@@ -91,7 +82,32 @@ Time: 0.00134599
 ```
 Output is the same except for the sequence of style characters: | 
 
+So, time with two processors is 0.00134599s, while time with one proc is 0.000115267s. Why is the time with two processors 10 times longer than the time with one processor? Because program on two processors divides matrix into 2 equal parts with width=3 and height=6, and the most part of time is consumed by MPI Send and Receive functions between this parts!: 
+
+![1](images/2.png)
+
+
+Let's do more experiments.
+
 In order to disable output we have to comment ```#define PRINT``` line in __main.cpp__. After commenting this line we can measure time needed to calculate big matrices.
+
+## Experiment
+
+In these pictures you can see graphs that demonstrate the dependence of time on the number of processors with small width.
+
+![1](images/50_50.png)
+
+![1](images/50_5.png)
+
+From these graphs, we can conclude that the increase in program parallelism lead to increase in time! This is because program has low level of parallelism. Each processor is given a small width, one processor is assigned a small amount of work, but a large amount of data transmissions.
+
+In these pictures you can see graphs that demonstrate the dependence of time on the number of processors with small width.
+
+![1](images/5000_5.png)
+
+![1](images/500_500.png)
+
+From these graphs, we can conclude that there is an optimal number of processors equal to 6 processors. When the number of processors is equal to the optimal number, the program time is the smallest. When the number of processors is less than optimal, the time is longer. This is because the program runs faster when the work is shared across processors and computed in parallel. But the time of a program running on more than optimal processors is also bigger than the time on the optimal number of processors. This is because an increase in the number of processors leads to a decrease in the number of calculations for each process, while the number of data transmissions increases.
 
 ## Effectiveness
 
